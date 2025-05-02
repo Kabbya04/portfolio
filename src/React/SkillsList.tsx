@@ -1,6 +1,23 @@
 import React, { useState } from "react";
 
 const CategoryIcons = {
+  "Machine Learning": (
+    // biome-ignore lint/a11y/noSvgWithoutTitle: <explanation>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="currentColor"
+    className="w-6 h-6 text-[var(--sec)] opacity-70"
+  >
+    {/* biome-ignore lint/style/useSelfClosingElements: <explanation> */}
+    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10
+             10-4.48 10-10S17.52 2 12 2zm1 17.93c-2.83.48-5.56-.62-7.32-2.93
+             l2.1-2.1c.44-.44 1.18-.44 1.62 0L12 17l2.59-2.59c.44-.44 1.18-.44 1.62 0
+             l2.1 2.1c-1.76 2.31-4.49 3.41-7.31 2.93V18h-2v1.93zM17.31 6.69c.44.44.44 1.18 0 1.62
+             L15 11l-2.59-2.59c-.44-.44-1.18-.44-1.62 0L9 11l-2.31-2.69c-.44-.44-.44-1.18 0-1.62
+             2.34-2.34 6.14-2.34 8.62 0z"></path>
+  </svg>
+),
   "Web Development": (
     // biome-ignore lint/a11y/noSvgWithoutTitle: <explanation>
 <svg
@@ -25,7 +42,7 @@ const CategoryIcons = {
       <path d="M7 4V20H17V4H7ZM6 2H18C18.5523 2 19 2.44772 19 3V21C19 21.5523 18.5523 22 18 22H6C5.44772 22 5 21.5523 5 21V3C5 2.44772 5.44772 2 6 2ZM12 17C12.5523 17 13 17.4477 13 18C13 18.5523 12.5523 19 12 19C11.4477 19 11 18.5523 11 18C11 17.4477 11.4477 17 12 17Z"></path>
     </svg>
   ),
-  "UI/UX Design & Prototyping": (
+  "Software Development": (
     // biome-ignore lint/a11y/noSvgWithoutTitle: <explanation>
 <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -43,19 +60,21 @@ const SkillsList = () => {
   const [openItem, setOpenItem] = useState<string | null>(null);
 
   const skills = {
+    "Machine Learning": [
+      "Supervised Learning",
+      "Computer Vision"
+    ],
     "Web Development": [
-      "Single Page Applications (SPAs)",
       "Landing pages and business websites",
       "Portfolio websites",
     ],
     "Mobile Development": [
       "Mobile-friendly web apps",
       "React Native mobile apps",
+      "Flutter mobile apps"
     ],
-    "UI/UX Design & Prototyping": [
-      "UI design with Figma & Canva",
-      "UX research & improvements",
-      "Prototyping for websites & mobile apps",
+    "Software Development": [
+      "Electron JS softwares"
     ],
   };
 

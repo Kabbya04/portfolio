@@ -111,8 +111,11 @@ const LetterGlitch = ({
     const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
     return result
       ? {
+          // biome-ignore lint/style/useNumberNamespace: <explanation>
           r: parseInt(result[1], 16),
+          // biome-ignore lint/style/useNumberNamespace: <explanation>
           g: parseInt(result[2], 16),
+          // biome-ignore lint/style/useNumberNamespace: <explanation>
           b: parseInt(result[3], 16),
         }
       : null;
@@ -175,6 +178,7 @@ const LetterGlitch = ({
   const drawLetters = () => {
     if (!context.current || letters.current.length === 0) return;
     const ctx = context.current;
+    // biome-ignore lint/style/noNonNullAssertion: <explanation>
     const { width, height } = canvasRef.current!.getBoundingClientRect();
     ctx.clearRect(0, 0, width, height);
     ctx.font = `${fontSize}px monospace`;
@@ -211,6 +215,7 @@ const LetterGlitch = ({
 
   const handleSmoothTransitions = () => {
     let needsRedraw = false;
+    // biome-ignore lint/complexity/noForEach: <explanation>
     letters.current.forEach((letter) => {
       if (letter.colorProgress < 1) {
         letter.colorProgress += 0.05;
@@ -249,6 +254,7 @@ const LetterGlitch = ({
     animationRef.current = requestAnimationFrame(animate);
   };
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -271,6 +277,7 @@ const LetterGlitch = ({
     window.addEventListener("resize", handleResize);
 
     return () => {
+      // biome-ignore lint/style/noNonNullAssertion: <explanation>
       cancelAnimationFrame(animationRef.current!);
       window.removeEventListener("resize", handleResize);
     };
@@ -281,10 +288,12 @@ const LetterGlitch = ({
     <div className="relative w-full h-full bg-[#101010] overflow-hidden">
       <canvas ref={canvasRef} className="block w-full h-full" />
       {outerVignette && (
-        <div className="absolute top-0 left-0 w-full h-full pointer-events-none bg-[radial-gradient(circle,_rgba(16,16,16,0)_60%,_rgba(16,16,16,1)_100%)]"></div>
+        // biome-ignore lint/style/useSelfClosingElements: <explanation>
+<div className="absolute top-0 left-0 w-full h-full pointer-events-none bg-[radial-gradient(circle,_rgba(16,16,16,0)_60%,_rgba(16,16,16,1)_100%)]"></div>
       )}
       {centerVignette && (
-        <div className="absolute top-0 left-0 w-full h-full pointer-events-none bg-[radial-gradient(circle,_rgba(0,0,0,0.8)_0%,_rgba(0,0,0,0)_60%)]"></div>
+        // biome-ignore lint/style/useSelfClosingElements: <explanation>
+<div className="absolute top-0 left-0 w-full h-full pointer-events-none bg-[radial-gradient(circle,_rgba(0,0,0,0.8)_0%,_rgba(0,0,0,0)_60%)]"></div>
       )}
     </div>
   );
