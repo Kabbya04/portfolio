@@ -1,0 +1,29 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Nav from "@/components/nav.astro";
+import Footer from "@/components/footer.astro";
+import AboutCmp from "@/components/about.astro"
+
+const personSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Saumik Saha Kabbya",
+  "description": "CS student from Dhaka, Bangladesh focusing on Supervised Machine Learning",
+  "url": "https://saumik-kabbya.com/about",
+  "sameAs": [
+    "https://github.com/Kabbya04",
+    "https://www.linkedin.com/in/saumik-saha-kabbya/",
+    "https://www.instagram.com/kabbyasaumiksaha/",
+  ]
+};
+
+const pageTitle = "About Me";
+const pageDescription = "Learn more about Saumik Saha Kabbya, a Computer Science student from Dhaka, Bangladesh specializing in Machine Learning, Software, Mobile, and Website Development.";
+
+---
+
+<Layout title={pageTitle} description={pageDescription}>
+  <Nav />
+  <AboutCmp />
+  <Footer />
+</Layout>
