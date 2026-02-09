@@ -1,144 +1,138 @@
-import React, { useState } from "react";
+import React from "react";
 
-const CategoryIcons = {
-  "Machine Learning": (
-    // biome-ignore lint/a11y/noSvgWithoutTitle: <explanation>
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 24 24"
-    fill="currentColor"
-    className="w-6 h-6 text-[var(--sec)] opacity-70"
-  >
-    {/* biome-ignore lint/style/useSelfClosingElements: <explanation> */}
-    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10
-             10-4.48 10-10S17.52 2 12 2zm1 17.93c-2.83.48-5.56-.62-7.32-2.93
-             l2.1-2.1c.44-.44 1.18-.44 1.62 0L12 17l2.59-2.59c.44-.44 1.18-.44 1.62 0
-             l2.1 2.1c-1.76 2.31-4.49 3.41-7.31 2.93V18h-2v1.93zM17.31 6.69c.44.44.44 1.18 0 1.62
-             L15 11l-2.59-2.59c-.44-.44-1.18-.44-1.62 0L9 11l-2.31-2.69c-.44-.44-.44-1.18 0-1.62
-             2.34-2.34 6.14-2.34 8.62 0z"></path>
-  </svg>
-),
-  "Web Development": (
-    // biome-ignore lint/a11y/noSvgWithoutTitle: <explanation>
-<svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="currentColor"
-      className="w-6 h-6 text-[var(--sec)] opacity-70"
-    >
-      {/* biome-ignore lint/style/useSelfClosingElements: <explanation> */}
-      <path d="M21 3C21.5523 3 22 3.44772 22 4V20C22 20.5523 21.5523 21 21 21H3C2.44772 21 2 20.5523 2 20V4C2 3.44772 2.44772 3 3 3H21ZM20 11H4V19H20V11ZM20 5H4V9H20V5ZM11 6V8H9V6H11ZM7 6V8H5V6H7Z"></path>
-    </svg>
-  ),
-  "Mobile Development": (
-    // biome-ignore lint/a11y/noSvgWithoutTitle: <explanation>
-<svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="currentColor"
-      className="w-6 h-6 text-[var(--sec)] opacity-70"
-    >
-      {/* biome-ignore lint/style/useSelfClosingElements: <explanation> */}
-      <path d="M7 4V20H17V4H7ZM6 2H18C18.5523 2 19 2.44772 19 3V21C19 21.5523 18.5523 22 18 22H6C5.44772 22 5 21.5523 5 21V3C5 2.44772 5.44772 2 6 2ZM12 17C12.5523 17 13 17.4477 13 18C13 18.5523 12.5523 19 12 19C11.4477 19 11 18.5523 11 18C11 17.4477 11.4477 17 12 17Z"></path>
-    </svg>
-  ),
-  "Software Development": (
-    // biome-ignore lint/a11y/noSvgWithoutTitle: <explanation>
-<svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="currentColor"
-      className="w-6 h-6 text-[var(--sec)] opacity-70"
-    >
-      {/* biome-ignore lint/style/useSelfClosingElements: <explanation> */}
-      <path d="M5.7646 7.99998L5.46944 7.26944C5.26255 6.75737 5.50995 6.17454 6.02202 5.96765L15.2939 2.22158C15.8059 2.01469 16.3888 2.26209 16.5956 2.77416L22.2147 16.6819C22.4216 17.194 22.1742 17.7768 21.6622 17.9837L12.3903 21.7298C11.8783 21.9367 11.2954 21.6893 11.0885 21.1772L11.0002 20.9586V21H7.00021C6.44792 21 6.00021 20.5523 6.00021 20V19.7303L2.65056 18.377C2.13849 18.1701 1.89109 17.5873 2.09798 17.0752L5.7646 7.99998ZM8.00021 19H10.2089L8.00021 13.5333V19ZM6.00021 12.7558L4.32696 16.8972L6.00021 17.6084V12.7558ZM7.69842 7.44741L12.5683 19.5008L19.9858 16.5039L15.1159 4.45055L7.69842 7.44741ZM10.6766 9.47974C10.1645 9.68663 9.5817 9.43924 9.37481 8.92717C9.16792 8.4151 9.41532 7.83227 9.92739 7.62538C10.4395 7.41849 11.0223 7.66588 11.2292 8.17795C11.4361 8.69002 11.1887 9.27286 10.6766 9.47974Z"></path>
-    </svg>
-  ),
-};
+const skillGroups = [
+  {
+    title: "Programming Languages",
+    icon: (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        className="w-5 h-5 text-[var(--accent)]"
+      >
+        <path d="M5 3H19C20.1046 3 21 3.89543 21 5V19C21 20.1046 20.1046 21 19 21H5C3.89543 21 3 20.1046 3 19V5C3 3.89543 3.89543 3 5 3ZM5 5V19H19V5H5ZM7 8H17V10H7V8ZM7 12H14V14H7V12Z" />
+      </svg>
+    ),
+    items: [
+      "Python",
+      "JavaScript",
+      "TypeScript",
+      "Java",
+      "Dart",
+      "C",
+      "C++",
+      "HTML",
+      "CSS",
+    ],
+  },
+  {
+    title: "Frameworks & Libraries",
+    icon: (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        className="w-5 h-5 text-[var(--accent-3)]"
+      >
+        <path d="M12 2L22 7V17L12 22L2 17V7L12 2ZM4 8.3V15.7L12 20L20 15.7V8.3L12 4L4 8.3Z" />
+      </svg>
+    ),
+    items: [
+      "Node.js",
+      "React",
+      "Next.js",
+      "Astro",
+      "Tailwind CSS",
+      "React Native",
+      "Flutter",
+    ],
+  },
+  {
+    title: "AI & Machine Learning",
+    icon: (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        className="w-5 h-5 text-[var(--accent-2)]"
+      >
+        <path d="M12 2C14.2091 2 16 3.79086 16 6C16 8.20914 14.2091 10 12 10C9.79086 10 8 8.20914 8 6C8 3.79086 9.79086 2 12 2ZM4 22C4 17.5817 7.58172 14 12 14C16.4183 14 20 17.5817 20 22H18C18 18.6863 15.3137 16 12 16C8.68629 16 6 18.6863 6 22H4Z" />
+      </svg>
+    ),
+    items: [
+      "Generative AI",
+      "Large Language Models",
+      "NLP Fundamentals",
+      "Computer Vision",
+      "Recommendation Systems",
+    ],
+  },
+  {
+    title: "Tools & Platforms",
+    icon: (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        className="w-5 h-5 text-[var(--accent)]"
+      >
+        <path d="M7 2H17C18.1046 2 19 2.89543 19 4V20C19 21.1046 18.1046 22 17 22H7C5.89543 22 5 21.1046 5 20V4C5 2.89543 5.89543 2 7 2ZM7 4V20H17V4H7ZM9 6H15V8H9V6ZM9 10H15V12H9V10Z" />
+      </svg>
+    ),
+    items: [
+      "Git",
+      "GitHub",
+      "Vite",
+      "Vercel",
+      "Firebase",
+      "Supabase",
+      "VS Code",
+      "Cursor",
+      "Antigravity Qoder",
+    ],
+  },
+  {
+    title: "Soft Skills",
+    icon: (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        className="w-5 h-5 text-[var(--accent-3)]"
+      >
+        <path d="M12 2C14.7614 2 17 4.23858 17 7C17 9.76142 14.7614 12 12 12C9.23858 12 7 9.76142 7 7C7 4.23858 9.23858 2 12 2ZM4 22C4 17.5817 7.58172 14 12 14C16.4183 14 20 17.5817 20 22H4Z" />
+      </svg>
+    ),
+    items: [
+      "Communication",
+      "Teamwork & Collaboration",
+      "Problem Solving",
+      "Time Management",
+    ],
+  },
+];
 
 const SkillsList = () => {
-  const [openItem, setOpenItem] = useState<string | null>(null);
-
-  const skills = {
-    "Machine Learning": [
-      "Supervised Learning",
-      "Computer Vision"
-    ],
-    "Web Development": [
-      "Landing pages and business websites",
-      "Portfolio websites",
-    ],
-    "Mobile Development": [
-      "Mobile-friendly web apps",
-      "React Native mobile apps",
-      "Flutter mobile apps"
-    ],
-    "Software Development": [
-      "Electron JS softwares"
-    ],
-  };
-
-  const toggleItem = (item: string) => {
-    setOpenItem(openItem === item ? null : item);
-  };
-
   return (
-    <div className="text-left pt-3 md:pt-9">
-      <h3 className="text-[var(--white)] text-3xl md:text-4xl font-semibold md:mb-6">
-        What I do?
-      </h3>
-      <ul className="space-y-4 mt-4 text-lg">
-        {Object.entries(skills).map(([category, items]) => (
-          <li key={category} className="w-full">
-            {/* biome-ignore lint/a11y/useKeyWithClickEvents: <explanation> */}
-            <div
-              onClick={() => toggleItem(category)}
-              className="md:w-[400px] w-full bg-[#1414149c] rounded-2xl text-left hover:bg-opacity-80 transition-all border border-[var(--white-icon-tr)] cursor-pointer overflow-hidden"
-            >
-              <div className="flex items-center gap-3 p-4">
-                {CategoryIcons[category]}
-                <div className="flex items-center gap-2 flex-grow justify-between">
-                  <div className="min-w-0 max-w-[200px] md:max-w-none overflow-hidden">
-                    <span className="block truncate text-[var(--white)] text-lg">
-                      {category}
-                    </span>
-                  </div>
-                  {/* biome-ignore lint/a11y/noSvgWithoutTitle: <explanation> */}
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                    className={`w-6 h-6 text-[var(--white)] transform transition-transform flex-shrink-0 ${
-                      openItem === category ? "rotate-180" : ""
-                    }`}
-                  >
-                    {/* biome-ignore lint/style/useSelfClosingElements: <explanation> */}
-                    <path d="M11.9999 13.1714L16.9497 8.22168L18.3639 9.63589L11.9999 15.9999L5.63599 9.63589L7.0502 8.22168L11.9999 13.1714Z"></path>
-                  </svg>
-                </div>
-              </div>
-
-              <div
-                className={`transition-all duration-300 px-4 ${
-                  openItem === category
-                    ? "max-h-[500px] pb-4 opacity-100"
-                    : "max-h-0 opacity-0"
-                }`}
-              >
-                <ul className="space-y-2 text-[var(--white-icon)] text-sm">
-                  {items.map((item, index) => (
-                    // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
-<div key={index} className="flex items-center">
-                      <span className="pl-1">•</span>
-                      <li className="pl-3">{item}</li>
-                    </div>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </li>
-        ))}
-      </ul>
+    <div className="grid sm:grid-cols-2 gap-4">
+      {skillGroups.map((group) => (
+        <div
+          key={group.title}
+          className="card p-5 flex flex-col gap-4"
+        >
+          <div className="flex items-center gap-3">
+            {group.icon}
+            <h4 className="text-lg font-semibold">{group.title}</h4>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {group.items.map((item) => (
+              <span key={item} className="chip text-xs">
+                {item}
+              </span>
+            ))}
+          </div>
+        </div>
+      ))}
     </div>
   );
 };

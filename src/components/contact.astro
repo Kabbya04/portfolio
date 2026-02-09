@@ -1,19 +1,51 @@
-<section id="contact" class="w-full py-12 border-t border-[#ffffff10]">
-  <div class="max-w-5xl mx-auto">
-    <h2 class="text-lg text-[var(--sec)] mb-2 shiny-sec">Let's talk</h2>
-    <h3 class="text-4xl md:text-5xl font-medium text-[var(--white)] mb-6">
-      Contact
-    </h3>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-      <div class="text-[var(--white-icon)]">
-        <p class="mb-4">
-          Want to collab? Feel free to reach out.
-        </p>
-        <div class="flex items-center gap-2">
+<section id="contact" class="w-full py-16 border-t border-[var(--border)]">
+  <div class="max-w-6xl mx-auto space-y-10">
+    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+      <div class="space-y-2">
+        <p class="eyebrow">Contact</p>
+        <h3 class="font-display text-3xl md:text-4xl">
+          Let’s build something smart and useful
+        </h3>
+      </div>
+      <p class="text-[var(--muted)] max-w-xl">
+        Open to collaborations in AI, computer vision, and product-focused web builds.
+        Share a brief and I’ll reply fast.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-[0.9fr_1.1fr] gap-8">
+      <div class="card p-6 space-y-6">
+        <div class="space-y-3">
+          <p class="text-sm text-[var(--muted)] uppercase tracking-[0.28em]">
+            Direct
+          </p>
+          <a
+            class="text-lg font-semibold hover:text-[var(--accent)] transition"
+            href="mailto:saumik.kabbya@gmail.com"
+          >
+            saumik.kabbya@gmail.com
+          </a>
+        </div>
+        <div class="space-y-3">
+          <p class="text-sm text-[var(--muted)] uppercase tracking-[0.28em]">
+            Based in
+          </p>
+          <p class="text-lg font-semibold">Dhaka, Bangladesh</p>
+        </div>
+        <div class="flex flex-wrap gap-3">
+          <a class="btn btn-outline text-sm" href="https://github.com/Kabbya04" target="_blank" rel="noreferrer">
+            GitHub
+          </a>
+          <a class="btn btn-outline text-sm" href="https://www.linkedin.com/in/saumik-saha-kabbya/" target="_blank" rel="noreferrer">
+            LinkedIn
+          </a>
+          <a class="btn btn-outline text-sm" href="/saumik-saha-kabbya-resume.pdf" target="_blank" rel="noreferrer">
+            Resume
+          </a>
         </div>
       </div>
 
-      <div>
+      <div class="card p-6">
         <form
           id="contact-form"
           action="https://formspree.io/f/mnnjznkj"
@@ -25,35 +57,55 @@
             name="from_name"
             placeholder="Name"
             required
-            class="px-4 py-2 bg-[#1414149c] text-[var(--white)] border border-[var(--white-icon-tr)] rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--sec)]"
+            class="px-4 py-3 bg-[#0f1622] text-[var(--text)] border border-[var(--border)] rounded-xl focus:outline-none focus:ring-2 focus:ring-[var(--accent)]"
           />
           <input
             type="email"
             name="reply_to"
             placeholder="Email"
             required
-            class="px-4 py-2 bg-[#1414149c] text-[var(--white)] border border-[var(--white-icon-tr)] rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--sec)]"
+            class="px-4 py-3 bg-[#0f1622] text-[var(--text)] border border-[var(--border)] rounded-xl focus:outline-none focus:ring-2 focus:ring-[var(--accent)]"
           />
           <textarea
             name="message"
-            placeholder="Message"
+            placeholder="Tell me about the problem or opportunity."
             rows="6"
             required
-            class="px-4 py-2 bg-[#1414149c] text-[var(--white)] border border-[var(--white-icon-tr)] rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--sec)] resize-none"
+            class="px-4 py-3 bg-[#0f1622] text-[var(--text)] border border-[var(--border)] rounded-xl focus:outline-none focus:ring-2 focus:ring-[var(--accent)] resize-none"
           ></textarea>
           <button
             type="submit"
-            class="px-4 py-2 bg-[var(--white-icon-tr)] text-[var(--white)] rounded-lg opacity-60 transition-opacity border border-[var(--white-icon-tr)] hover:opacity-100 hover:bg-[var(--white-icon-tr)]"
+            class="btn btn-primary w-full justify-center"
           >
-            Submit
+            Send message
           </button>
         </form>
         <div
           id="form-message"
-          class="hidden justify-center items-center mt-4 text-[var(--white)] text-lg"
+          class="hidden justify-center items-center mt-4 text-[var(--text)] text-lg"
         >
           ✅ Thank you for your message!
         </div>
+      </div>
+    </div>
+
+    <div class="card p-6 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+      <div class="space-y-3">
+        <p class="eyebrow">Vibe With The Dev</p>
+        <h4 class="font-display text-2xl">Code soundtrack on repeat</h4>
+        <p class="text-[var(--muted)] max-w-xl">
+          Put this on while you scroll or write. It’s the playlist that keeps the
+          build focused and the ideas flowing.
+        </p>
+      </div>
+      <div class="w-full md:w-[360px]">
+        <iframe
+          style="border-radius:12px; border:0;"
+          src="https://open.spotify.com/embed/playlist/3jrVVdFAp77BtNpFgJWz3R?utm_source=generator"
+          class="w-full h-40"
+          allowfullscreen=""
+          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+          loading="lazy"></iframe>
       </div>
     </div>
   </div>
@@ -63,7 +115,10 @@
   const form = document.getElementById("contact-form");
   const formMessage = document.getElementById("form-message");
 
-  form.addEventListener("submit", async (e) => {
+  if (!form || !formMessage) {
+    console.warn("Contact form not found.");
+  } else {
+    form.addEventListener("submit", async (e) => {
     e.preventDefault();
     const formData = new FormData(form);
 
@@ -86,5 +141,6 @@
       console.error("Error:", error);
       alert("There was a problem sending your message.");
     }
-  });
+    });
+  }
 </script>

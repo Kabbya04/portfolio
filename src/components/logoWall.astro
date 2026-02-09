@@ -1,27 +1,21 @@
 ---
 const technologies = [
+  "python",
+  "javaScript",
+  "typeScript",
+  "java",
   "C",
   "C++",
-  "dart",
-  "flutter",
-  "python",
-  "convex",
-  "electron",
-  "jupyter",
-  "java",  
-  "astro",
-  "react",
-  "typeScript",
-  "tailwindcss",
-  "bootstrap",
-  "nodejs",
   "HTML",
   "CSS",
-  "javaScript",
+  "nodejs",
+  "react",
+  "astro",
+  "tailwindcss",
+  "flutter",
+  "dart",
   "git",
-  "arduino",
-  "streamlit",
-  "vercel"
+  "vercel",
 ];
 ---
 
@@ -42,12 +36,12 @@ const technologies = [
           <img
             src={`/svg/${tech}.svg`}
             alt={tech}
-            class="h-7 w-auto object-contain transition-transform group-hover:scale-110 opacity-60"
+            class="h-7 w-auto object-contain transition-transform group-hover:scale-110 opacity-70"
             width="30"
             height="30"
             loading="lazy"
           />
-          <span class="text-lg font-medium text-[var(--white-icon)]">
+          <span class="text-lg font-medium text-[var(--muted)] group-hover:text-[var(--text)] transition">
             {tech.charAt(0).toUpperCase() + tech.slice(1)}
           </span>
         </div>
@@ -67,6 +61,9 @@ const technologies = [
   }
   .animate-scroll {
     animation: scroll 60s linear infinite;
+  }
+  .animate-paused {
+    animation-play-state: paused;
   }
 
   @media (min-width: 768px) {

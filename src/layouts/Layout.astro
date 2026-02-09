@@ -4,7 +4,7 @@ interface Props {
   description? : string;
 }
 
-const { title , description="Software Developer" } = Astro.props;
+const { title , description="AI Engineer and Frontend Engineer" } = Astro.props;
 ---
 
 <!doctype html>
@@ -15,52 +15,65 @@ const { title , description="Software Developer" } = Astro.props;
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/png" href="/favicon.png" />
     <meta property="og:title" content="Saumik Saha Kabbya" />
-    <meta property="og:description" content="Software Developer" />
-    <meta property="og:url" content="https://saumik-kabbya.vercel.app" /> 
+    <meta property="og:description" content="AI Engineer and Frontend Engineer building LLM and computer vision products." />
+    <meta property="og:url" content="https://saumik-kabbya.vercel.app" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Saumik Saha Kabbya Portfolio" />
-    <meta name="keywords" content="Saumik Saha Kabbya, Saumik, Kabbya, Saumik Kabbya" />
+    <meta
+      name="keywords"
+      content="Saumik Saha Kabbya, AI Engineer, Frontend Engineer, Computer Vision, LLMs, Dhaka"
+    />
     <meta name="author" content="Saumik Saha Kabbya" />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />  
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="preload"
       as="style"
-      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Syne:wght@400..800&display=swap"
     />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Syne:wght@400..800&display=swap"
       media="print"
       onload="this.media='all'"
     />
     <noscript>
       <link
         rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Syne:wght@400..800&display=swap"
       />
     </noscript>
 
     <title>{title}</title>
   </head>
-  <body class="bg-[--background] md:px-48 lg:px-20 px-9">
+  <body class="bg-[--background] px-6 md:px-12 lg:px-20 antialiased">
     <slot />
   </body>
 </html>
 
 <style is:global>
   :root {
-    --background: #101010;
-    --sec: #a476ff;
-    --white: #dfdfdf;
-    --white-icon: #f3f3f398;
-    --white-icon-tr: #f3f3f310;
+    --background: #0b1017;
+    --surface: #111a27;
+    --surface-strong: #162033;
+    --border: #233043;
+    --text: #e7edf5;
+    --muted: #9aa7b5;
+    --accent: #b7ff5a;
+    --accent-2: #ff8a5c;
+    --accent-3: #6ea8ff;
+    --shadow-soft: 0 24px 60px rgba(4, 8, 16, 0.45);
+    --shadow-strong: 0 40px 80px rgba(4, 8, 16, 0.6);
+    --sec: #b7ff5a;
+    --white: #e7edf5;
+    --white-icon: rgba(231, 237, 245, 0.68);
+    --white-icon-tr: rgba(231, 237, 245, 0.12);
   }
 
   * {
     font-family:
-      "montserrat",
+      "Space Grotesk",
       -apple-system,
       system-ui,
       sans-serif;
@@ -69,9 +82,126 @@ const { title , description="Software Developer" } = Astro.props;
     margin: 0;
   }
 
+  .font-display {
+    font-family: "Syne", "Space Grotesk", system-ui, sans-serif;
+    letter-spacing: -0.02em;
+  }
+
+  body {
+    color: var(--text);
+    background:
+      radial-gradient(900px 500px at 10% -10%, rgba(110, 168, 255, 0.18), transparent 60%),
+      radial-gradient(800px 500px at 90% 0%, rgba(183, 255, 90, 0.12), transparent 60%),
+      radial-gradient(600px 400px at 60% 80%, rgba(255, 138, 92, 0.08), transparent 55%),
+      #0b1017;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
   *::selection {
-    background-color: var(--sec);
-    color: var(--background);
+    background-color: var(--accent);
+    color: #0b1017;
+  }
+
+  section {
+    scroll-margin-top: 120px;
+  }
+
+  .eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.32em;
+    font-size: 0.72rem;
+    color: var(--muted);
+  }
+
+  .card {
+    background: linear-gradient(145deg, rgba(17, 26, 39, 0.92), rgba(10, 15, 23, 0.92));
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    box-shadow: var(--shadow-soft);
+    transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  @media (hover: hover) {
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(110, 168, 255, 0.45);
+      box-shadow: var(--shadow-strong);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .card,
+    .project-card,
+    .project-link {
+      transition: none !important;
+      transform: none !important;
+    }
+  }
+
+  .text-gradient {
+    background: linear-gradient(120deg, var(--text), var(--accent) 55%, var(--accent-3));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.35rem 0.75rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    letter-spacing: 0.02em;
+    background: rgba(17, 26, 39, 0.7);
+    border: 1px solid var(--border);
+    color: var(--text);
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    padding: 0.7rem 1.2rem;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: #0b1017;
+    box-shadow: 0 12px 30px rgba(183, 255, 90, 0.25);
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 18px 40px rgba(183, 255, 90, 0.35);
+  }
+
+  .btn-outline {
+    border: 1px solid var(--border);
+    color: var(--text);
+    background: rgba(16, 24, 36, 0.6);
+  }
+
+  .btn-outline:hover {
+    border-color: var(--accent-3);
+    color: var(--accent-3);
+  }
+
+  .btn-ghost {
+    border: 1px dashed var(--border);
+    color: var(--text);
+    background: transparent;
+  }
+
+  .btn-ghost:hover {
+    border-color: var(--accent-2);
+    color: var(--accent-2);
   }
 
   /* Scrollbar styles */
@@ -81,22 +211,22 @@ const { title , description="Software Developer" } = Astro.props;
   }
 
   ::-webkit-scrollbar-track {
-    background: var(--container);
+    background: #0f1622;
     border-radius: 30px;
   }
 
   ::-webkit-scrollbar-thumb {
-    background: var(--background);
+    background: #1f2a3a;
     border-radius: 10px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: var(--pink);
+    background: #2b3a50;
   }
 
   /* Scrollbar styles for Firefox */
   * {
     scrollbar-width: thin;
-    scrollbar-color: var(--line) var(--container);
+    scrollbar-color: #2b3a50 #0f1622;
   }
 </style>

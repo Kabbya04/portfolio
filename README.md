@@ -1,51 +1,53 @@
 # Portfolio
-![OscarHernandez-portfolio](https://github.com/user-attachments/assets/e284a42b-15c5-495c-99c7-ad5c1eb3bbe7)
+Personal site for **Saumik Saha Kabbya** with a custom UI overhaul, dynamic “Currently building” section, and a data‑driven progress ladder.
+
 ![Deploy Status](https://img.shields.io/badge/Deploy-Vercel-black?style=flat&logo=vercel)
 
 ---
 
-[Demo](https://oscarhernandez.vercel.app/)
+Live site: update this link to your deployment.
 
-[Astro Themes](https://astro.build/themes/details/dark-minimal/)
+The component `<LetterGlitch />` is adapted from [ReactBits.dev](https://www.reactbits.dev/).
 
-[ReactBits Showcase](https://www.reactbits.dev/showcase) 
-
-The component `<LetterGlitch \>` was taken from [ReactBits.dev](https://www.reactbits.dev/)
-
-## **Stack**  
-### **Frontend**  
+## **Stack**
+### **Frontend**
 ![Astro](https://img.shields.io/badge/Astro-FF5D01?logo=astro&logoColor=white)
 ![Tailwind](https://img.shields.io/badge/Tailwind_CSS-38B2AC?logo=tailwind-css&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white)
+![React](https://img.shields.io/badge/React-61DAFB?logo=react&logoColor=black)
 
-### **Tools**  
-![Figma](https://img.shields.io/badge/Figma-F24E1E?logo=figma&logoColor=white)
+### **Tools**
 ![Prettier](https://img.shields.io/badge/Prettier-F7B93E?logo=prettier&logoColor=black)
-![Canva](https://img.shields.io/badge/Canva-c900c3?logo=canva&logoColor=white)
 
-### **Show your favorite Spotify album (or your own)** ![Spotify](https://img.shields.io/badge/Spotify-06cc1a?logo=spotify&logoColor=white)
-1. Choose your Spotify album
-2. Access the share options
-3. Select 'copy embed code'
-```
-<iframe src="https://open.spotify.com/embed/album/ALBUM_ID" style="border-radius:12px border:0;" class="w-full h-40" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
-```
-4. Insert the embed code on footer.astro
+### **Dynamic GitHub Status**
+The “Currently building” panel pulls your latest **public** GitHub push on page load and displays:
+- Latest repo name (linking to that repo)
+- Repo description (or latest commit message fallback)
+- Relative update time
 
-That's it!
+Update the username in:
+`/Users/hunter/Desktop/Projects/MyWeb/portfolio/src/components/home.astro`
+
+### **Spotify Embed**
+The Spotify module now lives under the Contact section (`src/components/contact.astro`).
+To swap it:
+1. Pick a playlist in Spotify
+2. Share → Embed → Copy
+3. Replace the `<iframe>` inside `contact.astro`
 
 ## **Project structure**
 ```
 public/
 └── svg/
 src/
-├── Components/
+├── components/
+├── data/
 ├── layouts/
 ├── React/
 └── pages/
 ```
 
-## **Local configuration** 
+## **Local configuration**
 1. Clone the repo:  
 ```
 git clone https://github.com/gothsec/portfolio

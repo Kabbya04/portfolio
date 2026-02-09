@@ -1,107 +1,269 @@
 ---
+import { education, experience, projects, formatPeriod } from "@/data/portfolio";
+
+const timelineEntries = [
+  ...education.map((entry, index) => ({ ...entry, order: index })),
+  ...experience.map((entry, index) => ({
+    ...entry,
+    order: education.length + index,
+  })),
+  ...projects.map((entry, index) => ({
+    ...entry,
+    order: education.length + experience.length + index,
+  })),
+];
+
+const parseStartIndex = (value: string) => {
+  const [year, month] = value.split("-");
+  const y = Number(year);
+  const m = month ? Number(month) : 1;
+  return y * 12 + m;
+};
+
+const sortedTimeline = [...timelineEntries].sort((a, b) => {
+  const diff = parseStartIndex(b.start) - parseStartIndex(a.start);
+  return diff !== 0 ? diff : a.order - b.order;
+});
 ---
 
-<section class="text-[var(--white)] mt-12 md:mt-0" id="about">
-    <div class="max-w-5xl mx-auto space-y-8 md:py-36 pb-14">
-      <div class="flex flex-col lg:flex-row lg:items-center space-y-4 lg:space-y-0 lg:space-x-8 md:gap-4">
-        <h1 class="text-4xl font-bold mb-6 text-[var(--white-icon)]">Let's get to know Me</h1>
+<section class="text-[var(--text)] mt-12 md:mt-0" id="about">
+  <div class="max-w-6xl mx-auto md:py-28 pb-16 space-y-14">
+    <div class="grid lg:grid-cols-[1.1fr_0.9fr] gap-12 items-center">
+      <div class="space-y-6">
+        <p class="eyebrow">About</p>
+        <h1 class="font-display text-4xl md:text-5xl leading-tight">
+          Designing AI experiences that feel intuitive.
+        </h1>
+        <p class="text-lg text-[var(--muted)]">
+          I’m Saumik Saha Kabbya, a computer science student in Dhaka with a focus on
+          LLMs, computer vision, and frontend product design. I like taking ambiguous
+          problems and shaping them into clear, fast, user-ready tools.
+        </p>
+        <p class="text-[var(--muted)]">
+          My work blends AI engineering with product thinking. I build the pipelines,
+          then I craft the UI so the intelligence actually feels useful.
+        </p>
+        <div class="flex flex-wrap gap-3">
+          <span class="chip">AI Engineer</span>
+          <span class="chip">Frontend Engineer</span>
+          <span class="chip">Accessibility-first</span>
+        </div>
+        <div class="flex flex-wrap gap-3 pt-2">
+          <a class="btn btn-outline text-sm" href="mailto:saumik.kabbya@gmail.com">
+            Email
+          </a>
+          <a class="btn btn-outline text-sm" href="https://github.com/Kabbya04" target="_blank" rel="noreferrer">
+            GitHub
+          </a>
+          <a class="btn btn-outline text-sm" href="https://www.linkedin.com/in/saumik-saha-kabbya/" target="_blank" rel="noreferrer">
+            LinkedIn
+          </a>
+        </div>
+      </div>
+
+      <div class="card p-6 flex flex-col items-center text-center space-y-4">
         <img
-        alt="Hero"
-        src="/hero.png" alt="Hero image"
-        class="brightness-200 w-full max-w-[75%] md:max-w-[50%] scale-90 invert"
+          alt="Saumik Saha Kabbya portrait"
+          src="/Kabbya.png"
+          class="w-56 h-56 rounded-full object-cover ring-2 ring-[var(--accent-3)]/40"
         />
+        <div>
+          <p class="text-sm text-[var(--muted)]">Currently based in</p>
+          <p class="text-lg font-semibold">Dhaka, Bangladesh</p>
+        </div>
+        <div class="flex flex-wrap gap-2 justify-center">
+          <span class="chip">LLMs</span>
+          <span class="chip">Computer Vision</span>
+          <span class="chip">Full-stack</span>
+        </div>
       </div>
-      <p class="text-md md:text-lg text-[var(--white-icon)] shiny-white mb-4">
-        Hi, I'm Saumik Saha Kabbya, a Computer Science student based in Dhaka, Bangladesh. 
-        My passion lies in exploring the realms of Supervised Machine Learning, Software Development, 
-        Mobile Applications, and Website Development.
-      </p>
-      <p class="text-md md:text-lg text-[var(--white-icon)] shiny-white mb-4">
-        I enjoy tackling complex problems and building innovative solutions that make a difference. 
-        Whether it's training machine learning models, crafting responsive web interfaces, or developing 
-        mobile apps, I strive to deliver high-quality and efficient work.
-      </p>
-      <p class="text-md md:text-lg text-[var(--white-icon)] shiny-white mb-4">
-        When I'm not coding, you can find me experimenting with new technologies, contributing to 
-        open-source projects, or sharing knowledge with the tech community.
-      </p>
-      <div>
-        <h2 class="text-2xl font-semibold mb-4 text-[var(--white-icon)] shiny-white">Connect with Me</h2>
+    </div>
+
+    <div class="grid lg:grid-cols-2 gap-6">
+      <div class="card p-6 space-y-4">
+        <h2 class="text-2xl font-semibold">Experience Snapshot</h2>
+        <p class="text-[var(--muted)]">
+          {experience[0]?.description ??
+            "At The Data Island, I shipped AI and computer vision solutions using FastAPI, Groq AI, Ultralytics YOLO, and PyTorch, alongside Next.js for the frontend."}
+        </p>
+        {experience[0]?.tags && (
+          <div class="flex flex-wrap gap-2">
+            {experience[0].tags.map((tag) => (
+              <span class="chip">{tag}</span>
+            ))}
+          </div>
+        )}
       </div>
-      <div class="flex justify-start gap-2 pt-3 md:pt-6">
-        <a
-          target="_blank"
-          href="https://github.com/Kabbya04"
-          aria-label="GitHub"
-          class="text-[var(--white-icon)] hover:text-white transition duration-300 ease-in-out border border-1 border-[var(--white-icon-tr)] p-3 rounded-xl bg-[#1414149c] hover:bg-[var(--white-icon-tr)]"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-            class="size-8"
-          >
-            <path
-              d="M12.001 2C6.47598 2 2.00098 6.475 2.00098 12C2.00098 16.425 4.86348 20.1625 8.83848 21.4875C9.33848 21.575 9.52598 21.275 9.52598 21.0125C9.52598 20.775 9.51348 19.9875 9.51348 19.15C7.00098 19.6125 6.35098 18.5375 6.15098 17.975C6.03848 17.6875 5.55098 16.8 5.12598 16.5625C4.77598 16.375 4.27598 15.9125 5.11348 15.9C5.90098 15.8875 6.46348 16.625 6.65098 16.925C7.55098 18.4375 8.98848 18.0125 9.56348 17.75C9.65098 17.1 9.91348 16.6625 10.201 16.4125C7.97598 16.1625 5.65098 15.3 5.65098 11.475C5.65098 10.3875 6.03848 9.4875 6.67598 8.7875C6.57598 8.5375 6.22598 7.5125 6.77598 6.1375C6.77598 6.1375 7.61348 5.875 9.52598 7.1625C10.326 6.9375 11.176 6.825 12.026 6.825C12.876 6.825 13.726 6.9375 14.526 7.1625C16.4385 5.8625 17.276 6.1375 17.276 6.1375C17.826 7.5125 17.476 8.5375 17.376 8.7875C18.0135 9.4875 18.401 10.375 18.401 11.475C18.401 15.3125 16.0635 16.1625 13.8385 16.4125C14.201 16.725 14.5135 17.325 14.5135 18.2625C14.5135 19.6 14.501 20.675 14.501 21.0125C14.501 21.275 14.6885 21.5875 15.1885 21.4875C19.259 20.1133 21.9999 16.2963 22.001 12C22.001 6.475 17.526 2 12.001 2Z"
-            ></path>
-          </svg>
-        </a>
-        <a
-          target="_blank"
-          href="https://www.linkedin.com/in/saumik-saha-kabbya/"
-          aria-label="LinkedIn"
-          class="text-[var(--white-icon)] hover:text-white transition duration-300 ease-in-out border border-1 border-[var(--white-icon-tr)] p-3 rounded-xl bg-[#1414149c] hover:bg-[var(--white-icon-tr)]"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-            class="size-8"
-          >
-            <path
-              d="M18.3362 18.339H15.6707V14.1622C15.6707 13.1662 15.6505 11.8845 14.2817 11.8845C12.892 11.8845 12.6797 12.9683 12.6797 14.0887V18.339H10.0142V9.75H12.5747V10.9207H12.6092C12.967 10.2457 13.837 9.53325 15.1367 9.53325C17.8375 9.53325 18.337 11.3108 18.337 13.6245V18.339H18.3362ZM7.00373 8.57475C6.14573 8.57475 5.45648 7.88025 5.45648 7.026C5.45648 6.1725 6.14648 5.47875 7.00373 5.47875C7.85873 5.47875 8.55173 6.1725 8.55173 7.026C8.55173 7.88025 7.85798 8.57475 7.00373 8.57475ZM8.34023 18.339H5.66723V9.75H8.34023V18.339ZM19.6697 3H4.32923C3.59498 3 3.00098 3.5805 3.00098 4.29675V19.7033C3.00098 20.4202 3.59498 21 4.32923 21H19.6675C20.401 21 21.001 20.4202 21.001 19.7033V4.29675C21.001 3.5805 20.401 3 19.6675 3H19.6697Z"
-            ></path>
-          </svg>
-        </a>
-        <a
-          target="_blank"
-          href="https://mail.google.com/mail/?view=cm&fs=1&to=saumik.kabbya@gmail.com&su=Hey%20Kabbya!!"
-          aria-label="Email"
-          class="text-[var(--white-icon)] hover:text-white transition duration-300 ease-in-out border border-1 border-[var(--white-icon-tr)] p-3 rounded-xl bg-[#1414149c] hover:bg-[var(--white-icon-tr)]"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="2.1em"
-            height="2.1em"
-            viewBox="0 0 24 24"
-          >
-            <path
-              fill="currentColor"
-              d="m18.73 5.41l-1.28 1L12 10.46L6.55 6.37l-1.28-1A2 2 0 0 0 2 7.05v11.59A1.36 1.36 0 0 0 3.36 20h3.19v-7.72L12 16.37l5.45-4.09V20h3.19A1.36 1.36 0 0 0 22 18.64V7.05a2 2 0 0 0-3.27-1.64"
-            ></path>
-          </svg>
-        </a>
+      <div class="card p-6 space-y-4">
+        <h2 class="text-2xl font-semibold">Education</h2>
+        <p class="text-[var(--muted)]">
+          {education[0]?.subtitle} at {education[0]?.title} ({formatPeriod(education[0]?.start ?? "2022-01", education[0]?.end)}).
+        </p>
+        {education[0]?.tags && (
+          <div class="flex flex-wrap gap-2">
+            {education[0].tags.map((tag) => (
+              <span class="chip">{tag}</span>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
+
+    <div class="space-y-6">
+      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+        <div class="space-y-2">
+          <p class="eyebrow">Timeline</p>
+          <h2 class="text-2xl md:text-3xl font-semibold">Progress Ladder</h2>
+        </div>
+        <p class="text-[var(--muted)] max-w-xl">
+          A quick view of how my education, work, and standout projects have unfolded.
+        </p>
+      </div>
+
+      <div class="timeline">
+        {sortedTimeline.map((entry, index) => (
+          <div class={`timeline-row ${index % 2 === 0 ? "left" : "right"}`}>
+            {index % 2 === 0 ? (
+              <>
+                <div class="timeline-card">
+                  <span class="timeline-date">
+                    {formatPeriod(entry.start, entry.end)}
+                  </span>
+                  <h3>{entry.title}</h3>
+                  <p>{entry.subtitle}</p>
+                </div>
+                <div class="timeline-spine"><span class="timeline-dot"></span></div>
+                <div class="timeline-empty"></div>
+              </>
+            ) : (
+              <>
+                <div class="timeline-empty"></div>
+                <div class="timeline-spine"><span class="timeline-dot"></span></div>
+                <div class="timeline-card">
+                  <span class="timeline-date">
+                    {formatPeriod(entry.start, entry.end)}
+                  </span>
+                  <h3>{entry.title}</h3>
+                  <p>{entry.subtitle}</p>
+                </div>
+              </>
+            )}
+          </div>
+        ))}
+      </div>
     </div>
-  </section>
-  
-  <style is:global>
-    .shiny-white {
-      background: linear-gradient(135deg, #ffffff 25%, #d3d3d3 50%, #ffffff 75%);
-      background-size: 400% 100%;
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      animation: shine 3s linear infinite;
+  </div>
+</section>
+
+<style>
+  .timeline {
+    display: grid;
+    gap: 1.2rem;
+    position: relative;
+  }
+
+  .timeline-row {
+    display: grid;
+    grid-template-columns: 1fr 64px 1fr;
+    align-items: center;
+    position: relative;
+  }
+
+  .timeline::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--border);
+    opacity: 0.6;
+    transform: translateX(-50%);
+  }
+
+  .timeline-date {
+    display: inline-flex;
+    align-self: flex-start;
+    font-size: 0.85rem;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 0.35rem;
+  }
+
+  .timeline-spine {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+
+  .timeline-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 0 6px rgba(183, 255, 90, 0.12);
+    z-index: 1;
+  }
+
+  .timeline-empty {
+    min-height: 1px;
+  }
+
+  .timeline-card {
+    background: rgba(12, 18, 28, 0.6);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 0.9rem 1.2rem;
+    position: relative;
+    width: min(100%, 340px);
+  }
+
+  .timeline-row.left .timeline-card {
+    justify-self: end;
+    text-align: right;
+  }
+
+  .timeline-row.right .timeline-card {
+    justify-self: start;
+    text-align: left;
+  }
+
+  .timeline-card h3 {
+    font-size: 1rem;
+    margin-bottom: 0.15rem;
+  }
+
+  .timeline-card p {
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+
+  @media (max-width: 768px) {
+    .timeline-row {
+      grid-template-columns: 24px 1fr;
+      gap: 0.75rem;
     }
-  
-    @keyframes shine {
-      0% {
-        background-position: 100% 50%;
-      }
-      30%,
-      70% {
-        background-position: 0% 50%;
-      }
+
+    .timeline::before {
+      left: 12px;
     }
-  </style>
+
+    .timeline-card {
+      margin-left: 0;
+      width: 100%;
+      text-align: left;
+      grid-column: 2;
+    }
+
+    .timeline-empty {
+      display: none;
+    }
+
+    .timeline-spine {
+      grid-column: 1;
+    }
+  }
+</style>
