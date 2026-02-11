@@ -327,4 +327,26 @@ const capstonePeriod = capstone ? formatPeriod(capstone.start, capstone.end) : "
       timeEl.textContent = "Unable to sync with GitHub right now.";
     }
   });
+
+  // Update glitch colors based on theme
+  const updateGlitchColors = () => {
+    const isLight = document.documentElement.dataset.theme === "light";
+    const glitchElements = document.querySelectorAll('[class*="LetterGlitch"]');
+    glitchElements.forEach((el) => {
+      // The LetterGlitch component uses canvas, so we need to reload it with new colors
+      // For now, we'll just update the colors in the component if it supports it
+      // This is a placeholder for future enhancement
+    });
+  };
+
+  // Listen for theme changes
+  const observer = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+      if (mutation.type === "attributes" && mutation.attributeName === "data-theme") {
+        updateGlitchColors();
+      }
+    });
+  });
+
+  observer.observe(document.documentElement, { attributes: true });
 </script>

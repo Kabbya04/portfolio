@@ -285,15 +285,15 @@ const LetterGlitch = ({
   }, [glitchSpeed, smooth]);
 
   return (
-    <div className="relative w-full h-full bg-[#101010] overflow-hidden">
+    <div className="relative w-full h-full bg-[var(--background)] overflow-hidden">
       <canvas ref={canvasRef} className="block w-full h-full" />
       {outerVignette && (
         // biome-ignore lint/style/useSelfClosingElements: <explanation>
-<div className="absolute top-0 left-0 w-full h-full pointer-events-none bg-[radial-gradient(circle,_rgba(16,16,16,0)_60%,_rgba(16,16,16,1)_100%)]"></div>
+<div className="absolute top-0 left-0 w-full h-full pointer-events-none bg-[radial-gradient(circle,_rgba(var(--text-rgb),0)_60%,_rgba(var(--text-rgb),1)_100%)]"></div>
       )}
       {centerVignette && (
         // biome-ignore lint/style/useSelfClosingElements: <explanation>
-<div className="absolute top-0 left-0 w-full h-full pointer-events-none bg-[radial-gradient(circle,_rgba(0,0,0,0.8)_0%,_rgba(0,0,0,0)_60%)]"></div>
+<div className="absolute top-0 left-0 w-full h-full pointer-events-none bg-[radial-gradient(circle,_rgba(var(--background-rgb),0.8)_0%,_rgba(var(--background-rgb),0)_60%)]"></div>
       )}
     </div>
   );

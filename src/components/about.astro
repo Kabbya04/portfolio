@@ -204,8 +204,12 @@ const sortedTimeline = [...timelineEntries].sort((a, b) => {
     height: 12px;
     border-radius: 50%;
     background: var(--accent);
-    box-shadow: 0 0 0 6px rgba(183, 255, 90, 0.12);
+    box-shadow: 0 0 0 6px var(--accent-rgb, rgba(183, 255, 90, 0.12));
     z-index: 1;
+  }
+
+  :root[data-theme="light"] .timeline-dot {
+    box-shadow: 0 0 0 6px rgba(44, 126, 251, 0.12);
   }
 
   .timeline-empty {
@@ -213,7 +217,7 @@ const sortedTimeline = [...timelineEntries].sort((a, b) => {
   }
 
   .timeline-card {
-    background: rgba(12, 18, 28, 0.6);
+    background: var(--timeline-bg);
     border: 1px solid var(--border);
     border-radius: 18px;
     padding: 0.9rem 1.2rem;

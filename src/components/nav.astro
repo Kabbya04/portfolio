@@ -42,7 +42,7 @@ const navItems: NavItem[] = [
 <div class="flex justify-center w-full">
   <nav
     id="main-nav"
-    class="fixed left-1/2 -translate-x-1/2 z-[100] bg-[#0f1622cc] border border-1 border-transparent backdrop-blur-xl transition-all duration-500 ease-in-out md:top-6 md:bottom-auto bottom-0 w-[80%]"
+    class="fixed left-1/2 -translate-x-1/2 z-[100] bg-[var(--nav-bg)] border border-1 border-transparent backdrop-blur-xl transition-all duration-500 ease-in-out md:top-6 md:bottom-auto bottom-0 w-[80%]"
   >
     <div class="container mx-auto flex justify-center items-center p-3">
       <ul
@@ -65,6 +65,24 @@ const navItems: NavItem[] = [
             </li>
           ))
         }
+        <li class="flex-1 md:flex-none">
+          <button
+            id="theme-toggle"
+            type="button"
+            class="flex flex-col items-center gap-1 text-[var(--muted)] hover:text-[var(--text)] transition-colors text-[11px] md:text-base relative group"
+            aria-label="Toggle theme"
+          >
+            <span class="flex items-center justify-center w-6 h-6">
+              <svg class="theme-icon theme-icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 4.75C12.4142 4.75 12.75 4.41421 12.75 4V2C12.75 1.58579 12.4142 1.25 12 1.25C11.5858 1.25 11.25 1.58579 11.25 2V4C11.25 4.41421 11.5858 4.75 12 4.75ZM12 22.75C12.4142 22.75 12.75 22.4142 12.75 22V20C12.75 19.5858 12.4142 19.25 12 19.25C11.5858 19.25 11.25 19.5858 11.25 20V22C11.25 22.4142 11.5858 22.75 12 22.75ZM4.75 12C4.75 11.5858 4.41421 11.25 4 11.25H2C1.58579 11.25 1.25 11.5858 1.25 12C1.25 12.4142 1.58579 12.75 2 12.75H4C4.41421 12.75 4.75 12.4142 4.75 12ZM22.75 12C22.75 11.5858 22.4142 11.25 22 11.25H20C19.5858 11.25 19.25 11.5858 19.25 12C19.25 12.4142 19.5858 12.75 20 12.75H22C22.4142 12.75 22.75 12.4142 22.75 12ZM6.21751 6.21751C6.51041 5.92462 6.51041 5.44975 6.21751 5.15685L4.8033 3.74264C4.51041 3.44975 4.03553 3.44975 3.74264 3.74264C3.44975 4.03553 3.44975 4.51041 3.74264 4.8033L5.15685 6.21751C5.44975 6.51041 5.92462 6.51041 6.21751 6.21751ZM20.2574 20.2574C20.5503 19.9645 20.5503 19.4896 20.2574 19.1967L18.8431 17.7825C18.5503 17.4896 18.0754 17.4896 17.7825 17.7825C17.4896 18.0754 17.4896 18.5503 17.7825 18.8431L19.1967 20.2574C19.4896 20.5503 19.9645 20.5503 20.2574 20.2574ZM17.7825 6.21751C18.0754 6.51041 18.5503 6.51041 18.8431 6.21751L20.2574 4.8033C20.5503 4.51041 20.5503 4.03553 20.2574 3.74264C19.9645 3.44975 19.4896 3.44975 19.1967 3.74264L17.7825 5.15685C17.4896 5.44975 17.4896 5.92462 17.7825 6.21751ZM3.74264 20.2574C4.03553 20.5503 4.51041 20.5503 4.8033 20.2574L6.21751 18.8431C6.51041 18.5503 6.51041 18.0754 6.21751 17.7825C5.92462 17.4896 5.44975 17.4896 5.15685 17.7825L3.74264 19.1967C3.44975 19.4896 3.44975 19.9645 3.74264 20.2574ZM12 7.25C9.37665 7.25 7.25 9.37665 7.25 12C7.25 14.6234 9.37665 16.75 12 16.75C14.6234 16.75 16.75 14.6234 16.75 12C16.75 9.37665 14.6234 7.25 12 7.25Z" />
+              </svg>
+              <svg class="theme-icon theme-icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M10.22 2.2C10.72 2.14 11.18 2.5 11.12 3C10.62 7.2 13.58 10.9 17.7 11.4C18.2 11.46 18.56 11.92 18.5 12.42C17.93 17.45 13.54 21.25 8.35 21.25C2.98 21.25 -1.07 16.39 -0.13 11.12C0.7 6.47 5.07 2.65 10.22 2.2Z" />
+              </svg>
+            </span>
+            <span class="md:hidden">Theme</span>
+          </button>
+        </li>
       </ul>
     </div>
   </nav>
@@ -72,7 +90,7 @@ const navItems: NavItem[] = [
 <style>
   nav {
     transform: translateX(-50%);
-    background-color: rgba(15, 22, 34, 0.78);
+    background-color: var(--nav-bg);
     transition:
       background-color 0.3s ease,
       border-radius 0.3s ease,
@@ -80,7 +98,7 @@ const navItems: NavItem[] = [
   }
 
   nav.scrolling {
-    background-color: rgba(15, 22, 34, 0.92);
+    background-color: var(--nav-bg-solid);
     border-color: var(--border);
     border-radius: 9999px;
   }
@@ -92,6 +110,68 @@ const navItems: NavItem[] = [
 
   nav a.active {
     color: var(--text) !important;
+  }
+
+  .theme-icon {
+    width: 20px;
+    height: 20px;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+  }
+
+  :root[data-theme="light"] .theme-icon-sun {
+    display: none;
+  }
+
+  :root[data-theme="dark"] .theme-icon-moon {
+    display: none;
+  }
+
+  /* Icon rotation animation on theme change */
+  .theme-icon-sun {
+    animation: sun-rotate 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .theme-icon-moon {
+    animation: moon-rotate 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  @keyframes sun-rotate {
+    0% {
+      transform: rotate(-90deg) scale(0.5);
+      opacity: 0;
+    }
+    50% {
+      transform: rotate(45deg) scale(1.2);
+      opacity: 1;
+    }
+    100% {
+      transform: rotate(0deg) scale(1);
+      opacity: 1;
+    }
+  }
+
+  @keyframes moon-rotate {
+    0% {
+      transform: rotate(90deg) scale(0.5);
+      opacity: 0;
+    }
+    50% {
+      transform: rotate(-45deg) scale(1.2);
+      opacity: 1;
+    }
+    100% {
+      transform: rotate(0deg) scale(1);
+      opacity: 1;
+    }
+  }
+
+  /* Add pulse effect to theme toggle button */
+  #theme-toggle:hover .theme-icon {
+    transform: scale(1.1);
+  }
+
+  #theme-toggle:active .theme-icon {
+    transform: scale(0.95);
   }
 
   @media (max-width: 767px) {
@@ -107,7 +187,7 @@ const navItems: NavItem[] = [
 
     nav.scrolling {
       border-radius: 1rem 1rem 0 0;
-      background-color: rgba(15, 22, 34, 0.92);
+      background-color: var(--nav-bg-solid);
     }
 
     body {
@@ -118,6 +198,7 @@ const navItems: NavItem[] = [
 
 <script>
   const nav = document.getElementById("main-nav");
+  const themeToggle = document.getElementById("theme-toggle");
   let rafId: number | null = null;
 
   function updateNav() {
@@ -138,6 +219,41 @@ const navItems: NavItem[] = [
     },
     { passive: true }
   );
+
+  themeToggle?.addEventListener("click", () => {
+    const root = document.documentElement;
+    const currentTheme = root.dataset.theme || "dark";
+    const nextTheme = currentTheme === "dark" ? "light" : "dark";
+    
+    // Trigger icon animation
+    const sunIcon = themeToggle?.querySelector(".theme-icon-sun") as HTMLElement | null;
+    const moonIcon = themeToggle?.querySelector(".theme-icon-moon") as HTMLElement | null;
+    
+    // Remove and re-add animation classes to trigger re-animation
+    if (sunIcon) {
+      sunIcon.style.animation = "none";
+      void sunIcon.offsetHeight; // Trigger reflow
+      sunIcon.style.animation = "";
+    }
+    if (moonIcon) {
+      moonIcon.style.animation = "none";
+      void moonIcon.offsetHeight; // Trigger reflow
+      moonIcon.style.animation = "";
+    }
+    
+    root.classList.add("theme-animating");
+    root.dataset.theme = nextTheme;
+    localStorage.setItem("theme", nextTheme);
+    themeToggle?.setAttribute("aria-pressed", String(nextTheme === "light"));
+    window.setTimeout(() => {
+      root.classList.remove("theme-animating");
+    }, 800);
+  });
+
+  if (themeToggle) {
+    const currentTheme = document.documentElement.dataset.theme || "dark";
+    themeToggle.setAttribute("aria-pressed", String(currentTheme === "light"));
+  }
 
   // Handle navigation clicks
   document.querySelectorAll('#main-nav a[href^="/"]').forEach((anchor) => {
