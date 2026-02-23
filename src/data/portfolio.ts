@@ -94,7 +94,7 @@ export const projects: Project[] = [
       "AI-powered vision assistant for visually impaired users with local-first inference, spatial audio guidance, and LLM-based scene narration.",
     tags: ["Computer Vision", "YOLO", "MediaPipe", "LLMs"],
     github: "https://github.com/rajin-khan/AIris",
-    live: "https://study-lumen.vercel.app/",
+    live: null,
     accent: "#6ea8ff",
   },
   {
@@ -120,7 +120,7 @@ export const projects: Project[] = [
       "Document study companion (previously named Crack The Doc) that transforms PDFs into guided summaries, QA, and text-to-speech flows.",
     tags: ["Groq", "Web Speech API", "Summaries", "QA"],
     github: "https://github.com/Kabbya04/Lumen",
-    live: null,
+    live: "https://study-lumen.vercel.app/",
     accent: "#ff8a5c",
   },
   {
