@@ -94,7 +94,7 @@ export const projects: Project[] = [
       "AI-powered vision assistant for visually impaired users with local-first inference, spatial audio guidance, and LLM-based scene narration.",
     tags: ["Computer Vision", "YOLO", "MediaPipe", "LLMs"],
     github: "https://github.com/rajin-khan/AIris",
-    live: null,
+    live: "https://study-lumen.vercel.app/",
     accent: "#6ea8ff",
   },
   {
