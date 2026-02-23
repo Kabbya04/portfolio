@@ -111,16 +111,16 @@ export const projects: Project[] = [
     accent: "#b7ff5a",
   },
   {
-    id: "crack-the-doc",
-    title: "Crack The Doc",
+    id: "lumen",
+    title: "Lumen",
     subtitle: "Interactive document study tool",
     start: "2025-07",
     end: null,
     description:
-      "Document study companion that transforms PDFs into guided summaries, QA, and text-to-speech flows.",
+      "Document study companion (previously named Crack The Doc) that transforms PDFs into guided summaries, QA, and text-to-speech flows.",
     tags: ["Groq", "Web Speech API", "Summaries", "QA"],
-    github: "https://github.com/Kabbya04/crack-the-doc",
-    live: "https://crack-the-doc.vercel.app/",
+    github: "https://github.com/Kabbya04/Lumen",
+    live: null,
     accent: "#ff8a5c",
   },
   {
