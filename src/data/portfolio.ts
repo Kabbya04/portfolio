@@ -91,11 +91,24 @@ export const projects: Project[] = [
     start: "2025-01",
     end: null,
     description:
-      "AI-powered vision assistant for visually impaired users with local-first inference, spatial audio guidance, and LLM-based scene narration.",
-    tags: ["Computer Vision", "YOLO", "MediaPipe", "LLMs"],
+      "Local-first vision assistant with ESP32-CAM wearable, YOLO26s and MediaPipe Active Guidance, BLIP/LLM scene narration, fall detection with guardian alerts, and a hands-free Web Speech API interface—87% object retrieval success rate.",
+    tags: ["Computer Vision", "YOLO26", "MediaPipe", "LLMs", "ESP32"],
     github: "https://github.com/rajin-khan/AIris",
     live: null,
     accent: "#6ea8ff",
+  },
+  {
+    id: "gravitas",
+    title: "Gravitas",
+    subtitle: "Legal document understanding & drafting",
+    start: "2026-05",
+    end: null,
+    description:
+      "AI-powered legal document understanding and grounded drafting with OCR, RAG, evidence-grounded draft generation, and iterative improvement from operator edits.",
+    tags: ["OCR", "RAG", "LLMs", "Legal Tech"],
+    github: "https://github.com/Kabbya04/Gravitas",
+    live: null,
+    accent: "#a78bfa",
   },
   {
     id: "zappy",
@@ -104,7 +117,7 @@ export const projects: Project[] = [
     start: "2025-08",
     end: null,
     description:
-      "Personalized recommendations for games, anime, TV, and movies using Groq-powered LLMs, TVDB data, and Supabase.",
+      "Personalized recommendations for games, anime, TV series, and movies using Groq LLMs, TVDB for up-to-date metadata, and Supabase.",
     tags: ["Groq", "LLM", "Supabase", "Recommendations"],
     github: "https://github.com/Kabbya04/zappy",
     live: "https://zappy-theta.vercel.app/",
@@ -117,8 +130,8 @@ export const projects: Project[] = [
     start: "2025-07",
     end: null,
     description:
-      "Document study companion (previously named Crack The Doc) that transforms PDFs into guided summaries, QA, and text-to-speech flows.",
-    tags: ["Groq", "Web Speech API", "Summaries", "QA"],
+      "Document study tool that transforms documents into interactive guides with summaries, QA, chat, and TTS via Groq and ElevenLabs.",
+    tags: ["Groq", "ElevenLabs", "Summaries", "QA", "Chat"],
     github: "https://github.com/Kabbya04/Lumen",
     live: "https://study-lumen.vercel.app/",
     accent: "#ff8a5c",
@@ -164,9 +177,9 @@ export const projects: Project[] = [
     title: "Omni Game Recommender",
     subtitle: "TF-IDF + SVM engine",
     start: "2025-04",
-    end: null,
+    end: "2025-04",
     description:
-      "Content-based recommendation engine using Bag of Words, TF-IDF, and SVM to predict similar games.",
+      "Content-based game recommendation engine using Bag of Words, TF-IDF, and SVM to suggest similar video games with likelihood predictions.",
     tags: ["TF-IDF", "SVM", "Recommender"],
     github: "https://github.com/Kabbya04/Omni-Game-Recommender-System",
     live: null,
