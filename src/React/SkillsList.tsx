@@ -114,15 +114,15 @@ const skillGroups = [
 
 const SkillsList = () => {
   return (
-    <div className="grid sm:grid-cols-2 gap-4">
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
       {skillGroups.map((group) => (
         <div
           key={group.title}
-          className="card p-5 flex flex-col gap-4"
+          className="card p-4 sm:p-5 flex flex-col gap-3 sm:gap-4 min-w-0"
         >
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 min-w-0">
             {group.icon}
-            <h4 className="text-lg font-semibold">{group.title}</h4>
+            <h4 className="text-base sm:text-lg font-semibold break-words">{group.title}</h4>
           </div>
           <div className="flex flex-wrap gap-2">
             {group.items.map((item) => (

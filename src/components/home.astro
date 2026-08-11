@@ -13,23 +13,23 @@ const educationPeriod = primaryEducation
 const capstonePeriod = capstone ? formatPeriod(capstone.start, capstone.end) : "";
 ---
 
-<section class="text-[var(--text)] mt-12 md:mt-0" id="home">
-  <div class="max-w-6xl mx-auto md:py-28 pb-16 space-y-16">
-    <div class="grid lg:grid-cols-[1.1fr_0.9fr] gap-12 items-center">
-      <div class="space-y-8">
+<section class="text-[var(--text)] mt-8 sm:mt-12 md:mt-0" id="home">
+  <div class="max-w-6xl mx-auto md:py-28 py-10 sm:pb-16 space-y-12 sm:space-y-16">
+    <div class="grid lg:grid-cols-[1.1fr_0.9fr] gap-8 sm:gap-12 items-center">
+      <div class="space-y-6 sm:space-y-8 min-w-0">
         <p class="eyebrow">AI Engineer · Frontend Engineer · Dhaka, Bangladesh</p>
-        <div class="space-y-5">
-          <h1 class="font-display text-4xl md:text-6xl leading-tight">
+        <div class="space-y-4 sm:space-y-5">
+          <h1 class="font-display text-[2rem] leading-[1.15] sm:text-4xl md:text-5xl lg:text-6xl md:leading-tight">
             Building intelligent,
             <span class="text-gradient">human-first</span> products.
           </h1>
-          <p class="text-lg text-[var(--muted)] max-w-xl">
+          <p class="text-base sm:text-lg text-[var(--muted)] max-w-xl">
             I’m Saumik Saha Kabbya, a CSE graduate crafting LLM and computer
             vision systems, then shaping them into polished web experiences.
             I care about speed, clarity, and accessibility from prototype to launch.
           </p>
         </div>
-        <div class="flex flex-wrap gap-3">
+        <div class="flex flex-wrap gap-2.5 sm:gap-3">
           <a class="btn btn-primary" href="/#projects">View Projects</a>
           <a class="btn btn-outline" href="/#experience">Experience</a>
           <a
@@ -41,38 +41,38 @@ const capstonePeriod = capstone ? formatPeriod(capstone.start, capstone.end) : "
             Resume
           </a>
         </div>
-        <div class="grid sm:grid-cols-3 grid-cols-2 gap-4">
-          <div class="card px-5 py-4">
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
+          <div class="card px-4 py-3.5 sm:px-5 sm:py-4">
             <p class="text-sm text-[var(--muted)]">Focus</p>
-            <p class="text-lg font-semibold">LLMs & Vision</p>
+            <p class="text-base sm:text-lg font-semibold">LLMs & Vision</p>
           </div>
-          <div class="card px-5 py-4">
+          <div class="card px-4 py-3.5 sm:px-5 sm:py-4">
             <p class="text-sm text-[var(--muted)]">Stack</p>
-            <p class="text-lg font-semibold">FastAPI · Next.js</p>
+            <p class="text-base sm:text-lg font-semibold">FastAPI · Next.js</p>
           </div>
-          <div class="card px-5 py-4">
+          <div class="card px-4 py-3.5 sm:px-5 sm:py-4">
             <p class="text-sm text-[var(--muted)]">Signature</p>
-            <p class="text-lg font-semibold">Fast, tactile, human-friendly UX.</p>
+            <p class="text-base sm:text-lg font-semibold">Fast, tactile, human-friendly UX.</p>
           </div>
         </div>
-        <div class="flex items-center gap-3 text-[var(--muted)] text-sm">
-          <span class="chip">Email</span>
-          <a class="hover:text-[var(--text)] transition" href="mailto:saumik.kabbya@gmail.com">
+        <div class="flex flex-wrap items-center gap-3 text-[var(--muted)] text-sm min-w-0">
+          <span class="chip shrink-0">Email</span>
+          <a class="hover:text-[var(--text)] transition break-all" href="mailto:saumik.kabbya@gmail.com">
             saumik.kabbya@gmail.com
           </a>
         </div>
       </div>
 
-      <div class="relative">
-        <div class="absolute -top-12 -right-8 w-48 h-48 rounded-full bg-[var(--accent)]/20 blur-3xl"></div>
-        <div class="card p-6 hero-image-card">
+      <div class="relative overflow-hidden sm:overflow-visible">
+        <div class="absolute -top-12 -right-8 w-36 sm:w-48 h-36 sm:h-48 rounded-full bg-[var(--accent)]/20 blur-3xl pointer-events-none"></div>
+        <div class="card p-4 sm:p-6 hero-image-card">
           <AnimatedImage client:load />
-          <div class="mt-6 space-y-3">
-            <div class="flex items-center justify-between">
+          <div class="mt-4 sm:mt-6 space-y-3">
+            <div class="flex flex-wrap items-center justify-between gap-2">
               <span class="chip">Currently building</span>
               <a
                 id="current-link"
-                class="text-sm text-[var(--muted)] hover:text-[var(--text)] transition"
+                class="text-sm text-[var(--muted)] hover:text-[var(--text)] transition break-all"
                 href="https://github.com/Kabbya04"
                 target="_blank"
                 rel="noreferrer"
@@ -98,18 +98,18 @@ const capstonePeriod = capstone ? formatPeriod(capstone.start, capstone.end) : "
     </div>
 
     <section id="telemetry" class="space-y-6">
-      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
-        <div class="space-y-2">
+      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 sm:gap-6">
+        <div class="space-y-2 min-w-0">
           <p class="eyebrow">Live</p>
-          <h2 class="font-display text-3xl md:text-4xl">Build telemetry</h2>
+          <h2 class="font-display text-2xl sm:text-3xl md:text-4xl">Build telemetry</h2>
         </div>
-        <p class="text-[var(--muted)] max-w-xl">
+        <p class="text-[var(--muted)] max-w-xl text-sm sm:text-base">
           Real-time public GitHub activity and runtime signal from this deployed site.
         </p>
       </div>
 
-      <div class="card p-6 space-y-5">
-        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div class="card p-4 sm:p-6 space-y-5">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
           <div class="telemetry-item">
             <p class="telemetry-label">Active repo</p>
             <a
@@ -117,7 +117,7 @@ const capstonePeriod = capstone ? formatPeriod(capstone.start, capstone.end) : "
               href="https://github.com/Kabbya04"
               target="_blank"
               rel="noreferrer"
-              class="telemetry-value hover:text-[var(--text)] transition"
+              class="telemetry-value hover:text-[var(--text)] transition break-all"
             >
               Loading...
             </a>
@@ -149,33 +149,33 @@ const capstonePeriod = capstone ? formatPeriod(capstone.start, capstone.end) : "
       </div>
     </section>
 
-    <section id="experience" class="space-y-8">
-      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
-        <div class="space-y-2">
+    <section id="experience" class="space-y-6 sm:space-y-8">
+      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 sm:gap-6">
+        <div class="space-y-2 min-w-0">
           <p class="eyebrow">Experience</p>
-          <h2 class="font-display text-3xl md:text-4xl">
+          <h2 class="font-display text-2xl sm:text-3xl md:text-4xl">
             Shipping AI + product experiences
           </h2>
         </div>
-        <p class="text-[var(--muted)] max-w-xl">
+        <p class="text-[var(--muted)] max-w-xl text-sm sm:text-base">
           I work across backend intelligence and frontend polish, turning models into
           clear, responsive products.
         </p>
       </div>
-      <div class="grid lg:grid-cols-2 gap-6">
+      <div class="grid lg:grid-cols-2 gap-4 sm:gap-6">
         {experience.map((role) => (
-          <div class="card p-6 space-y-4">
-            <div class="flex items-start justify-between gap-4">
-              <div>
-                <h3 class="text-xl font-semibold">{role.title}</h3>
+          <div class="card p-4 sm:p-6 space-y-4">
+            <div class="flex items-start justify-between gap-3 sm:gap-4 flex-wrap">
+              <div class="min-w-0">
+                <h3 class="text-lg sm:text-xl font-semibold">{role.title}</h3>
                 <p class="text-sm text-[var(--muted)]">
                   {role.subtitle} · {formatPeriod(role.start, role.end)}
                 </p>
               </div>
-              <span class="chip">Client work</span>
+              <span class="chip shrink-0">Client work</span>
             </div>
             {role.description && (
-              <p class="text-[var(--muted)]">{role.description}</p>
+              <p class="text-[var(--muted)] text-sm sm:text-base">{role.description}</p>
             )}
             {role.tags && (
               <div class="flex flex-wrap gap-2">
@@ -189,31 +189,31 @@ const capstonePeriod = capstone ? formatPeriod(capstone.start, capstone.end) : "
       </div>
     </section>
 
-    <section id="education" class="space-y-8">
-      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
-        <div class="space-y-2">
+    <section id="education" class="space-y-6 sm:space-y-8">
+      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 sm:gap-6">
+        <div class="space-y-2 min-w-0">
           <p class="eyebrow">Education & Capstone</p>
-          <h2 class="font-display text-3xl md:text-4xl">
+          <h2 class="font-display text-2xl sm:text-3xl md:text-4xl">
             Academic focus and applied research
           </h2>
         </div>
-        <p class="text-[var(--muted)] max-w-xl">
+        <p class="text-[var(--muted)] max-w-xl text-sm sm:text-base">
           Balancing core CS fundamentals with hands-on AI systems built for real-world impact.
         </p>
       </div>
-      <div class="grid lg:grid-cols-2 gap-6">
-        <div class="card p-6 space-y-4">
-          <div class="flex items-start justify-between gap-4">
-            <div>
-              <h3 class="text-xl font-semibold">{primaryEducation?.title}</h3>
+      <div class="grid lg:grid-cols-2 gap-4 sm:gap-6">
+        <div class="card p-4 sm:p-6 space-y-4">
+          <div class="flex items-start justify-between gap-3 sm:gap-4 flex-wrap">
+            <div class="min-w-0">
+              <h3 class="text-lg sm:text-xl font-semibold">{primaryEducation?.title}</h3>
               <p class="text-sm text-[var(--muted)]">
                 {primaryEducation?.subtitle} · {educationPeriod}
               </p>
             </div>
-            <span class="chip">Dhaka, Bangladesh</span>
+            <span class="chip shrink-0">Dhaka, Bangladesh</span>
           </div>
           {primaryEducation?.description && (
-            <p class="text-[var(--muted)]">{primaryEducation.description}</p>
+            <p class="text-[var(--muted)] text-sm sm:text-base">{primaryEducation.description}</p>
           )}
           {primaryEducation?.tags && (
             <div class="flex flex-wrap gap-2">
@@ -223,16 +223,16 @@ const capstonePeriod = capstone ? formatPeriod(capstone.start, capstone.end) : "
             </div>
           )}
         </div>
-        <div class="card p-6 space-y-4">
-          <div class="flex items-start justify-between gap-4 flex-wrap">
-            <div>
-              <h3 class="text-xl font-semibold">Capstone · {capstone?.title}</h3>
+        <div class="card p-4 sm:p-6 space-y-4">
+          <div class="flex items-start justify-between gap-3 sm:gap-4 flex-wrap">
+            <div class="min-w-0">
+              <h3 class="text-lg sm:text-xl font-semibold">Capstone · {capstone?.title}</h3>
               <p class="text-sm text-[var(--muted)]">
                 {capstonePeriod} · {capstone?.subtitle}
               </p>
             </div>
             <a
-              class="btn btn-outline text-sm"
+              class="btn btn-outline text-sm shrink-0"
               href={capstone?.github ?? "https://github.com/rajin-khan/AIris"}
               target="_blank"
               rel="noreferrer"
@@ -241,7 +241,7 @@ const capstonePeriod = capstone ? formatPeriod(capstone.start, capstone.end) : "
             </a>
           </div>
           {capstone?.description && (
-            <p class="text-[var(--muted)]">{capstone.description}</p>
+            <p class="text-[var(--muted)] text-sm sm:text-base">{capstone.description}</p>
           )}
           {capstone?.tags && (
             <div class="flex flex-wrap gap-2">
@@ -254,22 +254,22 @@ const capstonePeriod = capstone ? formatPeriod(capstone.start, capstone.end) : "
       </div>
     </section>
 
-    <section id="skills" class="space-y-8">
-      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
-        <div class="space-y-2">
+    <section id="skills" class="space-y-6 sm:space-y-8">
+      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 sm:gap-6">
+        <div class="space-y-2 min-w-0">
           <p class="eyebrow">Skills</p>
-          <h2 class="font-display text-3xl md:text-4xl">
+          <h2 class="font-display text-2xl sm:text-3xl md:text-4xl">
             A focused, modern toolbox
           </h2>
         </div>
-        <p class="text-[var(--muted)] max-w-xl">
+        <p class="text-[var(--muted)] max-w-xl text-sm sm:text-base">
           From systems and models to UI and product polish, I keep the stack tight and the
           delivery fast.
         </p>
       </div>
-      <div class="grid lg:grid-cols-[1.2fr_0.8fr] gap-8 items-center">
+      <div class="grid lg:grid-cols-[1.2fr_0.8fr] gap-6 sm:gap-8 items-stretch">
         <SkillsList client:load />
-        <div class="card p-6 flex items-center justify-center h-64 md:h-80">
+        <div class="card p-4 sm:p-6 flex items-center justify-center h-48 sm:h-64 md:h-80 min-h-0 overflow-hidden">
           <LetterGlitch
             client:load
             glitchColors={["#b7ff5a", "#6ea8ff", "#ff8a5c"]}
@@ -298,23 +298,32 @@ const capstonePeriod = capstone ? formatPeriod(capstone.start, capstone.end) : "
 
   .telemetry-item {
     border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 0.85rem 1rem;
+    border-radius: 14px;
+    padding: 0.75rem 0.9rem;
     background: color-mix(in srgb, var(--surface) 78%, transparent);
+    min-width: 0;
+  }
+
+  @media (min-width: 640px) {
+    .telemetry-item {
+      border-radius: 16px;
+      padding: 0.85rem 1rem;
+    }
   }
 
   .telemetry-label {
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     text-transform: uppercase;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.1em;
     color: var(--muted);
     margin-bottom: 0.35rem;
   }
 
   .telemetry-value {
-    font-size: 1rem;
+    font-size: 0.95rem;
     color: var(--text);
     font-weight: 600;
+    word-break: break-word;
   }
 </style>
 

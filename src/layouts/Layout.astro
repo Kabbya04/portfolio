@@ -54,7 +54,7 @@ const { title , description="AI Engineer and Frontend Engineer" } = Astro.props;
       document.documentElement.dataset.theme = initialTheme;
     </script>
   </head>
-  <body class="bg-[--background] px-6 md:px-12 lg:px-20 antialiased">
+  <body class="bg-[--background] px-4 sm:px-6 md:px-10 lg:px-16 xl:px-20 antialiased">
     <div id="theme-transition" aria-hidden="true"></div>
     <slot />
   </body>
@@ -161,12 +161,27 @@ const { title , description="AI Engineer and Frontend Engineer" } = Astro.props;
     letter-spacing: -0.02em;
   }
 
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
   body {
     color: var(--text);
     background: var(--page-bg);
     min-height: 100vh;
+    min-height: 100dvh;
     overflow-x: hidden;
+    padding-bottom: env(safe-area-inset-bottom, 0px);
     transition: background 0.45s ease, color 0.45s ease, border-color 0.45s ease;
+  }
+
+  img,
+  video,
+  canvas,
+  svg {
+    max-width: 100%;
+    height: auto;
   }
 
   #theme-transition {
@@ -215,22 +230,50 @@ const { title , description="AI Engineer and Frontend Engineer" } = Astro.props;
   }
 
   section {
-    scroll-margin-top: 120px;
+    scroll-margin-top: 96px;
+  }
+
+  @media (max-width: 767px) {
+    section {
+      scroll-margin-top: 24px;
+      scroll-margin-bottom: 96px;
+    }
   }
 
   .eyebrow {
     text-transform: uppercase;
-    letter-spacing: 0.32em;
-    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    font-size: 0.68rem;
     color: var(--muted);
+    line-height: 1.5;
+    word-break: break-word;
+  }
+
+  @media (min-width: 640px) {
+    .eyebrow {
+      letter-spacing: 0.28em;
+      font-size: 0.72rem;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .eyebrow {
+      letter-spacing: 0.32em;
+    }
   }
 
   .card {
     background: var(--card-bg);
     border: 1px solid var(--border);
-    border-radius: 24px;
+    border-radius: 20px;
     box-shadow: var(--shadow-soft);
     transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  @media (min-width: 768px) {
+    .card {
+      border-radius: 24px;
+    }
   }
 
   @media (hover: hover) {
@@ -281,11 +324,20 @@ const { title , description="AI Engineer and Frontend Engineer" } = Astro.props;
     align-items: center;
     justify-content: center;
     gap: 0.45rem;
-    padding: 0.7rem 1.2rem;
+    padding: 0.65rem 1.05rem;
     border-radius: 999px;
     font-weight: 600;
-    font-size: 0.95rem;
+    font-size: 0.9rem;
+    line-height: 1.2;
+    white-space: nowrap;
     transition: all 0.2s ease;
+  }
+
+  @media (min-width: 640px) {
+    .btn {
+      padding: 0.7rem 1.2rem;
+      font-size: 0.95rem;
+    }
   }
 
   .btn-primary {

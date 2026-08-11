@@ -26,29 +26,29 @@ const sortedTimeline = [...timelineEntries].sort((a, b) => {
 });
 ---
 
-<section class="text-[var(--text)] mt-12 md:mt-0" id="about">
-  <div class="max-w-6xl mx-auto md:py-28 pb-16 space-y-14">
-    <div class="grid lg:grid-cols-[1.1fr_0.9fr] gap-12 items-center">
-      <div class="space-y-6">
+<section class="text-[var(--text)] mt-8 sm:mt-12 md:mt-0" id="about">
+  <div class="max-w-6xl mx-auto md:py-28 py-10 sm:pb-16 space-y-10 sm:space-y-14">
+    <div class="grid lg:grid-cols-[1.1fr_0.9fr] gap-8 sm:gap-12 items-center">
+      <div class="space-y-5 sm:space-y-6 min-w-0">
         <p class="eyebrow">About</p>
-        <h1 class="font-display text-4xl md:text-5xl leading-tight">
+        <h1 class="font-display text-[2rem] leading-[1.15] sm:text-4xl md:text-5xl md:leading-tight">
           Designing AI experiences that feel intuitive.
         </h1>
-        <p class="text-lg text-[var(--muted)]">
-          I’m Saumik Saha Kabbya, a computer science student in Dhaka with a focus on
+        <p class="text-base sm:text-lg text-[var(--muted)]">
+          I’m Saumik Saha Kabbya, a computer science graduate in Dhaka with a focus on
           LLMs, computer vision, and frontend product design. I like taking ambiguous
           problems and shaping them into clear, fast, user-ready tools.
         </p>
-        <p class="text-[var(--muted)]">
+        <p class="text-[var(--muted)] text-sm sm:text-base">
           My work blends AI engineering with product thinking. I build the pipelines,
           then I craft the UI so the intelligence actually feels useful.
         </p>
-        <div class="flex flex-wrap gap-3">
+        <div class="flex flex-wrap gap-2 sm:gap-3">
           <span class="chip">AI Engineer</span>
           <span class="chip">Frontend Engineer</span>
           <span class="chip">Accessibility-first</span>
         </div>
-        <div class="flex flex-wrap gap-3 pt-2">
+        <div class="flex flex-wrap gap-2 sm:gap-3 pt-2">
           <a class="btn btn-outline text-sm" href="mailto:saumik.kabbya@gmail.com">
             Email
           </a>
@@ -61,15 +61,15 @@ const sortedTimeline = [...timelineEntries].sort((a, b) => {
         </div>
       </div>
 
-      <div class="card p-6 flex flex-col items-center text-center space-y-4">
+      <div class="card p-4 sm:p-6 flex flex-col items-center text-center space-y-4">
         <img
           alt="Saumik Saha Kabbya portrait"
           src="/Kabbya.png"
-          class="w-56 h-56 rounded-full object-cover ring-2 ring-[var(--accent-3)]/40"
+          class="w-40 h-40 sm:w-56 sm:h-56 rounded-full object-cover ring-2 ring-[var(--accent-3)]/40"
         />
         <div>
           <p class="text-sm text-[var(--muted)]">Currently based in</p>
-          <p class="text-lg font-semibold">Dhaka, Bangladesh</p>
+          <p class="text-base sm:text-lg font-semibold">Dhaka, Bangladesh</p>
         </div>
         <div class="flex flex-wrap gap-2 justify-center">
           <span class="chip">LLMs</span>
@@ -79,10 +79,10 @@ const sortedTimeline = [...timelineEntries].sort((a, b) => {
       </div>
     </div>
 
-    <div class="grid lg:grid-cols-2 gap-6">
-      <div class="card p-6 space-y-4">
-        <h2 class="text-2xl font-semibold">Experience Snapshot</h2>
-        <p class="text-[var(--muted)]">
+    <div class="grid lg:grid-cols-2 gap-4 sm:gap-6">
+      <div class="card p-4 sm:p-6 space-y-4">
+        <h2 class="text-xl sm:text-2xl font-semibold">Experience Snapshot</h2>
+        <p class="text-[var(--muted)] text-sm sm:text-base">
           {experience[0]?.description ??
             "At The Data Island, I shipped AI and computer vision solutions using FastAPI, Groq AI, Ultralytics YOLO, and PyTorch, alongside Next.js for the frontend."}
         </p>
@@ -94,9 +94,9 @@ const sortedTimeline = [...timelineEntries].sort((a, b) => {
           </div>
         )}
       </div>
-      <div class="card p-6 space-y-4">
-        <h2 class="text-2xl font-semibold">Education</h2>
-        <p class="text-[var(--muted)]">
+      <div class="card p-4 sm:p-6 space-y-4">
+        <h2 class="text-xl sm:text-2xl font-semibold">Education</h2>
+        <p class="text-[var(--muted)] text-sm sm:text-base">
           {education[0]?.subtitle} at {education[0]?.title} ({formatPeriod(education[0]?.start ?? "2022-01", education[0]?.end)}).
         </p>
         {education[0]?.tags && (
@@ -110,12 +110,12 @@ const sortedTimeline = [...timelineEntries].sort((a, b) => {
     </div>
 
     <div class="space-y-6">
-      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
-        <div class="space-y-2">
+      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 sm:gap-6">
+        <div class="space-y-2 min-w-0">
           <p class="eyebrow">Timeline</p>
-          <h2 class="text-2xl md:text-3xl font-semibold">Progress Ladder</h2>
+          <h2 class="text-xl sm:text-2xl md:text-3xl font-semibold">Progress Ladder</h2>
         </div>
-        <p class="text-[var(--muted)] max-w-xl">
+        <p class="text-[var(--muted)] max-w-xl text-sm sm:text-base">
           A quick view of how my education, work, and standout projects have unfolded.
         </p>
       </div>
@@ -158,15 +158,21 @@ const sortedTimeline = [...timelineEntries].sort((a, b) => {
 <style>
   .timeline {
     display: grid;
-    gap: 1.2rem;
+    gap: 1rem;
     position: relative;
   }
 
   .timeline-row {
     display: grid;
-    grid-template-columns: 1fr 64px 1fr;
+    grid-template-columns: 1fr 48px 1fr;
     align-items: center;
     position: relative;
+  }
+
+  @media (min-width: 1024px) {
+    .timeline-row {
+      grid-template-columns: 1fr 64px 1fr;
+    }
   }
 
   .timeline::before {
@@ -184,11 +190,12 @@ const sortedTimeline = [...timelineEntries].sort((a, b) => {
   .timeline-date {
     display: inline-flex;
     align-self: flex-start;
-    font-size: 0.85rem;
+    font-size: 0.75rem;
     color: var(--muted);
-    letter-spacing: 0.08em;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
     margin-bottom: 0.35rem;
+    word-break: break-word;
   }
 
   .timeline-spine {
@@ -219,10 +226,11 @@ const sortedTimeline = [...timelineEntries].sort((a, b) => {
   .timeline-card {
     background: var(--timeline-bg);
     border: 1px solid var(--border);
-    border-radius: 18px;
-    padding: 0.9rem 1.2rem;
+    border-radius: 16px;
+    padding: 0.85rem 1rem;
     position: relative;
     width: min(100%, 340px);
+    min-width: 0;
   }
 
   .timeline-row.left .timeline-card {
@@ -236,18 +244,20 @@ const sortedTimeline = [...timelineEntries].sort((a, b) => {
   }
 
   .timeline-card h3 {
-    font-size: 1rem;
+    font-size: 0.95rem;
     margin-bottom: 0.15rem;
+    word-break: break-word;
   }
 
   .timeline-card p {
     color: var(--muted);
-    font-size: 0.9rem;
+    font-size: 0.85rem;
+    word-break: break-word;
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 899px) {
     .timeline-row {
-      grid-template-columns: 24px 1fr;
+      grid-template-columns: 24px minmax(0, 1fr);
       gap: 0.75rem;
     }
 
@@ -258,7 +268,9 @@ const sortedTimeline = [...timelineEntries].sort((a, b) => {
     .timeline-card {
       margin-left: 0;
       width: 100%;
-      text-align: left;
+      max-width: none;
+      text-align: left !important;
+      justify-self: stretch !important;
       grid-column: 2;
     }
 
@@ -268,6 +280,11 @@ const sortedTimeline = [...timelineEntries].sort((a, b) => {
 
     .timeline-spine {
       grid-column: 1;
+      grid-row: 1;
+    }
+
+    .timeline-date {
+      letter-spacing: 0.04em;
     }
   }
 </style>

@@ -2,32 +2,32 @@
 import { projects, formatPeriod } from "@/data/portfolio";
 ---
 
-<section id="projects" class="py-16 border-t border-[var(--border)]">
-  <div class="max-w-6xl mx-auto space-y-8">
-    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
-      <div class="space-y-2">
+<section id="projects" class="py-12 sm:py-16 border-t border-[var(--border)]">
+  <div class="max-w-6xl mx-auto space-y-6 sm:space-y-8">
+    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 sm:gap-6">
+      <div class="space-y-2 min-w-0">
         <p class="eyebrow">Projects</p>
-        <h2 class="font-display text-3xl md:text-4xl">Selected builds</h2>
+        <h2 class="font-display text-2xl sm:text-3xl md:text-4xl">Selected builds</h2>
       </div>
-      <p class="text-[var(--muted)] max-w-xl">
+      <p class="text-[var(--muted)] max-w-xl text-sm sm:text-base">
         AI-driven tools, recommendation systems, and accessibility-first products that ship
         with clarity and speed.
       </p>
     </div>
 
-    <div class="grid md:grid-cols-2 gap-6">
+    <div class="grid sm:grid-cols-2 gap-4 sm:gap-6">
       {
         projects.map((project) => (
           <div class="project-card" style={`--accent-color:${project.accent};`}>
             <div class="project-glow" />
-            <div class="flex items-start justify-between gap-4">
-              <div>
+            <div class="flex items-start justify-between gap-3 sm:gap-4">
+              <div class="min-w-0">
                 <p class="text-sm text-[var(--muted)]">
                   {formatPeriod(project.start, project.end)}
                 </p>
-                <h3 class="text-2xl font-semibold mt-1">{project.title}</h3>
+                <h3 class="text-xl sm:text-2xl font-semibold mt-1 break-words">{project.title}</h3>
               </div>
-                <div class="flex items-center gap-2">
+                <div class="flex items-center gap-2 shrink-0">
                 {project.github && (
                   <a
                     class="project-link"
@@ -66,7 +66,7 @@ import { projects, formatPeriod } from "@/data/portfolio";
                 )}
               </div>
             </div>
-            <p class="text-[var(--muted)] mt-4">{project.description}</p>
+            <p class="text-[var(--muted)] mt-4 text-sm sm:text-base">{project.description}</p>
             <div class="flex flex-wrap gap-2 mt-4">
               {project.tags.map((tag) => (
                 <span class="chip text-xs">{tag}</span>
@@ -93,24 +93,38 @@ import { projects, formatPeriod } from "@/data/portfolio";
   .project-card {
     position: relative;
     overflow: hidden;
-    padding: 1.75rem;
-    border-radius: 24px;
+    padding: 1.25rem;
+    border-radius: 20px;
     background: var(--card-bg);
     border: 1px solid var(--border);
     box-shadow: var(--shadow-soft);
     transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
   }
 
+  @media (min-width: 640px) {
+    .project-card {
+      padding: 1.75rem;
+      border-radius: 24px;
+    }
+  }
+
   .project-glow {
     position: absolute;
     inset: -40% 40% auto auto;
-    width: 220px;
-    height: 220px;
+    width: 180px;
+    height: 180px;
     background: radial-gradient(circle, var(--accent-color) 0%, transparent 65%);
     opacity: 0.35;
     filter: blur(10px);
     pointer-events: none;
     transition: opacity 0.25s ease, transform 0.35s ease;
+  }
+
+  @media (min-width: 640px) {
+    .project-glow {
+      width: 220px;
+      height: 220px;
+    }
   }
 
   @media (hover: hover) {
@@ -130,13 +144,20 @@ import { projects, formatPeriod } from "@/data/portfolio";
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 38px;
-    height: 38px;
+    width: 36px;
+    height: 36px;
     border-radius: 999px;
     border: 1px solid var(--border);
     color: var(--text);
     background: rgba(16, 24, 36, 0.6);
     transition: all 0.2s ease;
+  }
+
+  @media (min-width: 640px) {
+    .project-link {
+      width: 38px;
+      height: 38px;
+    }
   }
 
   :root[data-theme="light"] .project-link {

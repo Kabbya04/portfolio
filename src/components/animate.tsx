@@ -15,7 +15,7 @@ export default function AnimatedImage() {
         <motion.img
           src="/Kabbya.png"
           alt="Profile"
-          className="w-48 md:w-80 rounded-full relative ring-2 ring-[var(--accent-3)]/40"
+          className="w-40 sm:w-48 md:w-80 rounded-full relative ring-2 ring-[var(--accent-3)]/40"
           style={{ objectFit: "cover" }}
           whileHover={{ scale: 1.06 }}
           transition={{ duration: 0.3 }}

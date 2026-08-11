@@ -65,7 +65,7 @@ export const experience: TimelineEntry[] = [
     start: "2025-03",
     end: "2025-09",
     description:
-      "Built AI and computer vision solutions using Remote Python, FastAPI, Groq AI, Ultralytics YOLO, and PyTorch, paired with Next.js for production-grade UIs.",
+      "Developed computer vision and AI-powered client solutions with Python, FastAPI, and Groq AI; built YOLO/PyTorch detection pipelines and Next.js frontends for end-to-end AI features.",
     tags: ["FastAPI", "Groq", "YOLO", "PyTorch", "Next.js"],
   },
 ];
@@ -76,9 +76,9 @@ export const education: TimelineEntry[] = [
     title: "North South University",
     subtitle: "BSc in Computer Science & Engineering",
     start: "2022-01",
-    end: null,
+    end: "2025-12",
     description:
-      "Focused on intelligent systems, full-stack engineering, and applied AI research.",
+      "Focused on intelligent systems, full-stack engineering, and applied AI research. GPA: 3.66.",
     tags: ["AI/ML", "Software Engineering", "Human-centered design"],
   },
 ];
@@ -98,6 +98,19 @@ export const projects: Project[] = [
     accent: "#6ea8ff",
   },
   {
+    id: "honey-and-hue",
+    title: "Honey & Hue",
+    subtitle: "Gift & accessories storefront",
+    start: "2026-08",
+    end: null,
+    description:
+      "A website for a Dhaka, Bangladesh-based small business selling gift items, accessories, and more.",
+    tags: ["E-commerce", "Small Business", "Vercel"],
+    github: null,
+    live: "https://honey-and-hue.vercel.app/",
+    accent: "#f0abfc",
+  },
+  {
     id: "gravitas",
     title: "Gravitas",
     subtitle: "Legal document understanding & drafting",
@@ -109,6 +122,19 @@ export const projects: Project[] = [
     github: "https://github.com/Kabbya04/Gravitas",
     live: null,
     accent: "#a78bfa",
+  },
+  {
+    id: "hazel-studio-bd",
+    title: "Hazel Studio",
+    subtitle: "Cosmetics brand website",
+    start: "2026-01",
+    end: null,
+    description:
+      "Website for the Bangladeshi cosmetics brand Hazel Studio, built with React, Vite, and Supabase.",
+    tags: ["React", "Vite", "Supabase", "Tailwind CSS"],
+    github: null,
+    live: "https://www.hazelstudiobd.com/",
+    accent: "#ffb4d6",
   },
   {
     id: "zappy",
@@ -148,29 +174,6 @@ export const projects: Project[] = [
     github: "https://github.com/Kabbya04/NodeNest",
     live: "https://node-nest-omega.vercel.app/",
     accent: "#7dd3fc",
-  },
-  {
-    id: "hazel-studio-bd",
-    title: "Hazel Studio BD",
-    subtitle: "Modern studio website",
-    start: "2025-12",
-    end: null,
-    description:
-      "Website for Hazel Studio BD with a modern frontend, Supabase-backed services, and a secure Postgres data layer.",
-    tags: [
-      "React 18",
-      "TypeScript",
-      "React Router",
-      "Tailwind CSS",
-      "Zustand",
-      "Vite",
-      "Supabase",
-      "PostgreSQL",
-      "RLS",
-    ],
-    github: null,
-    live: "https://www.hazelstudiobd.com/",
-    accent: "#ffb4d6",
   },
   {
     id: "omni-game",

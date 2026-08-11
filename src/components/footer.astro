@@ -2,13 +2,13 @@
 import LikeButton from "../React/LikeButton.tsx";
 ---
 
-<footer class="w-full py-14 border-t border-[var(--border)]">
-  <div class="max-w-6xl mx-auto space-y-10">
-    <div class="grid grid-cols-1 lg:grid-cols-[1.1fr_0.7fr_0.7fr_0.9fr] gap-8">
-      <div class="space-y-6">
+<footer class="w-full py-10 sm:py-14 border-t border-[var(--border)]">
+  <div class="max-w-6xl mx-auto space-y-8 sm:space-y-10">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[1.1fr_0.7fr_0.7fr] gap-8">
+      <div class="space-y-6 sm:col-span-2 lg:col-span-1">
         <div class="space-y-3">
           <p class="eyebrow">Saumik Saha Kabbya</p>
-          <p class="text-lg text-[var(--muted)] max-w-md">
+          <p class="text-base sm:text-lg text-[var(--muted)] max-w-md">
             AI engineer crafting fast, accessible, and human-first experiences.
           </p>
         </div>
@@ -47,7 +47,7 @@ import LikeButton from "../React/LikeButton.tsx";
       </div>
 
       <div class="space-y-4">
-        <p class="text-sm text-[var(--muted)] uppercase tracking-[0.28em]">Navigate</p>
+        <p class="text-sm text-[var(--muted)] uppercase tracking-[0.18em] sm:tracking-[0.28em]">Navigate</p>
         <div class="flex flex-col gap-2 text-[var(--muted)]">
           <a class="hover:text-[var(--text)] transition" href="/#home">Home</a>
           <a class="hover:text-[var(--text)] transition" href="/#experience">Experience</a>
@@ -59,7 +59,7 @@ import LikeButton from "../React/LikeButton.tsx";
       </div>
 
       <div class="space-y-4">
-        <p class="text-sm text-[var(--muted)] uppercase tracking-[0.28em]">Stack</p>
+        <p class="text-sm text-[var(--muted)] uppercase tracking-[0.18em] sm:tracking-[0.28em]">Stack</p>
         <div class="grid grid-cols-1 gap-3 w-full max-w-xs text-[var(--muted)] text-sm">
           <div class="flex items-center space-x-3">
             <img
@@ -93,8 +93,8 @@ import LikeButton from "../React/LikeButton.tsx";
 
     </div>
 
-    <div class="mt-10 pt-6 border-t border-[var(--border)] text-sm text-[var(--muted)]">
-      <p class="text-center">
+    <div class="mt-6 sm:mt-10 pt-6 border-t border-[var(--border)] text-sm text-[var(--muted)]">
+      <p class="text-center px-2">
         © 2026 Saumik Saha Kabbya. Template credit:
         <a class="hover:text-[var(--text)] transition" href="https://github.com/Gothsec">
           Oscar Hernandez
