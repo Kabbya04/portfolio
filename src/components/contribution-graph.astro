@@ -1,0 +1,243 @@
+---
+const username = "Kabbya04";
+---
+
+<div class="contribution-graph" id="contribution-graph" data-username={username}>
+  <div class="contribution-graph-header">
+    <p class="contribution-graph-total" id="contribution-total">Loading contribution map…</p>
+    <a
+      class="contribution-graph-link"
+      href={`https://github.com/${username}`}
+      target="_blank"
+      rel="noreferrer"
+    >
+      @{username}
+    </a>
+  </div>
+
+  <div class="contribution-graph-scroll" id="contribution-scroll" hidden>
+    <div class="contribution-graph-grid" id="contribution-grid" role="img" aria-label="GitHub contribution map for the last year"></div>
+  </div>
+
+  <div class="contribution-graph-legend" id="contribution-legend" hidden aria-hidden="true">
+    <span>Less</span>
+    <span class="contribution-cell" data-level="0"></span>
+    <span class="contribution-cell" data-level="1"></span>
+    <span class="contribution-cell" data-level="2"></span>
+    <span class="contribution-cell" data-level="3"></span>
+    <span class="contribution-cell" data-level="4"></span>
+    <span>More</span>
+  </div>
+</div>
+
+<style>
+  .contribution-graph {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+
+  .contribution-graph-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.5rem 1rem;
+  }
+
+  .contribution-graph-total {
+    font-size: 0.82rem;
+    color: var(--muted);
+  }
+
+  .contribution-graph :global(.contribution-graph-count) {
+    font-family: "Syne", "Space Grotesk", system-ui, sans-serif;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .contribution-graph-link {
+    font-size: 0.78rem;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .contribution-graph-link:hover {
+    color: var(--text);
+  }
+
+  .contribution-graph-scroll {
+    overflow-x: auto;
+    padding-bottom: 0.25rem;
+    -webkit-overflow-scrolling: touch;
+    min-height: 7.5rem;
+  }
+
+  .contribution-graph-grid {
+    display: flex;
+    gap: 3px;
+    min-width: max-content;
+  }
+
+  .contribution-graph :global(.contribution-week) {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .contribution-graph :global(.contribution-cell) {
+    width: 11px;
+    height: 11px;
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+
+  @media (min-width: 640px) {
+    .contribution-graph :global(.contribution-cell) {
+      width: 12px;
+      height: 12px;
+    }
+  }
+
+  .contribution-graph :global(.contribution-cell-empty) {
+    background: transparent;
+  }
+
+  .contribution-graph :global(.contribution-cell[data-level="0"]) {
+    background: color-mix(in srgb, var(--border) 88%, var(--surface));
+  }
+
+  .contribution-graph :global(.contribution-cell[data-level="1"]) {
+    background: color-mix(in srgb, var(--accent) 28%, var(--surface));
+  }
+
+  .contribution-graph :global(.contribution-cell[data-level="2"]) {
+    background: color-mix(in srgb, var(--accent) 48%, var(--surface));
+  }
+
+  .contribution-graph :global(.contribution-cell[data-level="3"]) {
+    background: color-mix(in srgb, var(--accent) 68%, var(--surface));
+  }
+
+  .contribution-graph :global(.contribution-cell[data-level="4"]) {
+    background: color-mix(in srgb, var(--accent) 88%, var(--surface));
+  }
+
+  .contribution-graph-legend {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 3px;
+    font-size: 0.7rem;
+    color: var(--muted);
+  }
+
+  .contribution-graph-legend .contribution-cell {
+    width: 10px;
+    height: 10px;
+  }
+</style>
+
+<script>
+  const API = "https://github-contributions-api.jogruber.de/v4";
+
+  const formatDayLabel = (date) => {
+    const value = new Date(`${date}T00:00:00Z`);
+    return value.toLocaleDateString(undefined, {
+      weekday: "short",
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    });
+  };
+
+  const toWeeks = (contributions) => {
+    if (!contributions.length) return [];
+
+    const weeks = [];
+    let week = [];
+    const firstDay = new Date(`${contributions[0].date}T00:00:00Z`).getUTCDay();
+
+    for (let index = 0; index < firstDay; index += 1) {
+      week.push(null);
+    }
+
+    contributions.forEach((day) => {
+      week.push(day);
+      if (week.length === 7) {
+        weeks.push(week);
+        week = [];
+      }
+    });
+
+    if (week.length) {
+      while (week.length < 7) week.push(null);
+      weeks.push(week);
+    }
+
+    return weeks;
+  };
+
+  const renderGraph = (contributions) => {
+    const grid = document.getElementById("contribution-grid");
+    if (!grid) return;
+
+    grid.replaceChildren();
+
+    toWeeks(contributions).forEach((week) => {
+      const weekEl = document.createElement("div");
+      weekEl.className = "contribution-week";
+
+      week.forEach((day) => {
+        const cell = document.createElement("span");
+        cell.className = "contribution-cell";
+
+        if (!day) {
+          cell.classList.add("contribution-cell-empty");
+          cell.setAttribute("aria-hidden", "true");
+        } else {
+          cell.dataset.level = String(day.level);
+          cell.title = `${day.count} contribution${day.count === 1 ? "" : "s"} on ${formatDayLabel(day.date)}`;
+        }
+
+        weekEl.appendChild(cell);
+      });
+
+      grid.appendChild(weekEl);
+    });
+  };
+
+  const loadContributionMap = async () => {
+    const root = document.getElementById("contribution-graph");
+    const totalEl = document.getElementById("contribution-total");
+    const scrollEl = document.getElementById("contribution-scroll");
+    const legendEl = document.getElementById("contribution-legend");
+    const username = root?.dataset.username || "Kabbya04";
+
+    try {
+      const response = await fetch(`${API}/${username}?y=last`);
+      if (!response.ok) throw new Error("Failed to load contributions");
+
+      const data = await response.json();
+      const total = data.total?.lastYear ?? 0;
+      const contributions = data.contributions ?? [];
+
+      if (totalEl) {
+        totalEl.replaceChildren();
+        const count = document.createElement("span");
+        count.className = "contribution-graph-count";
+        count.textContent = String(total);
+        totalEl.append(count, " public contributions in the last year");
+      }
+
+      renderGraph(contributions);
+      scrollEl?.removeAttribute("hidden");
+      legendEl?.removeAttribute("hidden");
+    } catch {
+      if (totalEl) totalEl.textContent = "Contribution map unavailable right now.";
+    }
+  };
+
+  loadContributionMap();
+</script>
