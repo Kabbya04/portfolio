@@ -1,52 +1,128 @@
 ---
-const technologies = [
-  "python",
-  "javaScript",
-  "typeScript",
-  "java",
-  "C",
-  "C++",
-  "HTML",
-  "CSS",
-  "nodejs",
-  "react",
-  "astro",
-  "tailwindcss",
-  "flutter",
-  "dart",
-  "git",
-  "vercel",
-];
+import {
+  getConceptItems,
+  getMarqueeItems,
+  getPopupTechItems,
+  stackCategories,
+} from "@/data/stack";
+
+const marqueeItems = getMarqueeItems();
 ---
 
-<div class="relative overflow-x-hidden py-6 sm:py-8">
-  <div
-    class="pointer-events-none absolute inset-y-0 left-0 w-12 sm:w-24 md:w-32 bg-gradient-to-r from-[var(--background)] to-transparent z-20"
-  >
-  </div>
-  <div
-    class="pointer-events-none absolute inset-y-0 right-0 w-12 sm:w-24 md:w-32 bg-gradient-to-l from-[var(--background)] to-transparent z-20"
-  >
+<div class="space-y-4">
+  <div class="flex justify-end">
+    <button
+      type="button"
+      id="stack-modal-open"
+      class="btn btn-outline text-sm shrink-0"
+      aria-haspopup="dialog"
+      aria-controls="stack-modal"
+    >
+      View full stack
+    </button>
   </div>
 
-  <div class="flex animate-scroll hover:animate-paused gap-8 sm:gap-12 md:gap-20 w-max">
-    {
-      [...technologies, ...technologies, ...technologies].map((tech) => (
-        <div class="flex items-center gap-2 group transition-all duration-300">
-          <img
-            src={`/svg/${tech}.svg`}
-            alt={tech}
-            class="h-6 sm:h-7 w-auto object-contain transition-transform group-hover:scale-110 opacity-70"
-            width="30"
-            height="30"
-            loading="lazy"
-          />
-          <span class="text-sm sm:text-lg font-medium text-[var(--muted)] group-hover:text-[var(--text)] transition">
-            {tech.charAt(0).toUpperCase() + tech.slice(1)}
-          </span>
-        </div>
-      ))
-    }
+  <div class="relative overflow-x-hidden py-2 sm:py-4">
+    <div
+      class="pointer-events-none absolute inset-y-0 left-0 w-12 sm:w-24 md:w-32 bg-gradient-to-r from-[var(--background)] to-transparent z-20"
+    >
+    </div>
+    <div
+      class="pointer-events-none absolute inset-y-0 right-0 w-12 sm:w-24 md:w-32 bg-gradient-to-l from-[var(--background)] to-transparent z-20"
+    >
+    </div>
+
+    <div class="flex animate-scroll hover:animate-paused gap-8 sm:gap-12 md:gap-20 w-max">
+      {
+        [...marqueeItems, ...marqueeItems, ...marqueeItems].map((item) => (
+          <div class="flex items-center gap-2 group transition-all duration-300">
+            <img
+              src={`/svg/${item.icon}.svg`}
+              alt=""
+              class="h-6 sm:h-7 w-auto object-contain transition-transform group-hover:scale-110 opacity-80"
+              width="30"
+              height="30"
+              loading="lazy"
+            />
+            <span class="text-sm sm:text-lg font-medium text-[var(--muted)] group-hover:text-[var(--text)] transition whitespace-nowrap">
+              {item.label}
+            </span>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</div>
+
+<div
+  id="stack-modal"
+  class="stack-modal"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="stack-modal-title"
+  hidden
+>
+  <div class="stack-modal-backdrop" data-stack-close></div>
+  <div class="stack-modal-panel card">
+    <div class="stack-modal-header">
+      <div class="space-y-1 min-w-0">
+        <p class="eyebrow">Full stack</p>
+        <h3 id="stack-modal-title" class="font-display text-xl sm:text-2xl">
+          Everything at once
+        </h3>
+      </div>
+      <button
+        type="button"
+        class="stack-modal-close"
+        aria-label="Close stack overview"
+        data-stack-close
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-5">
+          <path d="M12.0007 10.5865L16.9504 5.63672L18.3646 7.05093L13.4149 12.0007L18.3646 16.9504L16.9504 18.3646L12.0007 13.4149L7.05093 18.3646L5.63672 16.9504L10.5865 12.0007L5.63672 7.05093L7.05093 5.63672L12.0007 10.5865Z" />
+        </svg>
+      </button>
+    </div>
+
+    <div class="stack-modal-grid">
+      {
+        stackCategories.map((category) => {
+          const techItems = getPopupTechItems(category);
+          const conceptItems = getConceptItems(category);
+
+          return (
+            <div class="stack-modal-category">
+              <h4>{category.title}</h4>
+
+              {techItems.length > 0 && (
+                <div class="stack-tech-grid">
+                  {techItems.map((item) => (
+                    <div class="stack-tech-badge">
+                      <img
+                        src={`/svg/${item.icon}.svg`}
+                        alt=""
+                        class="stack-tech-badge-icon"
+                        width="22"
+                        height="22"
+                        loading="lazy"
+                      />
+                      <span>{item.label}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {conceptItems.length > 0 && (
+                <div class={`stack-concept-wrap ${techItems.length > 0 ? "mt-3" : ""}`}>
+                  {conceptItems.map((item) => (
+                    <span class="chip text-xs">{item.label}</span>
+                  ))}
+                </div>
+              )}
+            </div>
+          );
+        })
+      }
+    </div>
   </div>
 </div>
 
@@ -72,3 +148,187 @@ const technologies = [
     }
   }
 </style>
+
+<style>
+  .stack-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    display: grid;
+    place-items: center;
+    padding: 1rem;
+  }
+
+  .stack-modal[hidden] {
+    display: none;
+  }
+
+  .stack-modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(4, 8, 16, 0.72);
+    backdrop-filter: blur(6px);
+  }
+
+  :root[data-theme="light"] .stack-modal-backdrop {
+    background: rgba(246, 247, 251, 0.78);
+  }
+
+  .stack-modal-panel {
+    position: relative;
+    z-index: 1;
+    width: min(100%, 56rem);
+    max-height: min(88vh, 46rem);
+    overflow: auto;
+    padding: 1.25rem;
+    margin: auto;
+    animation: stack-modal-in 0.22s ease;
+  }
+
+  @media (min-width: 640px) {
+    .stack-modal-panel {
+      padding: 1.5rem;
+    }
+  }
+
+  @keyframes stack-modal-in {
+    from {
+      opacity: 0;
+      transform: translateY(12px) scale(0.98);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  .stack-modal-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .stack-modal-close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    background: rgba(16, 24, 36, 0.5);
+    transition: border-color 0.2s ease, color 0.2s ease;
+    flex-shrink: 0;
+  }
+
+  :root[data-theme="light"] .stack-modal-close {
+    background: rgba(255, 255, 255, 0.7);
+  }
+
+  .stack-modal-close:hover {
+    border-color: var(--accent-3);
+    color: var(--text);
+  }
+
+  .stack-modal-grid {
+    display: grid;
+    gap: 0.85rem;
+  }
+
+  @media (min-width: 640px) {
+    .stack-modal-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+    }
+  }
+
+  .stack-modal-category {
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 0.9rem 1rem;
+    background: color-mix(in srgb, var(--surface) 70%, transparent);
+  }
+
+  .stack-modal-category h4 {
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+  }
+
+  .stack-tech-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .stack-tech-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.4rem 0.65rem;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: color-mix(in srgb, var(--surface-strong) 82%, transparent);
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--text);
+    transition: border-color 0.2s ease, transform 0.2s ease;
+  }
+
+  @media (hover: hover) {
+    .stack-tech-badge:hover {
+      border-color: var(--accent-3);
+      transform: translateY(-1px);
+    }
+  }
+
+  .stack-tech-badge-icon {
+    width: 1.15rem;
+    height: 1.15rem;
+    object-fit: contain;
+    flex-shrink: 0;
+    opacity: 0.9;
+  }
+
+  .stack-concept-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+  }
+</style>
+
+<script>
+  const modal = document.getElementById("stack-modal");
+  const openBtn = document.getElementById("stack-modal-open");
+  let lastFocused: HTMLElement | null = null;
+
+  const closeModal = () => {
+    if (!modal) return;
+    modal.hidden = true;
+    document.body.style.overflow = "";
+    lastFocused?.focus();
+  };
+
+  const openModal = () => {
+    if (!modal) return;
+    lastFocused = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    modal.hidden = false;
+    document.body.style.overflow = "hidden";
+    modal.querySelector<HTMLElement>(".stack-modal-close")?.focus();
+  };
+
+  openBtn?.addEventListener("click", openModal);
+
+  modal?.querySelectorAll("[data-stack-close]").forEach((el) => {
+    el.addEventListener("click", closeModal);
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && modal && !modal.hidden) {
+      closeModal();
+    }
+  });
+</script>

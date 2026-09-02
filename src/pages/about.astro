@@ -23,6 +23,7 @@ const pageDescription = "Learn more about Saumik Saha Kabbya, an AI and Frontend
 ---
 
 <Layout title={pageTitle} description={pageDescription}>
+  <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
   <Nav />
   <AboutCmp />
   <Footer />

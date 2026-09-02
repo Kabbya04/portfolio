@@ -13,19 +13,8 @@
       </p>
     </div>
 
-    <div class="grid grid-cols-1 lg:grid-cols-[0.9fr_1.1fr] gap-4 sm:gap-8">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-8">
       <div class="card p-4 sm:p-6 space-y-6">
-        <div class="space-y-3 min-w-0">
-          <p class="text-sm text-[var(--muted)] uppercase tracking-[0.18em] sm:tracking-[0.28em]">
-            Direct
-          </p>
-          <a
-            class="text-base sm:text-lg font-semibold hover:text-[var(--accent)] transition break-all"
-            href="mailto:saumik.kabbya@gmail.com"
-          >
-            saumik.kabbya@gmail.com
-          </a>
-        </div>
         <div class="space-y-3">
           <p class="text-sm text-[var(--muted)] uppercase tracking-[0.18em] sm:tracking-[0.28em]">
             Based in
@@ -45,46 +34,38 @@
         </div>
       </div>
 
-      <div class="card p-4 sm:p-6">
-        <form
-          id="contact-form"
-          action="https://formspree.io/f/mnnjznkj"
-          method="POST"
-          class="flex flex-col gap-4"
-        >
-          <input
-            type="text"
-            name="from_name"
-            placeholder="Name"
-            required
-            class="px-4 py-3 bg-[var(--input-bg)] text-[var(--text)] border border-[var(--border)] rounded-xl focus:outline-none focus:ring-2 focus:ring-[var(--accent)] w-full"
-          />
-          <input
-            type="email"
-            name="reply_to"
-            placeholder="Email"
-            required
-            class="px-4 py-3 bg-[var(--input-bg)] text-[var(--text)] border border-[var(--border)] rounded-xl focus:outline-none focus:ring-2 focus:ring-[var(--accent)] w-full"
-          />
-          <textarea
-            name="message"
-            placeholder="Tell me about the problem or opportunity."
-            rows="6"
-            required
-            class="px-4 py-3 bg-[var(--input-bg)] text-[var(--text)] border border-[var(--border)] rounded-xl focus:outline-none focus:ring-2 focus:ring-[var(--accent)] resize-none w-full"
-          ></textarea>
-          <button
-            type="submit"
-            class="btn btn-primary w-full justify-center"
+      <div class="card p-4 sm:p-6 relative overflow-hidden mail-launcher">
+        <div class="mail-launcher-glow" aria-hidden="true"></div>
+        <div class="relative space-y-5">
+          <div class="space-y-2">
+            <p class="eyebrow">Email me</p>
+            <h4 class="font-display text-xl sm:text-2xl leading-snug">
+              Drop a line — I read every message.
+            </h4>
+            <p class="text-[var(--muted)] text-sm sm:text-base">
+              Click below and your mail app opens a draft addressed to me. Tell me
+              what you’re building, what you need, or what caught your eye.
+            </p>
+          </div>
+
+          <div class="mail-launcher-terminal">
+            <p class="text-xs uppercase tracking-[0.2em] text-[var(--muted)] mb-2">
+              Direct line
+            </p>
+            <a
+              class="mail-launcher-link"
+              href="mailto:saumik.kabbya@gmail.com?subject=Hey%20Saumik%20%E2%80%94%20let%27s%20talk"
+            >
+              saumik.kabbya@gmail.com
+            </a>
+          </div>
+
+          <a
+            class="btn btn-primary w-full sm:w-auto justify-center"
+            href="mailto:saumik.kabbya@gmail.com?subject=Hey%20Saumik%20%E2%80%94%20let%27s%20talk"
           >
-            Send message
-          </button>
-        </form>
-        <div
-          id="form-message"
-          class="hidden justify-center items-center mt-4 text-[var(--text)] text-lg"
-        >
-          ✅ Thank you for your message!
+            Compose email
+          </a>
         </div>
       </div>
     </div>
@@ -111,36 +92,35 @@
   </div>
 </section>
 
-<script type="module" is:inline>
-  const form = document.getElementById("contact-form");
-  const formMessage = document.getElementById("form-message");
-
-  if (!form || !formMessage) {
-    console.warn("Contact form not found.");
-  } else {
-    form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    const formData = new FormData(form);
-
-    try {
-      const response = await fetch(form.action, {
-        method: "POST",
-        body: formData,
-        headers: { Accept: "application/json" },
-      });
-      if (response.ok) {
-        form.reset();
-        form.style.display = "none";
-        formMessage.classList.remove("hidden");
-      } else {
-        const data = await response.json();
-        console.error("Error response:", data);
-        alert("There was a problem sending your message.");
-      }
-    } catch (error) {
-      console.error("Error:", error);
-      alert("There was a problem sending your message.");
-    }
-    });
+<style>
+  .mail-launcher-glow {
+    position: absolute;
+    inset: -30% auto auto -20%;
+    width: 220px;
+    height: 220px;
+    background: radial-gradient(circle, var(--accent) 0%, transparent 68%);
+    opacity: 0.2;
+    filter: blur(12px);
+    pointer-events: none;
   }
-</script>
+
+  .mail-launcher-terminal {
+    border: 1px dashed var(--border);
+    border-radius: 16px;
+    padding: 0.9rem 1rem;
+    background: color-mix(in srgb, var(--surface) 75%, transparent);
+  }
+
+  .mail-launcher-link {
+    display: inline-block;
+    font-size: 1rem;
+    font-weight: 600;
+    word-break: break-all;
+    color: var(--text);
+    transition: color 0.2s ease;
+  }
+
+  .mail-launcher-link:hover {
+    color: var(--accent-3);
+  }
+</style>

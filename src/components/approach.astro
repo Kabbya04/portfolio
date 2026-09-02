@@ -1,0 +1,177 @@
+---
+const defaults = [
+  {
+    label: "First move",
+    value: "Ask who uses it before I guess.",
+  },
+  {
+    label: "While building",
+    value: "Prototype before slides.",
+  },
+  {
+    label: "Done means",
+    value: "Accessible, or it stays open.",
+  },
+  {
+    label: "On a team",
+    value: "Updates that move work forward.",
+  },
+];
+---
+
+<section id="approach" class="space-y-6 sm:space-y-8">
+  <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 sm:gap-6">
+    <div class="space-y-2 min-w-0">
+      <p class="eyebrow">Approach</p>
+      <h2 class="font-display text-2xl sm:text-3xl md:text-4xl">
+        How I actually work
+      </h2>
+    </div>
+    <p class="text-[var(--muted)] max-w-xl text-sm sm:text-base">
+      Four defaults I follow on real projects.
+    </p>
+  </div>
+
+  <div class="card p-4 sm:p-6 lg:p-8">
+    <div class="approach-grid">
+      <div class="approach-voice">
+        <p class="approach-lead">
+          I build the model and the UI. On AIris, Gravitas, and client work,
+          splitting those two is usually where things fall apart.
+        </p>
+        <div class="approach-script-wrap">
+          <p class="font-handwritten approach-script">
+            Big work starts with a slice that holds up.
+          </p>
+        </div>
+      </div>
+
+      <div class="grid gap-3 sm:gap-3.5" role="list" aria-label="Work defaults">
+        {
+          defaults.map((item) => (
+            <div class="approach-signal" role="listitem">
+              <p class="approach-signal-label">{item.label}</p>
+              <p class="approach-signal-value">{item.value}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .approach-grid {
+    display: grid;
+    gap: 2rem;
+  }
+
+  @media (min-width: 1024px) {
+    .approach-grid {
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 2.5rem;
+      align-items: stretch;
+    }
+  }
+
+  .approach-voice {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    min-width: 0;
+    min-height: 100%;
+  }
+
+  .approach-lead {
+    font-family: "Syne", "Space Grotesk", system-ui, sans-serif;
+    font-size: clamp(1.05rem, 2.6vw, 1.2rem);
+    line-height: 1.5;
+    letter-spacing: -0.015em;
+    color: var(--text);
+    max-width: 38ch;
+    flex-shrink: 0;
+  }
+
+  .approach-script-wrap {
+    flex: 1 1 auto;
+    display: flex;
+    align-items: flex-end;
+    min-height: 9rem;
+    padding-top: 0.5rem;
+  }
+
+  .approach-script {
+    width: 100%;
+    margin: 0;
+    font-size: clamp(2rem, 9vw, 3.25rem);
+    line-height: 1.06;
+    letter-spacing: 0.005em;
+    text-wrap: balance;
+    color: color-mix(in srgb, var(--accent) 72%, var(--text));
+  }
+
+  @media (min-width: 640px) {
+    .approach-script-wrap {
+      min-height: 10rem;
+    }
+
+    .approach-script {
+      font-size: clamp(2.25rem, 7.5vw, 3.75rem);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .approach-script-wrap {
+      container-type: size;
+      container-name: approach-script;
+      flex: 1 1 0;
+      min-height: 0;
+      padding-top: 1.25rem;
+    }
+
+    .approach-script {
+      font-size: clamp(2.25rem, min(7.8cqw, 11.5cqh), 4.75rem);
+      line-height: 1.04;
+    }
+  }
+
+  .approach-signal {
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 0.75rem 0.9rem;
+    background: color-mix(in srgb, var(--surface) 78%, transparent);
+    min-width: 0;
+    transition: border-color 0.22s ease, background 0.22s ease;
+  }
+
+  @media (min-width: 640px) {
+    .approach-signal {
+      border-radius: 16px;
+      padding: 0.85rem 1rem;
+    }
+  }
+
+  @media (hover: hover) {
+    .approach-signal:hover {
+      border-color: color-mix(in srgb, var(--accent-3) 32%, var(--border));
+      background: color-mix(in srgb, var(--accent-3) 4%, var(--surface));
+    }
+  }
+
+  .approach-signal-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    margin-bottom: 0.35rem;
+  }
+
+  .approach-signal-value {
+    font-family: "Syne", "Space Grotesk", system-ui, sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    line-height: 1.35;
+    letter-spacing: -0.01em;
+    color: var(--text);
+  }
+</style>

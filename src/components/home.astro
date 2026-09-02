@@ -1,7 +1,6 @@
 ---
-import LetterGlitch from "../React/LetterGlitch.tsx";
 import LogoWall from "../components/logoWall.astro";
-import SkillsList from "../React/SkillsList.tsx";
+import Approach from "../components/approach.astro";
 import AnimatedImage from "./animate";
 import { education, experience, projects, formatPeriod } from "@/data/portfolio";
 
@@ -47,8 +46,10 @@ const capstonePeriod = capstone ? formatPeriod(capstone.start, capstone.end) : "
             <p class="text-base sm:text-lg font-semibold">LLMs & Vision</p>
           </div>
           <div class="card px-4 py-3.5 sm:px-5 sm:py-4">
-            <p class="text-sm text-[var(--muted)]">Stack</p>
-            <p class="text-base sm:text-lg font-semibold">FastAPI · Next.js</p>
+            <p class="text-sm text-[var(--muted)]">Flow</p>
+            <p class="text-base sm:text-lg font-semibold leading-snug">
+              Ideas in, solutions out.
+            </p>
           </div>
           <div class="card px-4 py-3.5 sm:px-5 sm:py-4">
             <p class="text-sm text-[var(--muted)]">Signature</p>
@@ -254,33 +255,7 @@ const capstonePeriod = capstone ? formatPeriod(capstone.start, capstone.end) : "
       </div>
     </section>
 
-    <section id="skills" class="space-y-6 sm:space-y-8">
-      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 sm:gap-6">
-        <div class="space-y-2 min-w-0">
-          <p class="eyebrow">Skills</p>
-          <h2 class="font-display text-2xl sm:text-3xl md:text-4xl">
-            A focused, modern toolbox
-          </h2>
-        </div>
-        <p class="text-[var(--muted)] max-w-xl text-sm sm:text-base">
-          From systems and models to UI and product polish, I keep the stack tight and the
-          delivery fast.
-        </p>
-      </div>
-      <div class="grid lg:grid-cols-[1.2fr_0.8fr] gap-6 sm:gap-8 items-stretch">
-        <SkillsList client:load />
-        <div class="card p-4 sm:p-6 flex items-center justify-center h-48 sm:h-64 md:h-80 min-h-0 overflow-hidden">
-          <LetterGlitch
-            client:load
-            glitchColors={["#b7ff5a", "#6ea8ff", "#ff8a5c"]}
-            glitchSpeed={28}
-            centerVignette={false}
-            outerVignette={true}
-            smooth={true}
-          />
-        </div>
-      </div>
-    </section>
+    <Approach />
   </div>
 </section>
 
@@ -523,17 +498,4 @@ const capstonePeriod = capstone ? formatPeriod(capstone.start, capstone.end) : "
     }
   });
 
-  // Update glitch colors based on theme
-  const updateGlitchColors = () => {};
-
-  // Listen for theme changes
-  const observer = new MutationObserver((mutations) => {
-    mutations.forEach((mutation) => {
-      if (mutation.type === "attributes" && mutation.attributeName === "data-theme") {
-        updateGlitchColors();
-      }
-    });
-  });
-
-  observer.observe(document.documentElement, { attributes: true });
 </script>

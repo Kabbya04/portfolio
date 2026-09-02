@@ -22,8 +22,8 @@ const navItems: NavItem[] = [
     icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M4 5V19H20V7H11.5858L9.58579 5H4ZM12.4142 5H21C21.5523 5 22 5.44772 22 6V20C22 20.5523 21.5523 21 21 21H3C2.44772 21 2 20.5523 2 20V4C2 3.44772 2.44772 3 3 3H10.4142L12.4142 5Z"></path></svg>`,
   },
   {
-    label: "Skills",
-    href: "/#skills",
+    label: "Approach",
+    href: "/#approach",
     icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M12 2L22 7V17L12 22L2 17V7L12 2ZM4 8.3V15.7L12 20L20 15.7V8.3L12 4L4 8.3Z"></path></svg>`,
   },
   {
@@ -247,34 +247,42 @@ const navItems: NavItem[] = [
     { passive: true }
   );
 
-  themeToggle?.addEventListener("click", () => {
+  themeToggle?.addEventListener("click", (event) => {
     const root = document.documentElement;
     const currentTheme = root.dataset.theme || "dark";
     const nextTheme = currentTheme === "dark" ? "light" : "dark";
-    
-    // Trigger icon animation
-    const sunIcon = themeToggle?.querySelector(".theme-icon-sun") as HTMLElement | null;
-    const moonIcon = themeToggle?.querySelector(".theme-icon-moon") as HTMLElement | null;
-    
-    // Remove and re-add animation classes to trigger re-animation
-    if (sunIcon) {
-      sunIcon.style.animation = "none";
-      void sunIcon.offsetHeight; // Trigger reflow
-      sunIcon.style.animation = "";
+    const pointer = event instanceof MouseEvent ? event : null;
+    const originX = pointer?.clientX ?? window.innerWidth / 2;
+    const originY = pointer?.clientY ?? window.innerHeight / 2;
+
+    root.style.setProperty("--theme-origin-x", `${originX}px`);
+    root.style.setProperty("--theme-origin-y", `${originY}px`);
+
+    const applyTheme = () => {
+      root.dataset.theme = nextTheme;
+      localStorage.setItem("theme", nextTheme);
+      themeToggle?.setAttribute("aria-pressed", String(nextTheme === "light"));
+    };
+
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (!prefersReducedMotion && "startViewTransition" in document) {
+      (document as Document & { startViewTransition: (cb: () => void) => void }).startViewTransition(
+        applyTheme,
+      );
+      return;
     }
-    if (moonIcon) {
-      moonIcon.style.animation = "none";
-      void moonIcon.offsetHeight; // Trigger reflow
-      moonIcon.style.animation = "";
+
+    if (!prefersReducedMotion) {
+      root.classList.add("theme-fading");
+      requestAnimationFrame(() => {
+        applyTheme();
+        window.setTimeout(() => root.classList.remove("theme-fading"), 340);
+      });
+      return;
     }
-    
-    root.classList.add("theme-animating");
-    root.dataset.theme = nextTheme;
-    localStorage.setItem("theme", nextTheme);
-    themeToggle?.setAttribute("aria-pressed", String(nextTheme === "light"));
-    window.setTimeout(() => {
-      root.classList.remove("theme-animating");
-    }, 800);
+
+    applyTheme();
   });
 
   if (themeToggle) {
@@ -294,7 +302,7 @@ const navItems: NavItem[] = [
         window.location.href = href;
       } else {
         // Navigate to home page with section
-        const [path, hash] = href.split("#");
+        const hash = href.includes("#") ? href.split("#")[1] : "";
         const isHomePage = window.location.pathname === "/" || window.location.pathname === "/index.astro";
         
         if (!isHomePage) {

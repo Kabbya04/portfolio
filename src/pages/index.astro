@@ -23,7 +23,8 @@ const pageDescription = "Portfolio of Saumik Saha Kabbya, an AI and Frontend Eng
 
 ---
 
-<Layout title="Saumik Saha Kabbya" description={pageDescription}>
+<Layout title={pageTitle} description={pageDescription}>
+  <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
   <Nav />
   <Home />
   <Projects />
