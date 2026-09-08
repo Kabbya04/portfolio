@@ -6,6 +6,7 @@ export type TimelineEntry = {
   end?: string | null; // YYYY or YYYY-MM or null for present
   description?: string;
   tags?: string[];
+  badge?: string;
 };
 
 export type Project = TimelineEntry & {
@@ -59,14 +60,37 @@ export const formatPeriod = (start: string, end?: string | null) => {
 
 export const experience: TimelineEntry[] = [
   {
+    id: "hazel-studio",
+    title: "Hazel Studio",
+    subtitle: "Technical Lead",
+    start: "2025-11",
+    end: null,
+    description:
+      "Built and launched the brand website for a Bangladeshi beauty brand (hazelstudiobd.com) with React, Vite, and Supabase. I maintain the site and ship feature updates and content changes as the brand requests them.",
+    tags: ["React", "Vite", "Supabase", "Tailwind CSS"],
+    badge: "Remote",
+  },
+  {
     id: "data-island",
     title: "The Data Island",
-    subtitle: "AI Engineer & Frontend Engineer",
+    subtitle: "AI Engineer & Frontend Engineer (Part-time)",
     start: "2025-03",
     end: "2025-09",
     description:
-      "Developed computer vision and AI-powered client solutions with Python, FastAPI, and Groq AI; built YOLO/PyTorch detection pipelines and Next.js frontends for end-to-end AI features.",
+      "Developed computer vision and AI-powered client solutions with Python, FastAPI, Groq AI, Ultralytics YOLO, and PyTorch. Built responsive Next.js interfaces and collaborated remotely to deliver end-to-end AI features.",
     tags: ["FastAPI", "Groq", "YOLO", "PyTorch", "Next.js"],
+    badge: "Hybrid",
+  },
+  {
+    id: "discount-den",
+    title: "Discount Den",
+    subtitle: "Technical Lead",
+    start: "2023-01",
+    end: "2024-02",
+    description:
+      "Led website planning and development for a student-founded venture. Built the initial site with HTML, CSS, and Bootstrap, then migrated to WordPress hosted on Hostinger.",
+    tags: ["HTML", "CSS", "Bootstrap", "WordPress"],
+    badge: "Venture",
   },
 ];
 
@@ -74,7 +98,7 @@ export const education: TimelineEntry[] = [
   {
     id: "nsu",
     title: "North South University",
-    subtitle: "BSc in Computer Science & Engineering",
+    subtitle: "BS in Computer Science and Engineering",
     start: "2022-01",
     end: "2025-12",
     description:
@@ -91,11 +115,24 @@ export const projects: Project[] = [
     start: "2025-01",
     end: null,
     description:
-      "Local-first vision assistant with ESP32-CAM wearable, YOLO26s and MediaPipe Active Guidance, BLIP/LLM scene narration, fall detection with guardian alerts, and a hands-free Web Speech API interface—87% object retrieval success rate.",
+      "Local-first vision assistant with ESP32-CAM, YOLO26s, and MediaPipe for real-time spatial guidance (sub-two-second latency). Includes scene description via BLIP/LLMs, fall detection with guardian alerts, and a hands-free Web Speech API interface—87% object-retrieval success rate.",
     tags: ["Computer Vision", "YOLO26", "MediaPipe", "LLMs", "ESP32"],
     github: "https://github.com/rajin-khan/AIris",
     live: null,
     accent: "#6ea8ff",
+  },
+  {
+    id: "gravitas",
+    title: "Gravitas",
+    subtitle: "Legal document understanding & drafting",
+    start: "2026-05",
+    end: null,
+    description:
+      "AI legal document understanding and grounded drafting with OCR, RAG, and iterative draft refinement from operator edits.",
+    tags: ["OCR", "RAG", "LLMs", "Legal Tech"],
+    github: "https://github.com/Kabbya04/Gravitas",
+    live: null,
+    accent: "#a78bfa",
   },
   {
     id: "honey-and-hue",
@@ -109,32 +146,6 @@ export const projects: Project[] = [
     github: null,
     live: "https://honey-and-hue.vercel.app/",
     accent: "#f0abfc",
-  },
-  {
-    id: "gravitas",
-    title: "Gravitas",
-    subtitle: "Legal document understanding & drafting",
-    start: "2026-05",
-    end: null,
-    description:
-      "AI-powered legal document understanding and grounded drafting with OCR, RAG, evidence-grounded draft generation, and iterative improvement from operator edits.",
-    tags: ["OCR", "RAG", "LLMs", "Legal Tech"],
-    github: "https://github.com/Kabbya04/Gravitas",
-    live: null,
-    accent: "#a78bfa",
-  },
-  {
-    id: "hazel-studio-bd",
-    title: "Hazel Studio",
-    subtitle: "Cosmetics brand website",
-    start: "2026-01",
-    end: null,
-    description:
-      "Website for the Bangladeshi cosmetics brand Hazel Studio, built with React, Vite, and Supabase.",
-    tags: ["React", "Vite", "Supabase", "Tailwind CSS"],
-    github: null,
-    live: "https://www.hazelstudiobd.com/",
-    accent: "#ffb4d6",
   },
   {
     id: "zappy",
@@ -182,7 +193,7 @@ export const projects: Project[] = [
     start: "2025-04",
     end: "2025-04",
     description:
-      "Content-based game recommendation engine using Bag of Words, TF-IDF, and SVM to suggest similar video games with likelihood predictions.",
+      "Content-based game recommendation engine using Bag of Words, TF-IDF, and SVM.",
     tags: ["TF-IDF", "SVM", "Recommender"],
     github: "https://github.com/Kabbya04/Omni-Game-Recommender-System",
     live: null,
@@ -195,7 +206,7 @@ export const projects: Project[] = [
     start: "2024-09",
     end: "2024-12",
     description:
-      "Cross-platform accessibility app built with Flutter to enhance mobile interaction for visually impaired users.",
+      "Cross-platform accessibility app for visually impaired users, built with Flutter.",
     tags: ["Flutter", "Accessibility", "Mobile"],
     github: "https://github.com/Kabbya04/TapSense",
     live: null,

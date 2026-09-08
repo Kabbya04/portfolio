@@ -177,7 +177,7 @@ const capstonePeriod = capstone ? formatPeriod(capstone.start, capstone.end) : "
                   {role.subtitle} · {formatPeriod(role.start, role.end)}
                 </p>
               </div>
-              <span class="chip shrink-0">Client work</span>
+              <span class="chip shrink-0">{role.badge ?? "Experience"}</span>
             </div>
             {role.description && (
               <p class="text-[var(--muted)] text-sm sm:text-base">{role.description}</p>

@@ -45,7 +45,7 @@ const sortedTimeline = [...timelineEntries].sort((a, b) => {
         </p>
         <div class="flex flex-wrap gap-2 sm:gap-3">
           <span class="chip">AI Engineer</span>
-          <span class="chip">Frontend Engineer</span>
+          <span class="chip">Full Stack Engineer</span>
           <span class="chip">Accessibility-first</span>
         </div>
         <div class="flex flex-wrap gap-2 sm:gap-3 pt-2">
@@ -81,24 +81,40 @@ const sortedTimeline = [...timelineEntries].sort((a, b) => {
 
     <div class="grid lg:grid-cols-2 gap-4 sm:gap-6">
       <div class="card p-4 sm:p-6 space-y-4">
-        <h2 class="text-xl sm:text-2xl font-semibold">Experience Snapshot</h2>
-        <p class="text-[var(--muted)] text-sm sm:text-base">
-          {experience[0]?.description ??
-            "At The Data Island, I shipped AI and computer vision solutions using FastAPI, Groq AI, Ultralytics YOLO, and PyTorch, alongside Next.js for the frontend."}
-        </p>
-        {experience[0]?.tags && (
-          <div class="flex flex-wrap gap-2">
-            {experience[0].tags.map((tag) => (
-              <span class="chip">{tag}</span>
-            ))}
-          </div>
-        )}
+        <div class="space-y-1">
+          <h2 class="text-xl sm:text-2xl font-semibold">Experience Snapshot</h2>
+          <p class="text-sm text-[var(--muted)]">Three roles, newest first.</p>
+        </div>
+        <div class="experience-snapshot-list" role="list">
+          {
+            experience.map((role) => (
+              <article class="experience-snapshot-item" role="listitem">
+                <div class="experience-snapshot-top">
+                  <div class="min-w-0 space-y-0.5">
+                    <h3 class="experience-snapshot-title">{role.title}</h3>
+                    <p class="experience-snapshot-role">{role.subtitle}</p>
+                  </div>
+                  <div class="experience-snapshot-meta">
+                    {role.badge && <span class="chip shrink-0">{role.badge}</span>}
+                    <p class="experience-snapshot-period">{formatPeriod(role.start, role.end)}</p>
+                  </div>
+                </div>
+                {role.description && (
+                  <p class="experience-snapshot-body">{role.description}</p>
+                )}
+              </article>
+            ))
+          }
+        </div>
       </div>
       <div class="card p-4 sm:p-6 space-y-4">
         <h2 class="text-xl sm:text-2xl font-semibold">Education</h2>
         <p class="text-[var(--muted)] text-sm sm:text-base">
           {education[0]?.subtitle} at {education[0]?.title} ({formatPeriod(education[0]?.start ?? "2022-01", education[0]?.end)}).
         </p>
+        {education[0]?.description && (
+          <p class="text-[var(--muted)] text-sm sm:text-base">{education[0].description}</p>
+        )}
         {education[0]?.tags && (
           <div class="flex flex-wrap gap-2">
             {education[0].tags.map((tag) => (
@@ -156,6 +172,68 @@ const sortedTimeline = [...timelineEntries].sort((a, b) => {
 </section>
 
 <style>
+  .experience-snapshot-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .experience-snapshot-item {
+    padding: 0.95rem 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .experience-snapshot-item:first-child {
+    padding-top: 0.35rem;
+    border-top: none;
+  }
+
+  .experience-snapshot-item:last-child {
+    padding-bottom: 0;
+  }
+
+  .experience-snapshot-top {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 0.5rem 1rem;
+    margin-bottom: 0.45rem;
+  }
+
+  .experience-snapshot-title {
+    font-family: "Syne", "Space Grotesk", system-ui, sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    color: var(--text);
+  }
+
+  .experience-snapshot-role {
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+
+  .experience-snapshot-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.35rem;
+    text-align: right;
+  }
+
+  .experience-snapshot-period {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+  }
+
+  .experience-snapshot-body {
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--muted);
+  }
+
   .timeline {
     display: grid;
     gap: 1rem;
