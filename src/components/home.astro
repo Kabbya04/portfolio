@@ -3,14 +3,12 @@ import LogoWall from "../components/logoWall.astro";
 import Approach from "../components/approach.astro";
 import ContributionGraph from "../components/contribution-graph.astro";
 import AnimatedImage from "./animate";
-import { education, experience, projects, formatPeriod } from "@/data/portfolio";
-
-const capstone = projects.find((project) => project.id === "airis");
+import { capstone, education, experience, formatPeriod } from "@/data/portfolio";
 const primaryEducation = education[0];
 const educationPeriod = primaryEducation
   ? formatPeriod(primaryEducation.start, primaryEducation.end)
   : "";
-const capstonePeriod = capstone ? formatPeriod(capstone.start, capstone.end) : "";
+const capstonePeriod = formatPeriod(capstone.start, capstone.end);
 ---
 
 <section class="text-[var(--text)] mt-8 sm:mt-12 md:mt-0" id="home">
@@ -231,7 +229,7 @@ const capstonePeriod = capstone ? formatPeriod(capstone.start, capstone.end) : "
         <div class="card p-4 sm:p-6 space-y-4">
           <div class="flex items-start justify-between gap-3 sm:gap-4 flex-wrap">
             <div class="min-w-0">
-              <h3 class="text-lg sm:text-xl font-semibold">Capstone · {capstone?.title}</h3>
+              <h3 class="text-lg sm:text-xl font-semibold">{capstone.title} · Capstone Project</h3>
               <p class="text-sm text-[var(--muted)]">
                 {capstonePeriod} · {capstone?.subtitle}
               </p>

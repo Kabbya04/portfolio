@@ -15,6 +15,7 @@ export type Project = TimelineEntry & {
   github?: string | null;
   live?: string | null;
   accent: string;
+  featured?: boolean;
 };
 
 const monthNames = [
@@ -107,19 +108,34 @@ export const education: TimelineEntry[] = [
   },
 ];
 
+export const capstone: Project = {
+  id: "airis",
+  title: "AIris",
+  subtitle: "Vision assistant for the visually impaired",
+  start: "2025-01",
+  end: null,
+  description:
+    "Local-first vision assistant with ESP32-CAM, YOLO26s, and MediaPipe for real-time spatial guidance (sub-two-second latency). Includes scene description via BLIP/LLMs, fall detection with guardian alerts, and a hands-free Web Speech API interface—87% object-retrieval success rate.",
+  tags: ["Computer Vision", "YOLO26", "MediaPipe", "LLMs", "ESP32"],
+  github: "https://github.com/rajin-khan/AIris",
+  live: null,
+  accent: "#6ea8ff",
+};
+
 export const projects: Project[] = [
   {
-    id: "airis",
-    title: "AIris",
-    subtitle: "Vision assistant for the visually impaired",
-    start: "2025-01",
+    id: "box-box",
+    title: "Box-Box",
+    subtitle: "Formula 1 podium prediction",
+    start: "2026-09",
     end: null,
     description:
-      "Local-first vision assistant with ESP32-CAM, YOLO26s, and MediaPipe for real-time spatial guidance (sub-two-second latency). Includes scene description via BLIP/LLMs, fall detection with guardian alerts, and a hands-free Web Speech API interface—87% object-retrieval success rate.",
-    tags: ["Computer Vision", "YOLO26", "MediaPipe", "LLMs", "ESP32"],
-    github: "https://github.com/rajin-khan/AIris",
-    live: null,
-    accent: "#6ea8ff",
+      "Probabilistic Formula 1 podium prediction system using XGBoost, Monte Carlo simulation, and SHAP, with a FastAPI backend and Next.js frontend.",
+    tags: ["XGBoost", "Monte Carlo", "SHAP", "FastAPI", "Next.js"],
+    github: "https://github.com/Kabbya04/Box-Box",
+    live: "https://box-box-predict.vercel.app/",
+    accent: "#e10600",
+    featured: true,
   },
   {
     id: "gravitas",
@@ -133,6 +149,7 @@ export const projects: Project[] = [
     github: "https://github.com/Kabbya04/Gravitas",
     live: null,
     accent: "#a78bfa",
+    featured: true,
   },
   {
     id: "honey-and-hue",
