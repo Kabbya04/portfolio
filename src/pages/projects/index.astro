@@ -1,0 +1,123 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import ProjectCard from "@/components/work/ProjectCard.astro";
+import {
+  archiveProjects,
+  featuredProjects,
+  workshopProjects,
+} from "@/data/projects";
+
+const featured = featuredProjects;
+const rest = workshopProjects.filter((project) => !project.featured);
+---
+
+<BaseLayout
+  title="Projects"
+  description="Personal projects and case studies from Kabbya."
+>
+  <section class="section">
+    <div class="site-shell">
+      <p class="eyebrow">Projects</p>
+      <h1 class="display display-xl">Personal builds</h1>
+      <p class="lede">
+        Assistive systems, recommendation tools, and product-facing experiments
+        that shipped far enough to open.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section--tight section--paper">
+    <div class="site-shell feature-stack">
+      {
+        featured.map((project, index) => (
+          <div class:list={["feature-block", { "is-offset": index % 2 === 1 }]}>
+            <ProjectCard project={project} featured index={index} />
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  {
+    rest.length > 0 && (
+      <section class="section">
+        <div class="site-shell">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">More</p>
+              <h2 class="display display-md">Other builds</h2>
+            </div>
+          </div>
+          <div class="archive-grid">
+            {rest.map((project, index) => (
+              <ProjectCard project={project} compact index={featured.length + index} />
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  {
+    archiveProjects.length > 0 && (
+      <section class="section section--ink">
+        <div class="site-shell">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Archive</p>
+              <h2 class="display display-md">Earlier passes</h2>
+            </div>
+          </div>
+          <div class="archive-grid">
+            {archiveProjects.map((project, index) => (
+              <ProjectCard
+                project={project}
+                compact
+                index={featured.length + rest.length + index}
+              />
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
+</BaseLayout>
+
+<style>
+  .lede {
+    margin: 0.9rem 0 0;
+  }
+
+  .feature-stack {
+    display: grid;
+    gap: clamp(2.5rem, 6vw, 4.25rem);
+  }
+
+  .feature-block.is-offset {
+    padding-left: clamp(0rem, 8vw, 5rem);
+  }
+
+  .section-head {
+    margin-bottom: 1.75rem;
+  }
+
+  .section-head h2 {
+    margin: 0.5rem 0 0;
+  }
+
+  .archive-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.5rem;
+  }
+
+  @media (max-width: 860px) {
+    .feature-block.is-offset {
+      padding-left: 0;
+    }
+
+    .archive-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

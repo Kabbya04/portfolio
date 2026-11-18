@@ -1,0 +1,43 @@
+---
+import { site } from "@/data/site";
+
+interface Props {
+  paperTitle?: string;
+}
+
+const { paperTitle = "AIris paper" } = Astro.props;
+const mailto = `mailto:${site.email}?subject=${encodeURIComponent(`Could I get the full PDF for ${paperTitle}?`)}`;
+---
+
+<aside class="pdf-note">
+  <p class="meta">Full paper</p>
+  <p class="pdf-note__copy">
+    Want the full PDF? Just reach out. I'm happy to send it over and chat about the work if you're curious.
+  </p>
+  <a class="btn btn-primary" href={mailto}>Email me for the PDF</a>
+</aside>
+
+<style>
+  .pdf-note {
+    margin-top: 1.35rem;
+    padding: 1.15rem 1.2rem;
+    border-radius: var(--radius-lg);
+    border: 1px solid color-mix(in srgb, var(--coral) 30%, var(--border));
+    background:
+      linear-gradient(
+        135deg,
+        color-mix(in srgb, var(--coral) 12%, var(--bg-soft)),
+        color-mix(in srgb, var(--amber) 10%, var(--bg-soft))
+      );
+  }
+
+  .pdf-note__copy {
+    margin: 0.45rem 0 1rem;
+    max-width: 36rem;
+    color: var(--text);
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 1.08rem;
+    line-height: 1.45;
+  }
+</style>

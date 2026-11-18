@@ -1,0 +1,335 @@
+---
+import { navLinks, site } from "@/data/site";
+
+const pathname = Astro.url.pathname.replace(/\/$/, "") || "/";
+---
+
+<header class="site-header">
+  <div class="site-shell site-header__inner">
+    <a class="wordmark" href="/" aria-label={`${site.shortName} home`}>
+      <span class="wordmark__name">
+        Kabb<span class="wordmark__tail">ya</span>
+      </span>
+    </a>
+
+    <nav class="site-nav" aria-label="Primary">
+      <ul class="site-nav__list">
+        {
+          navLinks.map((link) => {
+            const hrefPath = link.href.replace(/\/$/, "") || "/";
+            const active =
+              hrefPath === "/"
+                ? pathname === "/"
+                : pathname === hrefPath || pathname.startsWith(`${hrefPath}/`);
+            return (
+              <li>
+                <a
+                  href={link.href}
+                  class:list={["site-nav__link", { "is-active": active }]}
+                  aria-current={active ? "page" : undefined}
+                >
+                  {link.label}
+                </a>
+              </li>
+            );
+          })
+        }
+      </ul>
+    </nav>
+
+    <div class="site-header__end">
+      <p class="site-status" title={site.status}>
+        <span class="site-status__dot" aria-hidden="true"></span>
+        <span class="site-status__text">{site.status}</span>
+      </p>
+      <button
+        id="theme-toggle"
+        class="theme-toggle"
+        type="button"
+        aria-label="Toggle night mode"
+        aria-pressed="false"
+      >
+        <span class="theme-toggle__icon theme-toggle__icon--sun" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
+            <path d="M12 4.75c.41 0 .75-.34.75-.75V2c0-.41-.34-.75-.75-.75s-.75.34-.75.75v2c0 .41.34.75.75.75Zm0 16.5c.41 0 .75-.34.75-.75V19c0-.41-.34-.75-.75-.75s-.75.34-.75.75v1.5c0 .41.34.75.75.75ZM4.75 12c0-.41-.34-.75-.75-.75H2c-.41 0-.75.34-.75.75s.34.75.75.75h2c.41 0 .75-.34.75-.75Zm17.25-.75H20c-.41 0-.75.34-.75.75s.34.75.75.75h2c.41 0 .75-.34.75-.75s-.34-.75-.75-.75ZM6.22 6.22a.75.75 0 0 0 0-1.06L4.8 3.74a.75.75 0 1 0-1.06 1.06l1.41 1.42a.75.75 0 0 0 1.06 0Zm13.04 13.04a.75.75 0 0 0 0-1.06l-1.42-1.41a.75.75 0 1 0-1.06 1.06l1.42 1.41a.75.75 0 0 0 1.06 0ZM17.78 6.22a.75.75 0 0 0 1.06 0l1.41-1.42a.75.75 0 1 0-1.06-1.06l-1.41 1.42a.75.75 0 0 0 0 1.06ZM4.74 19.2a.75.75 0 0 0 1.06 0l1.42-1.41a.75.75 0 1 0-1.06-1.06L4.74 18.14a.75.75 0 0 0 0 1.06ZM12 7.25A4.75 4.75 0 1 0 16.75 12 4.75 4.75 0 0 0 12 7.25Z" />
+          </svg>
+        </span>
+        <span class="theme-toggle__icon theme-toggle__icon--moon" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
+            <path d="M17.66 15.25A7.75 7.75 0 0 1 8.75 6.34a.75.75 0 0 0-.97-.97 9.25 9.25 0 1 0 10.85 10.85.75.75 0 0 0-.97-.97Z" />
+          </svg>
+        </span>
+      </button>
+      <button
+        class="nav-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="mobile-nav"
+        data-nav-toggle
+      >
+        <span class="visually-hidden">Menu</span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </button>
+    </div>
+  </div>
+
+  <div class="mobile-nav site-shell" id="mobile-nav" hidden data-mobile-nav>
+    <ul>
+      {
+        navLinks.map((link) => (
+          <li>
+            <a href={link.href}>{link.label}</a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: var(--nav-bg);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid transparent;
+    transition: border-color 180ms var(--ease-out), background-color 180ms var(--ease-out);
+  }
+
+  .site-header.is-scrolled {
+    border-bottom-color: var(--border);
+  }
+
+  .site-header__inner {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 1rem;
+    min-height: 4.35rem;
+  }
+
+  .site-header__end {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    justify-self: end;
+  }
+
+  .wordmark {
+    text-decoration: none;
+    justify-self: start;
+    color: var(--text);
+  }
+
+  .wordmark:hover {
+    color: var(--text);
+  }
+
+  .wordmark__name {
+    font-family: var(--font-display);
+    font-size: 1.55rem;
+    font-weight: 600;
+    letter-spacing: -0.04em;
+    line-height: 1;
+  }
+
+  .wordmark__tail {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--coral);
+  }
+
+  .site-nav {
+    justify-self: center;
+  }
+
+  .site-nav__list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.35rem 1.15rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .site-nav__link {
+    position: relative;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    color: var(--text-muted);
+    transition: color 160ms var(--ease-out);
+  }
+
+  .site-nav__link:hover,
+  .site-nav__link.is-active {
+    color: var(--text);
+  }
+
+  .site-nav__link.is-active::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -0.4rem;
+    height: 2px;
+    background: var(--coral);
+  }
+
+  .site-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 0.75rem;
+  }
+
+  .site-status__dot {
+    width: 0.45rem;
+    height: 0.45rem;
+    border-radius: 50%;
+    background: var(--amber);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--amber) 22%, transparent);
+  }
+
+  .theme-toggle,
+  .nav-toggle {
+    width: 2.75rem;
+    height: 2.75rem;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--text);
+    display: grid;
+    place-items: center;
+    transition:
+      border-color 160ms var(--ease-out),
+      transform 120ms var(--ease-out);
+  }
+
+  .theme-toggle:hover,
+  .nav-toggle:hover {
+    border-color: var(--coral);
+  }
+
+  .theme-toggle:active,
+  .nav-toggle:active {
+    transform: scale(0.96);
+  }
+
+  .theme-toggle {
+    position: relative;
+  }
+
+  .theme-toggle__icon {
+    display: grid;
+    place-items: center;
+  }
+
+  :root[data-theme="light"] .theme-toggle__icon--moon,
+  :root:not([data-theme]) .theme-toggle__icon--moon {
+    display: none;
+  }
+
+  :root[data-theme="dark"] .theme-toggle__icon--sun {
+    display: none;
+  }
+
+  .nav-toggle {
+    display: none;
+    gap: 5px;
+  }
+
+  .nav-toggle span:not(.visually-hidden) {
+    display: block;
+    width: 14px;
+    height: 1px;
+    background: currentColor;
+  }
+
+  .mobile-nav {
+    display: none;
+    padding-bottom: 1.1rem;
+  }
+
+  .mobile-nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0.5rem 0 0;
+    display: grid;
+    gap: 0.8rem;
+  }
+
+  .mobile-nav a {
+    font-size: 1.1rem;
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  @media (max-width: 980px) {
+    .site-header__inner {
+      grid-template-columns: 1fr auto;
+    }
+
+    .site-nav,
+    .site-status {
+      display: none;
+    }
+
+    .nav-toggle {
+      display: grid;
+    }
+
+    .mobile-nav:not([hidden]) {
+      display: block;
+      border-top: 1px solid var(--border);
+    }
+  }
+</style>
+
+<script>
+  const header = document.querySelector(".site-header");
+  const toggle = document.querySelector("[data-nav-toggle]");
+  const mobileNav = document.querySelector("[data-mobile-nav]");
+  const themeToggle = document.getElementById("theme-toggle");
+
+  const onScroll = () => {
+    header?.classList.toggle("is-scrolled", window.scrollY > 8);
+  };
+
+  onScroll();
+  window.addEventListener("scroll", onScroll, { passive: true });
+
+  toggle?.addEventListener("click", () => {
+    const expanded = toggle.getAttribute("aria-expanded") === "true";
+    toggle.setAttribute("aria-expanded", String(!expanded));
+    if (expanded) {
+      mobileNav?.setAttribute("hidden", "");
+    } else {
+      mobileNav?.removeAttribute("hidden");
+    }
+  });
+
+  const syncThemeToggle = () => {
+    const theme = document.documentElement.dataset.theme || "light";
+    themeToggle?.setAttribute("aria-pressed", String(theme === "dark"));
+  };
+
+  syncThemeToggle();
+
+  themeToggle?.addEventListener("click", () => {
+    const root = document.documentElement;
+    const next = root.dataset.theme === "dark" ? "light" : "dark";
+    root.classList.add("theme-switching");
+    root.dataset.theme = next;
+    localStorage.setItem("theme", next);
+    syncThemeToggle();
+    window.requestAnimationFrame(() => {
+      window.requestAnimationFrame(() => root.classList.remove("theme-switching"));
+    });
+  });
+</script>

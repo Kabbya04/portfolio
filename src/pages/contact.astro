@@ -1,0 +1,233 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { site } from "@/data/site";
+---
+
+<BaseLayout
+  title="Contact"
+  description="Contact Kabbya about AI, computer vision, research, or product-focused web work."
+>
+  <section class="section">
+    <div class="site-shell contact-hero">
+      <p class="eyebrow">Contact</p>
+      <h1 class="display display-xl">Got an interesting idea?</h1>
+      <p class="lede">
+        Open to AI, computer vision, research-minded product work, and thoughtful
+        fullstack builds. I read every message.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section--paper">
+    <div class="site-shell contact-grid">
+      <div class="contact-panel contact-panel--main">
+        <p class="eyebrow">Direct line</p>
+        <a class="email" href={`mailto:${site.email}?subject=Hello%20Kabbya`}
+          >{site.email}</a
+        >
+        <p class="muted">Based in {site.location}.</p>
+        <a class="btn btn-primary" href={`mailto:${site.email}?subject=Hello%20Kabbya`}>
+          Compose email
+        </a>
+      </div>
+
+      <div class="contact-panel">
+        <p class="eyebrow">Elsewhere</p>
+        <ul>
+          <li><a href={site.github} target="_blank" rel="noreferrer">GitHub</a></li>
+          <li><a href={site.linkedin} target="_blank" rel="noreferrer">LinkedIn</a></li>
+          <li><a href={site.resume} target="_blank" rel="noreferrer">Resume</a></li>
+          <li>
+            <a href={site.academicResume} target="_blank" rel="noreferrer"
+              >Academic Resume</a
+            >
+          </li>
+        </ul>
+      </div>
+
+      <div class="contact-panel contact-panel--music">
+        <div class="music-copy">
+          <p class="eyebrow">While building</p>
+          <h2 class="display display-md">Code soundtrack</h2>
+          <p class="muted">
+            The playlist that keeps long sessions paced. Drop it on while you
+            read the work or write yours.
+          </p>
+          <div class="music-notes" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </div>
+        <div class="music-player">
+          <iframe
+            title="Spotify playlist"
+            src={site.spotifyPlaylist}
+            class="spotify"
+            allowfullscreen=""
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+            loading="lazy"
+          ></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .contact-hero h1 {
+    margin: 0.7rem 0 0.85rem;
+  }
+
+  .contact-hero .lede {
+    margin: 0;
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 1rem;
+  }
+
+  .contact-panel {
+    padding: clamp(1.35rem, 3.5vw, 1.9rem);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background: var(--bg-soft);
+  }
+
+  .contact-panel--main {
+    background:
+      linear-gradient(
+        145deg,
+        color-mix(in srgb, var(--coral) 12%, var(--bg-soft)),
+        var(--bg-soft) 50%
+      );
+  }
+
+  .contact-panel--music {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+    gap: 1.25rem;
+    align-items: stretch;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 12% 20%, color-mix(in srgb, var(--coral) 22%, transparent), transparent 45%),
+      radial-gradient(circle at 88% 80%, color-mix(in srgb, var(--amber) 24%, transparent), transparent 40%),
+      linear-gradient(135deg, var(--bg-ink), color-mix(in srgb, var(--navy-deep) 70%, var(--ink)));
+    color: var(--text-on-dark);
+    border-color: var(--border-dark);
+  }
+
+  .contact-panel--music .eyebrow,
+  .contact-panel--music .muted {
+    color: var(--text-muted-on-dark);
+  }
+
+  .email {
+    display: inline-block;
+    margin: 0.75rem 0 0.85rem;
+    font-family: var(--font-display);
+    font-size: clamp(1.45rem, 3vw, 2.1rem);
+    line-height: 1.15;
+    text-decoration: none;
+    word-break: break-word;
+  }
+
+  .contact-panel .muted {
+    margin: 0 0 1.2rem;
+  }
+
+  .contact-panel ul {
+    list-style: none;
+    margin: 0.9rem 0 0;
+    padding: 0;
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .contact-panel a {
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .music-copy h2 {
+    margin: 0.55rem 0 0.55rem;
+    color: var(--text-on-dark);
+  }
+
+  .music-notes {
+    display: flex;
+    align-items: end;
+    gap: 0.45rem;
+    height: 3rem;
+    margin-top: 1.5rem;
+  }
+
+  .music-notes span {
+    width: 0.55rem;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--coral) 70%, white);
+    animation: equalize 1.2s ease-in-out infinite;
+  }
+
+  .music-notes span:nth-child(1) {
+    height: 40%;
+    animation-delay: 0s;
+  }
+
+  .music-notes span:nth-child(2) {
+    height: 75%;
+    animation-delay: 0.15s;
+  }
+
+  .music-notes span:nth-child(3) {
+    height: 55%;
+    animation-delay: 0.3s;
+  }
+
+  .music-player {
+    display: flex;
+    align-items: stretch;
+  }
+
+  .spotify {
+    width: 100%;
+    min-height: 18rem;
+    border: 0;
+    border-radius: 16px;
+    background: transparent;
+  }
+
+  @keyframes equalize {
+    0%,
+    100% {
+      transform: scaleY(0.7);
+    }
+    50% {
+      transform: scaleY(1.15);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .music-notes span {
+      animation: none;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .contact-grid,
+    .contact-panel--music {
+      grid-template-columns: 1fr;
+    }
+
+    .contact-panel--music {
+      grid-column: auto;
+    }
+
+    .spotify {
+      min-height: 14rem;
+    }
+  }
+</style>

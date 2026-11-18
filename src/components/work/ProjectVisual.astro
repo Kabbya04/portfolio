@@ -1,0 +1,261 @@
+---
+interface Props {
+  title: string;
+  subtitle?: string;
+  label: string;
+  accent: string;
+  period?: string;
+  index?: number;
+  tags?: string[];
+  large?: boolean;
+}
+
+const {
+  title,
+  subtitle,
+  label,
+  accent,
+  period,
+  index,
+  tags = [],
+  large = false,
+} = Astro.props;
+
+const indexLabel =
+  typeof index === "number" ? String(index + 1).padStart(2, "0") : null;
+const visibleTags = tags.slice(0, large ? 5 : 3);
+---
+
+<div
+  class:list={["project-visual", { "project-visual--large": large }]}
+  style={`--project-accent: ${accent}`}
+  aria-hidden="true"
+>
+  <div class="project-visual__pattern"></div>
+  <div class="project-visual__glow"></div>
+  <div class="project-visual__orb"></div>
+  {indexLabel && <p class="project-visual__index">{indexLabel}</p>}
+
+  <div class="project-visual__frame">
+    <div class="project-visual__top">
+      <p class="meta">{label}</p>
+      {period && <p class="meta">{period}</p>}
+    </div>
+
+    <div class="project-visual__main">
+      <p class="project-visual__title">{title}</p>
+      {subtitle && <p class="project-visual__subtitle">{subtitle}</p>}
+    </div>
+
+    <div class="project-visual__bottom">
+      {
+        visibleTags.length > 0 ? (
+          <div class="project-visual__tags">
+            {visibleTags.map((tag) => (
+              <span>{tag}</span>
+            ))}
+          </div>
+        ) : (
+          <div class="project-visual__marks">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        )
+      }
+      {large && <p class="project-visual__cue">Open case study</p>}
+    </div>
+  </div>
+</div>
+
+<style>
+  .project-visual {
+    position: relative;
+    overflow: hidden;
+    min-height: 13.25rem;
+    border: 1px solid color-mix(in srgb, var(--project-accent) 42%, var(--rule));
+    border-radius: var(--radius-lg);
+    background:
+      linear-gradient(
+        145deg,
+        color-mix(in srgb, var(--project-accent) 42%, var(--ink)),
+        color-mix(in srgb, var(--ink) 82%, black) 58%
+      );
+  }
+
+  .project-visual--large {
+    min-height: clamp(15rem, 26vw, 18.5rem);
+  }
+
+  .project-visual__pattern {
+    position: absolute;
+    inset: 0;
+    opacity: 0.16;
+    background-image:
+      linear-gradient(
+        color-mix(in srgb, white 18%, transparent) 1px,
+        transparent 1px
+      ),
+      linear-gradient(
+        90deg,
+        color-mix(in srgb, white 18%, transparent) 1px,
+        transparent 1px
+      );
+    background-size: 28px 28px;
+    mask-image: radial-gradient(circle at 78% 22%, black, transparent 68%);
+  }
+
+  .project-visual__glow {
+    position: absolute;
+    inset: auto -18% -42% 18%;
+    height: 78%;
+    background: radial-gradient(
+      circle,
+      color-mix(in srgb, var(--project-accent) 58%, transparent),
+      transparent 70%
+    );
+  }
+
+  .project-visual__orb {
+    position: absolute;
+    top: -22%;
+    right: 4%;
+    width: min(36%, 14rem);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    border: 1px solid color-mix(in srgb, white 14%, transparent);
+    background:
+      radial-gradient(
+        circle at 35% 35%,
+        color-mix(in srgb, var(--project-accent) 26%, transparent),
+        transparent 62%
+      );
+    opacity: 0.75;
+  }
+
+  .project-visual__index {
+    position: absolute;
+    right: 0.55rem;
+    top: 50%;
+    z-index: 0;
+    margin: 0;
+    transform: translateY(-48%);
+    font-family: var(--font-display);
+    font-size: clamp(5.5rem, 18vw, 10.5rem);
+    line-height: 0.78;
+    letter-spacing: -0.06em;
+    color: color-mix(in srgb, white 14%, transparent);
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .project-visual--large .project-visual__index {
+    right: 1rem;
+    font-size: clamp(7rem, 16vw, 12rem);
+    color: color-mix(in srgb, white 16%, transparent);
+  }
+
+  .project-visual__frame {
+    position: relative;
+    z-index: 1;
+    height: 100%;
+    min-height: inherit;
+    padding: clamp(1.05rem, 2vw, 1.45rem);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 0.95rem;
+  }
+
+  .project-visual__top {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.55rem 1rem;
+  }
+
+  .project-visual__top .meta {
+    color: color-mix(in srgb, white 74%, var(--project-accent));
+  }
+
+  .project-visual__main {
+    max-width: min(34rem, 72%);
+  }
+
+  .project-visual__title {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    line-height: 0.9;
+    letter-spacing: -0.045em;
+    color: var(--cream);
+  }
+
+  .project-visual--large .project-visual__title {
+    font-size: clamp(3.2rem, 7.5vw, 5.6rem);
+  }
+
+  .project-visual__subtitle {
+    margin: 0.75rem 0 0;
+    max-width: 34ch;
+    font-size: clamp(0.95rem, 1.45vw, 1.12rem);
+    line-height: 1.4;
+    color: color-mix(in srgb, white 78%, var(--project-accent));
+  }
+
+  .project-visual--large .project-visual__subtitle {
+    max-width: 38ch;
+    font-size: clamp(1rem, 1.55vw, 1.18rem);
+  }
+
+  .project-visual__bottom {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: end;
+    justify-content: space-between;
+    gap: 0.85rem 1rem;
+  }
+
+  .project-visual__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    max-width: min(36rem, 78%);
+  }
+
+  .project-visual__tags span {
+    padding: 0.3rem 0.7rem;
+    border-radius: 999px;
+    border: 1px solid color-mix(in srgb, white 22%, transparent);
+    background: color-mix(in srgb, black 22%, transparent);
+    color: color-mix(in srgb, white 88%, var(--project-accent));
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .project-visual__marks {
+    display: flex;
+    gap: 0.45rem;
+  }
+
+  .project-visual__marks span {
+    width: 1.65rem;
+    height: 2px;
+    background: color-mix(in srgb, var(--project-accent) 75%, white);
+  }
+
+  .project-visual__cue {
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, white 72%, var(--project-accent));
+  }
+
+  .project-visual__cue::after {
+    content: " →";
+  }
+</style>

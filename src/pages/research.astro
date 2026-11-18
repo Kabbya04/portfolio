@@ -1,0 +1,254 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import PaperPdfNote from "@/components/research/PaperPdfNote.astro";
+import { formatPeriod, publications, research } from "@/data/profile";
+import { experiments } from "@/data/experiments";
+
+const publication = publications[0];
+const researchNotes = experiments.filter((item) =>
+  ["airis-control-loop", "calm", "ciasl"].includes(item.id),
+);
+---
+
+<BaseLayout
+  title="Research"
+  description="Research roles, publications, and ongoing experiments from Kabbya."
+>
+  <section class="section">
+    <div class="site-shell">
+      <p class="eyebrow">Research</p>
+      <h1 class="display display-xl">Lab work and published results</h1>
+      <p class="lede">
+        Continual learning, assistive vision, and systems that have to hold up
+        outside a notebook.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section--paper section--tight">
+    <div class="site-shell">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Publication</p>
+          <h2 class="display display-lg">Peer-reviewed</h2>
+        </div>
+      </div>
+
+      {
+        publication && (
+          <article class="pub-card">
+            <div class="pub-card__glow" aria-hidden="true"></div>
+            <div class="pub-card__body">
+              <div class="pub-card__top">
+                <p class="meta">{formatPeriod(publication.start, publication.end)}</p>
+                <span class="chip">{publication.badge}</span>
+              </div>
+              <h3 class="display display-md">{publication.title}</h3>
+              <p class="muted">{publication.venue}</p>
+              <p class="muted authors">{publication.authors.join(", ")}</p>
+              <p class="summary">{publication.description}</p>
+              <div class="actions">
+                {publication.doi && (
+                  <a class="btn btn-ghost" href={publication.doi} target="_blank" rel="noreferrer">
+                    View DOI
+                  </a>
+                )}
+                {publication.github && (
+                  <a class="btn btn-ghost" href={publication.github} target="_blank" rel="noreferrer">
+                    GitHub
+                  </a>
+                )}
+              </div>
+              <PaperPdfNote paperTitle="AIris" />
+            </div>
+          </article>
+        )
+      }
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="site-shell roles">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Roles</p>
+          <h2 class="display display-md">Where the research happens</h2>
+        </div>
+      </div>
+      <div class="role-grid">
+        {
+          research.map((entry) => (
+            <article class="role-card">
+              <p class="meta">{formatPeriod(entry.start, entry.end)}</p>
+              <h3>{entry.title}</h3>
+              <p class="muted">{entry.subtitle}</p>
+              <p>{entry.description}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--ink">
+    <div class="site-shell">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Notebook</p>
+          <h2 class="display display-md">Active threads</h2>
+        </div>
+      </div>
+      <div class="note-list">
+        {
+          researchNotes.map((note) => (
+            <article class="note-item">
+              <p class="meta">
+                {note.code} / {note.category} / {note.status}
+              </p>
+              <h3>{note.title}</h3>
+              <p>{note.summary}</p>
+              {note.link && (
+                <a class="btn-text" href={note.link} target="_blank" rel="noreferrer">
+                  Related link
+                </a>
+              )}
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .lede {
+    margin: 0.9rem 0 0;
+  }
+
+  .section-head {
+    margin-bottom: 1.5rem;
+  }
+
+  .section-head h2 {
+    margin: 0.5rem 0 0;
+  }
+
+  .pub-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+    border: 1px solid color-mix(in srgb, var(--coral) 28%, var(--rule));
+    background: linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--coral) 12%, var(--white)),
+      var(--white) 45%
+    );
+  }
+
+  .pub-card__glow {
+    position: absolute;
+    inset: -20% auto auto 55%;
+    width: 18rem;
+    height: 18rem;
+    background: radial-gradient(circle, color-mix(in srgb, var(--amber) 35%, transparent), transparent 70%);
+  }
+
+  .pub-card__body {
+    position: relative;
+    padding: clamp(1.35rem, 4vw, 2rem);
+  }
+
+  .pub-card__top {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .pub-card h3 {
+    margin: 0 0 0.55rem;
+    max-width: 22ch;
+  }
+
+  .authors {
+    margin: 0.25rem 0 0.9rem;
+  }
+
+  .summary {
+    margin: 0;
+    max-width: 54rem;
+    color: var(--text-muted);
+  }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+    margin-top: 1.25rem;
+  }
+
+  .role-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .role-card {
+    padding: 1.25rem 1.3rem;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+    background: color-mix(in srgb, var(--amber) 8%, var(--white));
+  }
+
+  .role-card h3 {
+    margin: 0.45rem 0 0.25rem;
+  }
+
+  .role-card .muted {
+    margin: 0 0 0.65rem;
+  }
+
+  .role-card p:last-child {
+    margin: 0;
+    color: var(--text-muted);
+  }
+
+  .note-list {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .note-item {
+    padding: 1.2rem 0;
+    border-bottom: 1px solid var(--border-dark);
+  }
+
+  .note-item:first-child {
+    padding-top: 0;
+  }
+
+  .note-item:last-child {
+    border-bottom: 0;
+  }
+
+  .note-item h3 {
+    margin: 0.5rem 0 0.45rem;
+  }
+
+  .note-item p {
+    margin: 0;
+    max-width: 48rem;
+    color: var(--text-muted-on-dark);
+  }
+
+  .note-item .btn-text {
+    margin-top: 0.75rem;
+    display: inline-flex;
+  }
+
+  @media (max-width: 800px) {
+    .role-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

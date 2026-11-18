@@ -1,0 +1,158 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import ProjectVisual from "@/components/work/ProjectVisual.astro";
+import { getProject, projectPeriod, projects } from "@/data/projects";
+
+export function getStaticPaths() {
+  return projects.map((project) => ({
+    params: { slug: project.slug },
+  }));
+}
+
+const { slug } = Astro.params;
+const project = getProject(slug!);
+
+if (!project) {
+  throw new Error(`Unknown project: ${slug}`);
+}
+---
+
+<BaseLayout title={project.title} description={project.summary}>
+  <article>
+    <section class="section">
+      <div class="site-shell case-hero">
+        <p class="meta">
+          <a href="/projects">Projects</a> / {project.title}
+        </p>
+        <h1 class="display display-xl">{project.title}</h1>
+        <p class="lede">{project.subtitle}</p>
+        <div class="case-meta">
+          <p class="meta">{project.category}</p>
+          <p class="meta">{projectPeriod(project)}</p>
+        </div>
+        <div class="case-actions">
+          {
+            project.live && (
+              <a class="btn btn-primary" href={project.live} target="_blank" rel="noreferrer">
+                Live demo
+              </a>
+            )
+          }
+          {
+            project.github && (
+              <a class="btn btn-ghost" href={project.github} target="_blank" rel="noreferrer">
+                GitHub
+              </a>
+            )
+          }
+          <a class="btn btn-ghost" href="/projects">Back to projects</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--tight">
+      <div class="site-shell">
+        <ProjectVisual
+          title={project.title}
+          subtitle={project.subtitle}
+          label={project.visualLabel}
+          accent={project.accent}
+          period={projectPeriod(project)}
+          tags={project.tags}
+          large
+        />
+      </div>
+    </section>
+
+    <section class="section section--paper">
+      <div class="site-shell case-body">
+        <div class="case-summary">
+          <p class="eyebrow">Overview</p>
+          <p>{project.summary}</p>
+          <div class="tag-row">
+            {project.tags.map((tag) => <span class="chip">{tag}</span>)}
+          </div>
+        </div>
+
+        <div class="case-sections">
+          {
+            project.sections.map((section) => (
+              <section class="case-section">
+                <h2 class="display display-md">{section.heading}</h2>
+                <p>{section.body}</p>
+              </section>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+  </article>
+</BaseLayout>
+
+<style>
+  .case-hero h1 {
+    margin: 0.75rem 0 0.85rem;
+  }
+
+  .case-hero .lede {
+    margin: 0;
+  }
+
+  .case-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 1.15rem;
+    margin-top: 1.15rem;
+  }
+
+  .case-meta a {
+    text-decoration: none;
+  }
+
+  .case-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+    margin-top: 1.5rem;
+  }
+
+  .case-body {
+    display: grid;
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+    gap: clamp(1.75rem, 5vw, 3.5rem);
+    align-items: start;
+  }
+
+  .case-summary p:last-of-type {
+    margin: 0.75rem 0 0;
+    color: var(--text-muted);
+  }
+
+  .tag-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin-top: 1.1rem;
+  }
+
+  .case-sections {
+    display: grid;
+    gap: 1.6rem;
+  }
+
+  .case-section h2 {
+    margin: 0 0 0.55rem;
+  }
+
+  .case-section p {
+    margin: 0;
+    color: var(--text-muted);
+    max-width: 40rem;
+  }
+
+  @media (max-width: 900px) {
+    .case-body {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

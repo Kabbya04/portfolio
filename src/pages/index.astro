@@ -1,33 +1,578 @@
 ---
-import Layout from "@/layouts/Layout.astro";
-import Nav from "@/components/nav.astro";
-import Home from "@/components/home.astro";
-import Projects from "@/components/projects.astro";
-import Contact from "@/components/contact.astro";
-import Footer from "@/components/footer.astro";
-const personSchema = {
-  "@context": "https://schema.org",
-  "@type": "Person",
-  "name": "Saumik Saha Kabbya",
-  "description": "AI Engineer and Frontend Engineer from Dhaka, Bangladesh focusing on LLMs and Computer Vision",
-  "url": "https://saumik-kabbya.com",
-  "sameAs": [
-    "https://github.com/Kabbya04",
-    "https://www.linkedin.com/in/saumik-saha-kabbya/",
-    "https://www.instagram.com/kabbyasaumiksaha/",
-  ]
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import StackMarquee from "@/components/home/StackMarquee.astro";
+import ProjectCard from "@/components/work/ProjectCard.astro";
+import PaperPdfNote from "@/components/research/PaperPdfNote.astro";
+import { currently, currentlyIntro } from "@/data/currently";
+import { exploring } from "@/data/exploring";
+import { fieldNotes, fieldNotesIntro } from "@/data/fieldNotes";
+import { featuredProjects } from "@/data/projects";
+import { publications } from "@/data/profile";
+import { site } from "@/data/site";
+
+const leadProjects = featuredProjects.slice(0, 3);
+const publication = publications[0];
+
+const formatNoteDate = (value: string) => {
+  const [year, month] = value.split("-").map(Number);
+  const date = new Date(Date.UTC(year, (month ?? 1) - 1, 1));
+  return date.toLocaleDateString("en-US", {
+    month: "short",
+    year: "numeric",
+    timeZone: "UTC",
+  });
 };
-
-const pageTitle = "Saumik Saha Kabbya"; 
-const pageDescription = "Portfolio of Saumik Saha Kabbya, an AI and Frontend Engineer from Dhaka, Bangladesh building LLM and computer vision products.";
-
 ---
 
-<Layout title={pageTitle} description={pageDescription}>
-  <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
-  <Nav />
-  <Home />
-  <Projects />
-  <Contact />
-  <Footer />
-</Layout>
+<BaseLayout
+  title={site.name}
+  description="Kabbya builds AI tools and interfaces people can actually trust. Based in Dhaka."
+>
+  <section class="hero">
+    <div class="site-shell hero__grid">
+      <div class="hero__copy">
+        <p class="eyebrow">AI engineer · Fullstack · Research · Dhaka</p>
+        <h1 class="display display-xl">
+          I get curious,<br />
+          then I build until it holds up.
+        </h1>
+        <p class="lede">
+          Assistive vision, grounded LLM products, and fullstack systems that stay
+          clear after the demo ends.
+        </p>
+        <div class="hero__actions">
+          <a class="btn btn-primary" href="/projects">Projects</a>
+          <a class="btn btn-ghost" href="/research">Research</a>
+          <a class="btn btn-ghost" href="/contact">Contact</a>
+        </div>
+        <div class="hero__focus" aria-label="Current focus">
+          <article>
+            <p class="meta">Published</p>
+            <h2>AIris in SN Computer Science</h2>
+            <p>Assistive vision with measured guidance latency and real task trials.</p>
+          </article>
+          <article>
+            <p class="meta">Building</p>
+            <h2>Hazel Studio + research tools</h2>
+            <p>Brand product work by day, grounded AI systems in the lab notebook.</p>
+          </article>
+          <article>
+            <p class="meta">Open to</p>
+            <h2>Collaborations that ship</h2>
+            <p>AI, computer vision, and fullstack product builds with a clear brief.</p>
+          </article>
+        </div>
+      </div>
+
+      <aside class="hero__portrait">
+        <div class="portrait-frame">
+          <div class="portrait-frame__mat" aria-hidden="true"></div>
+          <div class="portrait-frame__media">
+            <img src="/Kabbya.png" alt="Portrait of Kabbya" />
+            <p class="portrait-frame__caption">
+              Dhaka-based engineer shipping assistive AI and fullstack products people can use.
+            </p>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <StackMarquee />
+
+  <section class="section">
+    <div class="site-shell">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Field notes</p>
+          <h2 class="display display-lg">From the bench</h2>
+          <p class="section-lede">{fieldNotesIntro}</p>
+        </div>
+        <a class="btn-text" href="/research">Research notes</a>
+      </div>
+
+      <ol class="field-notes">
+        {
+          fieldNotes.map((note) => (
+            <li class="field-note">
+              <p class="field-note__date meta">{formatNoteDate(note.date)}</p>
+              <div class="field-note__body">
+                <p class="field-note__label meta">{note.label}</p>
+                {note.href ? (
+                  <p>
+                    <a href={note.href}>{note.body}</a>
+                  </p>
+                ) : (
+                  <p>{note.body}</p>
+                )}
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <section class="section section--paper">
+    <div class="site-shell">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Now</p>
+          <h2 class="display display-lg">What I'm working through</h2>
+        </div>
+      </div>
+      <div class="explore-grid">
+        {
+          exploring.map((item) => (
+            <article class="explore-card">
+              <p class="meta">{item.status}</p>
+              <h3>{item.topic}</h3>
+              <p>{item.description}</p>
+              {item.link && (
+                <a class="btn-text" href={item.link} target="_blank" rel="noreferrer">
+                  Open
+                </a>
+              )}
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--ink">
+    <div class="site-shell">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Currently</p>
+          <h2 class="display display-lg">In rotation</h2>
+          <p class="section-lede">{currentlyIntro}</p>
+        </div>
+        <a class="btn-text" href="/beyond">Beyond the lab</a>
+      </div>
+
+      <div class="currently-shelf">
+        {
+          currently.map((slot) => (
+            <article class="currently-slot">
+              <p class="meta">{slot.kind}</p>
+              <h3>{slot.title}</h3>
+              <p>{slot.note}</p>
+              {slot.href && (
+                <a class="btn-text" href={slot.href}>
+                  Open
+                </a>
+              )}
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="site-shell">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Selected projects</p>
+          <h2 class="display display-lg">Recent builds worth opening</h2>
+        </div>
+        <a class="btn-text" href="/projects">All projects</a>
+      </div>
+
+      <div class="feature-grid">
+        {
+          leadProjects.map((project, index) => (
+            <ProjectCard project={project} compact index={index} />
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {
+    publication && (
+      <section class="section section--paper">
+        <div class="site-shell research-band">
+          <div>
+            <p class="eyebrow">Research</p>
+            <h2 class="display display-lg">Latest publication</h2>
+            <h3 class="display display-md">{publication.title}</h3>
+            <p class="muted">{publication.venue}</p>
+            <p class="research-band__copy">{publication.description}</p>
+            <div class="hero__actions">
+              {publication.doi && (
+                <a class="btn btn-ghost" href={publication.doi} target="_blank" rel="noreferrer">
+                  View DOI
+                </a>
+              )}
+              <a class="btn btn-ghost" href="/research">All research</a>
+            </div>
+            <PaperPdfNote paperTitle="AIris" />
+          </div>
+          <div class="research-band__aside">
+            <p class="meta">Authors</p>
+            <p>{publication.authors.join(", ")}</p>
+            <hr class="rule" />
+            <p class="meta">Focus</p>
+            <div class="tag-row">
+              {publication.tags?.map((tag) => <span class="chip">{tag}</span>)}
+            </div>
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <section class="section section--ink">
+    <div class="site-shell approach">
+      <div>
+        <p class="eyebrow">Approach</p>
+        <h2 class="display display-lg">How I usually work</h2>
+      </div>
+      <div class="approach-grid">
+        <article>
+          <p class="meta">01</p>
+          <h3>Start with the user</h3>
+          <p>Ask who uses it before guessing the model or the UI.</p>
+        </article>
+        <article>
+          <p class="meta">02</p>
+          <h3>Prototype before slides</h3>
+          <p>A working slice beats a polished deck with no signal.</p>
+        </article>
+        <article>
+          <p class="meta">03</p>
+          <h3>Keep the critical path boring</h3>
+          <p>Reliable guidance loops over flashy demos that fall apart.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="site-shell closing">
+      <p class="eyebrow">Next</p>
+      <h2 class="display display-lg">Got an interesting problem?</h2>
+      <p class="lede">Happy to talk assistive AI, research-minded product work, or thoughtful fullstack builds.</p>
+      <div class="hero__actions">
+        <a class="btn btn-primary" href="/contact">Say hello</a>
+        <a class="btn btn-ghost" href="/about">About Kabbya</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero {
+    padding-block: clamp(3.5rem, 9vw, 6.5rem) clamp(3rem, 7vw, 5rem);
+  }
+
+  .hero__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(15rem, 0.85fr);
+    gap: clamp(2rem, 6vw, 4.5rem);
+    align-items: end;
+  }
+
+  .hero__copy h1 {
+    margin: 0.7rem 0 1rem;
+    max-width: 12ch;
+  }
+
+  .hero__copy .lede {
+    margin: 0;
+  }
+
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+    margin-top: 1.5rem;
+  }
+
+  .hero__focus {
+    display: grid;
+    gap: 0.85rem;
+    margin-top: 2rem;
+  }
+
+  .hero__focus article {
+    padding: 1rem 1.05rem;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border);
+    background: color-mix(in srgb, var(--amber) 10%, var(--bg-soft));
+  }
+
+  .hero__focus h2 {
+    margin: 0.35rem 0 0.35rem;
+    font-size: 1.05rem;
+  }
+
+  .hero__focus p:last-child {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 0.92rem;
+  }
+
+  .section-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    gap: 1.25rem;
+    margin-bottom: 2rem;
+  }
+
+  .section-head h2 {
+    margin: 0.55rem 0 0;
+  }
+
+  .section-lede {
+    margin: 0.75rem 0 0;
+    max-width: 36rem;
+    color: var(--text-muted);
+  }
+
+  .field-notes {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--rule);
+  }
+
+  .field-note {
+    display: grid;
+    grid-template-columns: 6.5rem minmax(0, 1fr);
+    gap: 1rem 1.5rem;
+    padding: 1.15rem 0;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .field-note__date {
+    margin: 0.15rem 0 0;
+  }
+
+  .field-note__body {
+    min-width: 0;
+  }
+
+  .field-note__label {
+    margin: 0 0 0.35rem;
+    color: var(--accent);
+  }
+
+  .field-note__body > p {
+    margin: 0;
+    max-width: 44rem;
+    font-size: clamp(1.02rem, 1.5vw, 1.12rem);
+    line-height: 1.45;
+  }
+
+  .field-note__body a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .field-note__body a:hover {
+    color: var(--accent);
+  }
+
+  .currently-shelf {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0;
+    border-top: 1px solid var(--border-dark);
+    border-bottom: 1px solid var(--border-dark);
+  }
+
+  .currently-slot {
+    padding: 1.35rem 1.25rem 1.45rem;
+    border-right: 1px solid var(--border-dark);
+  }
+
+  .currently-slot:last-child {
+    border-right: none;
+  }
+
+  .currently-slot h3 {
+    margin: 0.55rem 0 0.5rem;
+    font-family: var(--font-display);
+    font-size: clamp(1.15rem, 1.8vw, 1.35rem);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: var(--text-on-dark);
+  }
+
+  .currently-slot p {
+    margin: 0;
+    color: var(--text-muted-on-dark);
+    font-size: 0.95rem;
+  }
+
+  .currently-slot .btn-text {
+    margin-top: 0.9rem;
+    display: inline-flex;
+  }
+
+  .section--ink .section-lede {
+    color: var(--text-muted-on-dark);
+  }
+
+  .explore-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .explore-card {
+    padding: 1.25rem 1.3rem;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+    background: var(--bg-soft);
+  }
+
+  .explore-card h3 {
+    margin: 0.5rem 0 0.45rem;
+    font-size: 1.08rem;
+  }
+
+  .explore-card p {
+    margin: 0;
+    color: var(--text-muted);
+  }
+
+  .explore-card .btn-text {
+    margin-top: 0.85rem;
+    display: inline-flex;
+  }
+
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.5rem;
+  }
+
+  .research-band {
+    display: grid;
+    grid-template-columns: 1.35fr 0.75fr;
+    gap: clamp(1.5rem, 5vw, 3rem);
+    align-items: start;
+  }
+
+  .research-band h2 {
+    margin: 0.5rem 0 1rem;
+  }
+
+  .research-band h3 {
+    margin: 0 0 0.45rem;
+    max-width: 20ch;
+  }
+
+  .research-band__copy {
+    margin: 0.9rem 0 0;
+    max-width: 42rem;
+    color: var(--text-muted);
+  }
+
+  .research-band__aside {
+    padding: 1.25rem 1.3rem;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+    background: color-mix(in srgb, var(--coral) 8%, var(--bg-soft));
+  }
+
+  .research-band__aside p {
+    margin: 0.4rem 0 0;
+  }
+
+  .research-band__aside .rule {
+    margin: 1rem 0;
+  }
+
+  .tag-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin-top: 0.65rem;
+  }
+
+  .approach-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+    margin-top: 1.75rem;
+  }
+
+  .approach-grid article {
+    padding: 1.2rem 1.25rem;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-dark);
+    background: color-mix(in srgb, var(--cream) 4%, transparent);
+  }
+
+  .approach-grid h3 {
+    margin: 0.5rem 0 0.45rem;
+  }
+
+  .approach-grid p:last-child {
+    margin: 0;
+    color: var(--text-muted-on-dark);
+  }
+
+  .closing h2 {
+    margin: 0.55rem 0 0.75rem;
+  }
+
+  .closing .lede {
+    margin: 0;
+  }
+
+  @media (max-width: 980px) {
+    .hero__grid,
+    .feature-grid,
+    .research-band,
+    .approach-grid,
+    .explore-grid,
+    .currently-shelf {
+      grid-template-columns: 1fr;
+    }
+
+    .currently-slot {
+      border-right: none;
+      border-bottom: 1px solid var(--border-dark);
+      padding-inline: 0;
+    }
+
+    .currently-slot:last-child {
+      border-bottom: none;
+    }
+
+    .field-note {
+      grid-template-columns: 1fr;
+      gap: 0.35rem;
+    }
+
+    .section-head {
+      display: grid;
+      align-items: start;
+    }
+
+    .hero__copy h1 {
+      max-width: 14ch;
+    }
+  }
+
+  @media (min-width: 981px) and (max-width: 1100px) {
+    .currently-shelf {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .currently-slot:nth-child(2n) {
+      border-right: none;
+    }
+
+    .currently-slot:nth-child(-n + 2) {
+      border-bottom: 1px solid var(--border-dark);
+    }
+  }
+</style>

@@ -1,30 +1,441 @@
 ---
-import Layout from "@/layouts/Layout.astro";
-import Nav from "@/components/nav.astro";
-import Footer from "@/components/footer.astro";
-import AboutCmp from "@/components/about.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import {
+  about,
+  education,
+  experience,
+  formatPeriod,
+  publications,
+} from "@/data/profile";
+import { ladder } from "@/data/ladder";
+import { site } from "@/data/site";
 
-const personSchema = {
-  "@context": "https://schema.org",
-  "@type": "Person",
-  "name": "Saumik Saha Kabbya",
-  "description": "AI Engineer and Frontend Engineer from Dhaka, Bangladesh focusing on LLMs and Computer Vision",
-  "url": "https://saumik-kabbya.com/about",
-  "sameAs": [
-    "https://github.com/Kabbya04",
-    "https://www.linkedin.com/in/saumik-saha-kabbya/",
-    "https://www.instagram.com/kabbyasaumiksaha/",
-  ]
+const kindLabel: Record<(typeof ladder)[number]["kind"], string> = {
+  work: "Work",
+  research: "Research",
+  publication: "Publication",
+  education: "Education",
+  project: "Project",
 };
 
-const pageTitle = "About Me";
-const pageDescription = "Learn more about Saumik Saha Kabbya, an AI and Frontend Engineer from Dhaka, Bangladesh focused on LLMs and computer vision.";
-
+const publication = publications[0];
 ---
 
-<Layout title={pageTitle} description={pageDescription}>
-  <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
-  <Nav />
-  <AboutCmp />
-  <Footer />
-</Layout>
+<BaseLayout
+  title="About"
+  description="About Kabbya: path, portrait, and the progress ladder from school to published research."
+>
+  <section class="section">
+    <div class="site-shell about-hero">
+      <div class="about-copy">
+        <p class="eyebrow">About</p>
+        <h1 class="display display-xl">The person behind the builds</h1>
+        <p class="lede">{about.lede}</p>
+        <div class="about-prose prose-narrow">
+          {about.paragraphs.slice(0, 2).map((paragraph) => <p>{paragraph}</p>)}
+        </div>
+        <div class="about-actions">
+          <a class="btn btn-primary" href={`mailto:${site.email}`}>Email</a>
+          <a class="btn btn-ghost" href={site.resume} target="_blank" rel="noreferrer"
+            >Resume</a
+          >
+          <a
+            class="btn btn-ghost"
+            href={site.academicResume}
+            target="_blank"
+            rel="noreferrer">Academic Resume</a
+          >
+        </div>
+      </div>
+
+      <aside class="about-portrait">
+        <div class="portrait-frame">
+          <div class="portrait-frame__mat" aria-hidden="true"></div>
+          <div class="portrait-frame__media">
+            <img src="/Kabbya.png" alt="Portrait of Kabbya" />
+            <p class="portrait-frame__caption">
+              Prefer building the model path and the interface as one system.
+            </p>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section section--paper">
+    <div class="site-shell">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Path</p>
+          <h2 class="display display-lg">Sectors and ladder</h2>
+          <p class="section-lede">
+            Experience, publication, and education first—then the ladder for the
+            chronological arc.
+          </p>
+        </div>
+      </div>
+
+      <div class="sector-grid">
+        <section class="sector sector--experience" aria-labelledby="sector-experience">
+          <div class="sector__head">
+            <h3 id="sector-experience" class="display display-sm">Experience</h3>
+          </div>
+          <ul class="sector__list">
+            {
+              experience.map((item) => (
+                <li>
+                  <p class="meta">{formatPeriod(item.start, item.end)}</p>
+                  <h4>{item.title}</h4>
+                  <p class="sector__role">{item.subtitle}</p>
+                  {item.description && <p>{item.description}</p>}
+                </li>
+              ))
+            }
+          </ul>
+        </section>
+
+        <div class="sector-aside">
+          <section class="sector sector--publication" aria-labelledby="sector-publication">
+            <div class="sector__head">
+              <h3 id="sector-publication" class="display display-sm">Publication</h3>
+            </div>
+            {
+              publication && (
+                <article class="sector__list sector__list--single">
+                  <p class="meta">{formatPeriod(publication.start, publication.end)}</p>
+                  <h4>{publication.title}</h4>
+                  <p class="sector__role">{publication.venue}</p>
+                  <p class="sector__authors">{publication.authors.join(", ")}</p>
+                  <p>{publication.description}</p>
+                  <div class="sector__links">
+                    {publication.doi && (
+                      <a class="btn-text" href={publication.doi} target="_blank" rel="noreferrer">
+                        View DOI
+                      </a>
+                    )}
+                    {publication.github && (
+                      <a
+                        class="btn-text"
+                        href={publication.github}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        GitHub
+                      </a>
+                    )}
+                    <a class="btn-text" href="/research">
+                      Research page
+                    </a>
+                  </div>
+                </article>
+              )
+            }
+          </section>
+
+          <section class="sector sector--education" aria-labelledby="sector-education">
+            <div class="sector__head">
+              <h3 id="sector-education" class="display display-sm">Education</h3>
+            </div>
+            <ul class="sector__list">
+              {
+                education.map((item) => (
+                  <li>
+                    <p class="meta">{formatPeriod(item.start, item.end)}</p>
+                    <h4>{item.title}</h4>
+                    <p class="sector__role">{item.subtitle}</p>
+                    {item.description && <p>{item.description}</p>}
+                  </li>
+                ))
+              }
+            </ul>
+          </section>
+        </div>
+      </div>
+
+      <div class="ladder-wrap">
+        <p class="meta path-label">Timeline</p>
+        <h3 class="display display-md path-title">Progress ladder</h3>
+
+        <ol class="ladder">
+          {
+            ladder.map((item) => (
+              <li class={`ladder-item ladder-item--${item.kind}`}>
+                <div class="ladder-spine" aria-hidden="true">
+                  <span class="ladder-dot"></span>
+                </div>
+                <div class="ladder-card">
+                  <div class="ladder-card__top">
+                    <p class="meta">{kindLabel[item.kind]}</p>
+                    <p class="meta">{item.period}</p>
+                  </div>
+                  <h4>
+                    {item.href ? (
+                      <a
+                        href={item.href}
+                        target={item.href.startsWith("http") ? "_blank" : undefined}
+                        rel={item.href.startsWith("http") ? "noreferrer" : undefined}
+                      >
+                        {item.title}
+                      </a>
+                    ) : (
+                      item.title
+                    )}
+                  </h4>
+                  <p>{item.subtitle}</p>
+                </div>
+              </li>
+            ))
+          }
+        </ol>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .about-hero {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: clamp(2rem, 6vw, 4.5rem);
+    align-items: start;
+  }
+
+  .about-copy h1 {
+    margin: 0.65rem 0 0.9rem;
+    max-width: 12ch;
+  }
+
+  .about-copy .lede {
+    margin: 0 0 1.25rem;
+  }
+
+  .about-prose p {
+    margin: 0;
+    color: var(--text-muted);
+  }
+
+  .about-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+    margin-top: 1.5rem;
+  }
+
+  .section-head {
+    margin-bottom: 2rem;
+  }
+
+  .section-head h2 {
+    margin: 0.55rem 0 0;
+  }
+
+  .section-lede {
+    margin: 0.75rem 0 0;
+    max-width: 40rem;
+    color: var(--text-muted);
+  }
+
+  .path-label {
+    margin: 0;
+  }
+
+  .path-title {
+    margin: 0.4rem 0 1.35rem;
+  }
+
+  .ladder-wrap {
+    margin-top: clamp(2.5rem, 5vw, 3.5rem);
+  }
+
+  .sector-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 1.15rem;
+    align-items: stretch;
+  }
+
+  .sector-aside {
+    display: flex;
+    flex-direction: column;
+    gap: 1.15rem;
+    align-self: stretch;
+  }
+
+  .sector--experience {
+    display: flex;
+    flex-direction: column;
+    align-self: stretch;
+  }
+
+  .sector--publication {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    min-height: 0;
+  }
+
+  .sector--education {
+    display: flex;
+    flex-direction: column;
+    flex: 0 0 auto;
+  }
+
+  .ladder {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0;
+    position: relative;
+  }
+
+  .ladder-item {
+    display: grid;
+    grid-template-columns: 2rem 1fr;
+    gap: 1rem;
+    position: relative;
+  }
+
+  .ladder-spine {
+    position: relative;
+    display: flex;
+    justify-content: center;
+  }
+
+  .ladder-item:not(:last-child) .ladder-spine::before {
+    content: "";
+    position: absolute;
+    top: 1.1rem;
+    bottom: -0.15rem;
+    width: 2px;
+    background: color-mix(in srgb, var(--text) 14%, transparent);
+  }
+
+  .ladder-dot {
+    width: 0.75rem;
+    height: 0.75rem;
+    margin-top: 1.15rem;
+    border-radius: 50%;
+    background: var(--coral);
+    box-shadow: 0 0 0 5px color-mix(in srgb, var(--coral) 18%, transparent);
+    z-index: 1;
+  }
+
+  .ladder-item--publication .ladder-dot {
+    background: var(--amber);
+    box-shadow: 0 0 0 5px color-mix(in srgb, var(--amber) 22%, transparent);
+  }
+
+  .ladder-card {
+    padding: 1rem 0 1.35rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .ladder-item:last-child .ladder-card {
+    border-bottom: 0;
+  }
+
+  .ladder-card__top {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem 1rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .ladder-card h4 {
+    margin: 0 0 0.3rem;
+    font-size: 1.12rem;
+  }
+
+  .ladder-card h4 a {
+    text-decoration: none;
+  }
+
+  .ladder-card p {
+    margin: 0;
+    color: var(--text-muted);
+  }
+
+  .sector {
+    padding: 1.25rem 1.3rem 1.35rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background: var(--bg-soft);
+  }
+
+  .sector--publication {
+    background:
+      linear-gradient(
+        155deg,
+        color-mix(in srgb, var(--amber) 14%, var(--bg-soft)),
+        var(--bg-soft) 55%
+      );
+    border-color: color-mix(in srgb, var(--amber) 28%, var(--border));
+  }
+
+  .sector__head {
+    margin-bottom: 1rem;
+    padding-bottom: 0.85rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .sector__head h3 {
+    margin: 0;
+  }
+
+  .sector__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 1.25rem;
+    align-content: start;
+    flex: 1;
+  }
+
+  .sector__list--single {
+    display: block;
+  }
+
+  .sector__list .meta {
+    margin: 0 0 0.35rem;
+  }
+
+  .sector h4 {
+    margin: 0 0 0.25rem;
+    font-size: 1.05rem;
+    line-height: 1.3;
+  }
+
+  .sector__role {
+    margin: 0 0 0.45rem;
+    color: var(--accent);
+    font-size: 0.95rem;
+  }
+
+  .sector__authors {
+    margin: 0 0 0.55rem;
+    color: var(--text-muted);
+    font-size: 0.92rem;
+  }
+
+  .sector__list p:not(.meta):not(.sector__role):not(.sector__authors) {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+  }
+
+  .sector__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem 1.1rem;
+    margin-top: 0.95rem;
+  }
+
+  @media (max-width: 980px) {
+    .about-hero,
+    .sector-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

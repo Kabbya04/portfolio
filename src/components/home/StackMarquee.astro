@@ -1,0 +1,294 @@
+---
+import { stack } from "@/data/stack";
+
+const loop = [...stack, ...stack];
+---
+
+<section class="stack-section" aria-label="Core stack">
+  <div class="site-shell stack-head">
+    <div>
+      <p class="eyebrow">Core stack</p>
+      <h2 class="display display-md">Tools I reach for most</h2>
+    </div>
+    <p class="stack-hint meta" data-stack-hint>Drag to steer</p>
+  </div>
+
+  <div
+    class="stack-marquee"
+    data-stack-marquee
+    role="region"
+    aria-roledescription="marquee"
+    aria-label="Scrolling technology stack. Drag to change direction and speed. It keeps moving after you release."
+    tabindex="0"
+  >
+    <div class="stack-marquee__fade stack-marquee__fade--left" aria-hidden="true"></div>
+    <div class="stack-marquee__fade stack-marquee__fade--right" aria-hidden="true"></div>
+    <div class="stack-marquee__track" data-stack-track>
+      {
+        loop.map((item, index) => (
+          <div class="stack-item" aria-hidden={index >= stack.length ? "true" : undefined}>
+            <img src={item.src} alt="" width="36" height="36" loading="lazy" />
+            <span>{item.name}</span>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .stack-section {
+    padding-block: 0;
+    margin-block: 0;
+  }
+
+  .stack-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    padding-top: 0.25rem;
+  }
+
+  .stack-head h2 {
+    margin: 0.45rem 0 0;
+  }
+
+  .stack-hint {
+    margin: 0;
+    text-align: right;
+  }
+
+  .stack-marquee {
+    position: relative;
+    overflow: hidden;
+    cursor: grab;
+    user-select: none;
+    touch-action: pan-y;
+    border-block: 1px solid var(--border);
+    background: color-mix(in srgb, var(--amber) 8%, var(--bg-soft));
+    padding-block: 1.15rem;
+  }
+
+  .stack-marquee.is-dragging {
+    cursor: grabbing;
+  }
+
+  .stack-marquee:focus-visible {
+    box-shadow: var(--focus-ring);
+  }
+
+  .stack-marquee__fade {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: clamp(2.5rem, 8vw, 5rem);
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .stack-marquee__fade--left {
+    left: 0;
+    background: linear-gradient(
+      90deg,
+      var(--bg),
+      color-mix(in srgb, var(--bg) 70%, transparent),
+      transparent
+    );
+  }
+
+  .stack-marquee__fade--right {
+    right: 0;
+    background: linear-gradient(
+      270deg,
+      var(--bg),
+      color-mix(in srgb, var(--bg) 70%, transparent),
+      transparent
+    );
+  }
+
+  .stack-marquee__track {
+    display: flex;
+    width: max-content;
+    gap: 0.85rem;
+    will-change: transform;
+  }
+
+  .stack-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    flex: 0 0 auto;
+    min-height: 3.1rem;
+    padding: 0.55rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: var(--bg-soft);
+    box-shadow: 0 8px 20px color-mix(in srgb, var(--ink) 6%, transparent);
+    transition:
+      transform 180ms var(--ease-out),
+      border-color 180ms var(--ease-out),
+      background-color 180ms var(--ease-out);
+  }
+
+  .stack-marquee:hover .stack-item {
+    border-color: color-mix(in srgb, var(--coral) 35%, var(--border));
+  }
+
+  .stack-item img {
+    width: 1.55rem;
+    height: 1.55rem;
+    object-fit: contain;
+  }
+
+  .stack-item span {
+    font-size: 0.92rem;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 720px) {
+    .stack-head {
+      display: grid;
+      align-items: start;
+    }
+
+    .stack-hint {
+      text-align: left;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .stack-marquee {
+      overflow-x: auto;
+      cursor: default;
+    }
+
+    .stack-marquee__track {
+      transform: none !important;
+    }
+  }
+</style>
+
+<script>
+  const root = document.querySelector("[data-stack-marquee]");
+  const track = document.querySelector("[data-stack-track]");
+  const hint = document.querySelector("[data-stack-hint]");
+
+  if (!(root instanceof HTMLElement) || !(track instanceof HTMLElement)) {
+    // no-op
+  } else if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    if (hint) hint.textContent = "Scroll sideways to browse";
+  } else {
+    const BASE_SPEED = 42;
+    const MAX_SPEED = 520;
+    const FRICTION = 0.965;
+    const SETTLE = 0.045;
+
+    let offset = 0;
+    let velocity = -BASE_SPEED;
+    let dragging = false;
+    let pointerId: number | null = null;
+    let lastX = 0;
+    let lastTime = 0;
+    let loopWidth = 0;
+
+    const measure = () => {
+      loopWidth = track.scrollWidth / 2;
+    };
+
+    const wrap = () => {
+      if (!loopWidth) return;
+      while (offset <= -loopWidth) offset += loopWidth;
+      while (offset > 0) offset -= loopWidth;
+    };
+
+    const render = () => {
+      track.style.transform = `translate3d(${offset}px, 0, 0)`;
+    };
+
+    const onFrame = () => {
+      if (!dragging) {
+        const target = velocity < 0 ? -BASE_SPEED : BASE_SPEED;
+        const abs = Math.abs(velocity);
+
+        if (abs > BASE_SPEED + 1) {
+          velocity *= FRICTION;
+          if (Math.abs(velocity) < BASE_SPEED) {
+            velocity = target;
+          }
+        } else {
+          velocity += (target - velocity) * SETTLE;
+        }
+
+        offset += (velocity * 16.67) / 1000;
+        wrap();
+        render();
+      }
+
+      window.requestAnimationFrame(onFrame);
+    };
+
+    const stopDrag = (event: PointerEvent) => {
+      if (!dragging || pointerId !== event.pointerId) return;
+      dragging = false;
+      pointerId = null;
+      root.classList.remove("is-dragging");
+      try {
+        root.releasePointerCapture(event.pointerId);
+      } catch {
+        // ignore
+      }
+
+      if (Math.abs(velocity) < BASE_SPEED * 0.35) {
+        velocity = velocity <= 0 ? -BASE_SPEED : BASE_SPEED;
+      }
+    };
+
+    root.addEventListener("pointerdown", (event) => {
+      if (event.button !== 0) return;
+      dragging = true;
+      pointerId = event.pointerId;
+      lastX = event.clientX;
+      lastTime = performance.now();
+      root.classList.add("is-dragging");
+      root.setPointerCapture(event.pointerId);
+    });
+
+    root.addEventListener("pointermove", (event) => {
+      if (!dragging || pointerId !== event.pointerId) return;
+      const now = performance.now();
+      const dx = event.clientX - lastX;
+      const dt = Math.max(now - lastTime, 8);
+
+      offset += dx;
+      wrap();
+      render();
+
+      const instant = (dx / dt) * 1000;
+      velocity = Math.max(-MAX_SPEED, Math.min(MAX_SPEED, instant));
+
+      lastX = event.clientX;
+      lastTime = now;
+    });
+
+    root.addEventListener("pointerup", stopDrag);
+    root.addEventListener("pointercancel", stopDrag);
+
+    root.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowLeft") {
+        event.preventDefault();
+        velocity = Math.max(velocity - 80, -MAX_SPEED);
+      } else if (event.key === "ArrowRight") {
+        event.preventDefault();
+        velocity = Math.min(velocity + 80, MAX_SPEED);
+      }
+    });
+
+    measure();
+    render();
+    window.requestAnimationFrame(onFrame);
+    window.addEventListener("resize", measure);
+  }
+</script>

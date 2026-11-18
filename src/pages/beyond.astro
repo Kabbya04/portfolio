@@ -1,0 +1,128 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { beyond, beyondIntro } from "@/data/beyond";
+---
+
+<BaseLayout
+  title="Beyond"
+  description="Football, music, gaming, design, and making outside Kabbya's engineering work."
+>
+  <section class="section">
+    <div class="site-shell">
+      <p class="eyebrow">Beyond the screen</p>
+      <h1 class="display display-xl">More than the builds</h1>
+      <p class="lede">{beyondIntro}</p>
+    </div>
+  </section>
+
+  <section class="section section--paper">
+    <div class="site-shell beyond-grid">
+      {
+        beyond.map((item) => (
+          <article class:list={["beyond-card", `beyond-card--${item.id}`]}>
+            <p class="meta">{item.kicker}</p>
+            <h2 class="display display-md">{item.title}</h2>
+            <p>{item.body}</p>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="section section--ink">
+    <div class="site-shell closing">
+      <p class="eyebrow">Still curious</p>
+      <h2 class="display display-lg">The work gets better when life stays in the room.</h2>
+      <a class="btn btn-primary" href="/contact">Say hello</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .lede {
+    margin: 0.9rem 0 0;
+  }
+
+  .beyond-grid {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .beyond-card {
+    grid-column: span 2;
+    padding: clamp(1.35rem, 3.5vw, 1.85rem);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background: var(--bg-soft);
+  }
+
+  .beyond-card--football,
+  .beyond-card--gaming {
+    grid-column: span 3;
+  }
+
+  .beyond-card--football {
+    background:
+      linear-gradient(
+        145deg,
+        color-mix(in srgb, var(--coral) 16%, var(--bg-soft)),
+        color-mix(in srgb, var(--ink) 8%, var(--bg-soft)) 55%,
+        var(--bg-soft)
+      );
+    border-color: color-mix(in srgb, var(--coral) 30%, var(--border));
+  }
+
+  .beyond-card--gaming {
+    background:
+      linear-gradient(
+        135deg,
+        color-mix(in srgb, var(--amber) 16%, var(--bg-soft)),
+        color-mix(in srgb, var(--coral) 10%, var(--bg-soft)) 55%,
+        var(--bg-soft)
+      );
+    border-color: color-mix(in srgb, var(--amber) 28%, var(--border));
+  }
+
+  .beyond-card--guitars {
+    background:
+      linear-gradient(
+        160deg,
+        color-mix(in srgb, var(--amber) 14%, var(--bg-soft)),
+        var(--bg-soft) 60%
+      );
+  }
+
+  .beyond-card h2 {
+    margin: 0.7rem 0 0.7rem;
+  }
+
+  .beyond-card > p:last-child {
+    margin: 0;
+    color: var(--text-muted);
+    max-width: 36rem;
+  }
+
+  .closing h2 {
+    margin: 0.55rem 0 1.25rem;
+    max-width: 14ch;
+  }
+
+  @media (max-width: 900px) {
+    .beyond-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .beyond-card,
+    .beyond-card--football,
+    .beyond-card--gaming {
+      grid-column: span 1;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .beyond-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

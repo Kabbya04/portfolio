@@ -18,6 +18,11 @@ export default defineConfig({
     },
   },
   output: "static",
+  redirects: {
+    "/work": "/projects",
+    "/experiments": "/research",
+    "/projects/airis": "/research",
+  },
   build: {
     inlineStylesheets: "auto",
   },
